@@ -1,0 +1,180 @@
+body{
+	font-family: 'Heebo', sans-serif;
+	//background-image: url("../assets/Desktop 3.17.png");
+	margin: 0px;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+@media only screen and (max-width: 1000px){
+	body{
+		overflow-x: hidden;
+		overflow-y: scroll; 
+	}
+
+	body .navBar .mainTitle h1 {
+		margin: 0px 0px 0px 0px;
+	}
+	body .navBar #hamburgerMenu{
+		display: block;
+		width: 50px;
+		height: 40%;
+		margin: 0px 10px 0px 10px;
+	}
+	body .navBar .mainTitle ul{
+		position: absolute;
+	    top: 20px;
+	    flex-direction: column;
+	    background-color: white;
+	    z-index: 1;
+	    height: fit-content;
+	    left: 20px;
+	    box-shadow: 0px 3px 15px 0px #0000001a;
+	    display: none;
+	}
+	body .navBar ul{
+		display: none;
+	}
+	body .navBar ul li:last-child a{
+		background-image: none;
+	}
+	body .navBar ul li:last-child a::after{
+		content: "LinkedIn";
+		color: blue;
+	}
+
+	
+
+	body .mainBody{
+		flex-direction: column;
+		height: auto;
+	}
+	body .homePage .headshot{
+		width: 100%;
+		height: 240px;
+	}
+	body .homePage .intro{
+		padding-top: 60px;
+	}
+}
+
+.navBar{
+	height: 75px;
+	box-shadow: 0px 3px 15px 0px #0000001a;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+}
+.navBar ul{
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	height: 100%;
+    float: right;
+    margin-right: 22px;
+
+    flex-grow: 1;
+}
+.navBar li{
+	display: block;
+	margin: auto 8px;
+}
+.navBar li a{
+    color: rgb(116,116,116);
+    background-color: #ffffff00;
+    padding: 13px 20px;
+    display: block;
+}
+.navBar ul li:last-child a{
+	background-image: url(../assets/LinkedInBox.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.navBar .currentPage{
+    color: orange;
+    background-color: white;
+}
+.navBar h1{
+	font-size: 29px;
+	font-weight: 500;
+    margin: 0px 0px 0px 67px;
+    white-space: nowrap;
+}
+.navBar h2{
+	font-size: 14px;
+    font-weight: 100;
+    color: #aaaaaa;
+    margin: 0px 0px 0px 28px;
+}
+.navBar .mainTitle{
+	display: flex;
+    float: left;
+    align-items: center;
+    height: 100%;
+}
+.navBar #hamburgerMenu{
+	display: none;
+	background-image: url(../assets/MenuButton.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.navBar .mainTitle ul{
+	display: none;
+}
+
+
+
+
+a{
+	text-decoration: none;
+}
+a:hover{
+	cursor: pointer;
+}
+.homePage h3{
+	font-size: 3em;
+    font-weight: 500;
+    margin: 0px;
+}
+.homePage span{
+    font-size: 17px;
+    color: #0000009e;
+    display: block;
+}
+.homePage .intro span{
+    margin-top: 60px;
+}
+
+.mainBody{
+	display: flex;
+	height: 100%;
+	position: relative;
+}
+
+.homePage .headshot{
+    width: 43%;
+    height: 100%;
+    /*background-image: url('../assets/Headshot.jpeg');*/
+    background-color: black;
+    background-size: 100%;
+}
+.homePage img{
+	display: none;
+}
+.homePage .intro{
+	width: 57%;
+	padding: 142px 91px 50px 91px;
+}
+.homePage .intro a{
+    color: #E88A1C;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 40px 85px 0px 0px;
+    display: inline-block;
+}
