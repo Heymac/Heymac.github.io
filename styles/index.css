@@ -1,14 +1,20 @@
 body{
 	font-family: 'Heebo', sans-serif;
-	//background-image: url("../assets/Desktop 3.17.png");
+	/*background-image: url("../assets/Desktop 3.17.png");*/
 	margin: 0px;
+	height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.homePageWrapper{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
 }
 
 @media only screen and (max-width: 1000px){
-	body{
+	body .homePageWrapper{
 		overflow-x: hidden;
 		overflow-y: scroll; 
 	}
@@ -46,16 +52,29 @@ body{
 
 	
 
-	body .mainBody{
+	body .homePageWrapper .mainBody{
 		flex-direction: column;
 		height: auto;
 	}
-	body .homePage .headshot{
+	body .homePageWrapper .headshot{
 		width: 100%;
 		height: 240px;
 	}
-	body .homePage .intro{
+	body .homePageWrapper .intro{
 		padding-top: 60px;
+	}
+
+	body .projectsPageWrapper .largeProj, body .projectsPageWrapper .mediumProj, body .projectsPageWrapper .smallProj{
+		width: 100%;
+	}
+	body .projectsPageWrapper .row{
+		flex-direction: column;
+	}
+	body .projectWrapper .beautyHeader .header{
+	    font-size: 300%;
+	}
+	body .projectWrapper .beautyHeader .projDate{
+	    font-size: 100%;
 	}
 }
 
@@ -65,6 +84,11 @@ body{
 	position: relative;
 	display: flex;
 	justify-content: space-between;
+	z-index: 99;
+	position: fixed;
+	top: 0px;
+    background-color: white;
+    width: 100%;
 }
 .navBar ul{
 	list-style: none;
@@ -96,7 +120,7 @@ body{
     background-size: contain;
 }
 .navBar .currentPage{
-    color: orange;
+    color: rgb(255,150,0);
     background-color: white;
 }
 .navBar h1{
@@ -127,6 +151,9 @@ body{
 .navBar .mainTitle ul{
 	display: none;
 }
+.mainBody{
+	margin-top: 75px;
+}
 
 
 
@@ -137,44 +164,228 @@ a{
 a:hover{
 	cursor: pointer;
 }
-.homePage h3{
+.homePageWrapper h3{
 	font-size: 3em;
     font-weight: 500;
     margin: 0px;
 }
-.homePage span{
+.homePageWrapper span{
     font-size: 17px;
     color: #0000009e;
     display: block;
 }
-.homePage .intro span{
+.homePageWrapper .intro span{
     margin-top: 60px;
 }
 
-.mainBody{
+.homePageWrapper .mainBody{
 	display: flex;
 	height: 100%;
 	position: relative;
 }
 
-.homePage .headshot{
+.homePageWrapper .headshot{
     width: 43%;
     height: 100%;
     /*background-image: url('../assets/Headshot.jpeg');*/
     background-color: black;
     background-size: 100%;
 }
-.homePage img{
+.homePageWrapper img{
 	display: none;
 }
-.homePage .intro{
+.homePageWrapper .intro{
 	width: 57%;
 	padding: 142px 91px 50px 91px;
 }
-.homePage .intro a{
-    color: #E88A1C;
+.homePageWrapper .intro a{
+    color: rgb(255,150,0);
     font-weight: 500;
     font-size: 18px;
     margin: 40px 85px 0px 0px;
     display: inline-block;
 }
+
+.projectsPageWrapper .gridWrapper{
+	display: grid;
+	grid-gap: 0px;
+    //grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto;
+    grid-auto-flow: row;
+}
+
+.projectsPageWrapper .row{
+	display: flex;
+	height: 50vh;
+}
+
+.projectsPageWrapper .largeProj, .projectsPageWrapper .mediumProj, .projectsPageWrapper .smallProj{
+	position: relative;
+	cursor: pointer;
+	height: 100%;
+}
+
+.projectsPageWrapper .largeProj{
+	width: 100%;
+}
+.projectsPageWrapper .mediumProj{
+	width: 66.6%;
+}
+.projectsPageWrapper .smallProj{
+	width: 33.3%;
+}
+.projectsPageWrapper .projImage, .projectsPageWrapper .projTitles{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+}
+.projectsPageWrapper .projTitles{
+	z-index: 1;
+}
+.projectsPageWrapper .mediumProj:hover .projTitles, .projectsPageWrapper .smallProj:hover .projTitles{
+    background-color: rgba(255, 150, 0, 0.77);
+}
+.projectsPageWrapper .projImage{
+    object-fit: cover;
+    z-index: 0;
+}
+
+.projectsPageWrapper .mediumProj .projTitles h1{
+	visibility: visible;
+	color: white;
+    width: max-content;
+	position: absolute;
+    bottom: 0px;
+    left: 0px;
+    font-weight: 500;
+    margin: 0px 0px 2vh 5vw;
+    font-size: 2.4em;
+}
+
+.projectsPageWrapper .mediumProj .projTitles h1{
+    top: 0px;
+    margin: 3vh 0px 0px 3vw;
+}
+
+.projectsPageWrapper .mediumProj .projTitles h2{
+	visibility: visible;
+	color: #fff0d6;
+    width: max-content;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 0px 6vw 3vh 0px;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+.projectsPageWrapper .smallProj .projTitles h1{
+	visibility: visible;
+    color: white;
+    width: max-content;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-weight: 500;
+    margin: 3vh 0px 0px 3vw;
+    font-size: 2.4em;
+}
+.projectsPageWrapper .smallProj .projTitles h2{
+	visibility: visible;
+	color: #fff0d6;
+    width: max-content;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    margin: 0px 6vw 3vh 0px;
+    font-weight: 100;
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+.projectsPageWrapper .mediumProj .projTitles h1, .projectsPageWrapper .mediumProj .projTitles h2, .projectsPageWrapper .smallProj .projTitles h1, .projectsPageWrapper .smallProj .projTitles h2{
+	visibility: hidden;
+}
+.projectsPageWrapper .mediumProj:hover .projTitles h1, .projectsPageWrapper .mediumProj:hover .projTitles h2, .projectsPageWrapper .smallProj:hover .projTitles h1, .projectsPageWrapper .smallProj:hover .projTitles h2{
+	visibility: visible;
+}
+
+
+.projectWrapper .mainBody{
+	padding-top: 75px;
+    height: 100vh;
+    box-sizing: border-box;
+    margin-top: 0px;
+}
+.projectWrapper .beautyHeader{
+	width: 100vw;
+	height: 100%;
+	position: relative;
+	margin-bottom: 7%;
+}
+.projectWrapper .beautyHeader .header{
+    color: white;
+    width: max-content;
+    position: absolute;
+    bottom: 10%;
+    left: 0px;
+    font-weight: 500;
+    margin: 3vh 0px 0px 3vw;
+    font-size: 3.4em;
+    z-index: 1;
+}
+.projectWrapper .beautyHeader h1{
+	margin: 0px;
+}
+.projectWrapper .beautyHeader .headerImage{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+	object-fit: cover;
+    z-index: 0;
+}
+.projectWrapper mark{
+	background-color: rgb(255,150,0);
+    color: inherit;
+    line-height: 93%;
+    display: table;
+    padding: 0.1em 0.3em 0em 0.3em;
+    margin-bottom: 0.1em;
+}
+.projectWrapper .accent{
+	width: 0.8em;
+	height: 0.15em;
+	background-color: rgb(255,150,0);
+}
+.projectWrapper .projDate{
+	color: rgb(255, 150, 0);
+    z-index: 1;
+    position: absolute;
+    bottom: 10%;
+    right: 7%;
+    font-weight: 600;
+    font-size: 1.3em;
+}
+.projectWrapper .blurb{
+	padding: 0 20%;
+	margin: 5% 0;
+}
+.projectWrapper .blurb h2{
+	font-weight: 500;
+	font-size: 1.5em;
+}
+.projectWrapper .blurb span{
+	font-size: 17px;
+    color: #0000009e;
+}
+.projectWrapper .photo{
+	padding: 0 10%;
+	margin: 5% 0;
+}
+.projectWrapper .photo img{
+	width: 100%;
+}
+
