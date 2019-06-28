@@ -160,6 +160,7 @@ body{
 
 a{
 	text-decoration: none;
+	color: rgb(255,150,0);
 }
 a:hover{
 	cursor: pointer;
@@ -171,7 +172,7 @@ a:hover{
 }
 .homePageWrapper span{
     font-size: 17px;
-    color: #0000009e;
+    color: rgb(97, 97, 97);
     display: block;
 }
 .homePageWrapper .intro span{
@@ -270,7 +271,7 @@ a:hover{
 
 .projectsPageWrapper .mediumProj .projTitles h2{
 	visibility: visible;
-	color: #fff0d6;
+	color: white;
     width: max-content;
     position: absolute;
     bottom: 0px;
@@ -294,7 +295,7 @@ a:hover{
 }
 .projectsPageWrapper .smallProj .projTitles h2{
 	visibility: visible;
-	color: #fff0d6;
+	color: white;
     width: max-content;
     position: absolute;
     bottom: 0px;
@@ -361,7 +362,7 @@ a:hover{
 	background-color: rgb(255,150,0);
 }
 .projectWrapper .projDate{
-	color: rgb(255, 150, 0);
+	color: rgb(97, 97, 97);
     z-index: 1;
     position: absolute;
     bottom: 10%;
@@ -379,7 +380,7 @@ a:hover{
 }
 .projectWrapper .blurb span{
 	font-size: 17px;
-    color: #0000009e;
+    color: rgb(97, 97, 97);
 }
 .projectWrapper .photo{
 	padding: 0 10%;
@@ -387,5 +388,26 @@ a:hover{
 }
 .projectWrapper .photo img{
 	width: 100%;
+}
+.projectWrapper .backProjects{
+    z-index: 1;
+    position: absolute;
+    top: 10%;
+    left: 3%;
+    font-weight: 500;
+}
+.projectWrapper .backProjects a{
+	color: rgb(97, 97, 97);
+}
+.projectWrapper .backProjects::before{
+	height: 20px;
+    width: 20px;
+    display: inline-block;
+    content: "";
+    background-image: url(../assets/BackButton.svg);
+    background-position: center;
+    background-size: contain;
+    margin-right: 10px;
+    vertical-align: text-top;
 }
 
