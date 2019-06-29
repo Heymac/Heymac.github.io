@@ -71,10 +71,16 @@ body{
 		flex-direction: column;
 	}
 	body .projectWrapper .beautyHeader .header{
-	    font-size: 300%;
+	    font-size: 200%;
 	}
 	body .projectWrapper .beautyHeader .projDate{
 	    font-size: 100%;
+	}
+	body .projectWrapper .beautyHeader .backProjects{
+		display: none;
+	}
+	body .projectWrapper .photo{
+		padding: 0;
 	}
 }
 
