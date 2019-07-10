@@ -82,6 +82,13 @@ body{
 	body .projectWrapper .photo{
 		padding: 0;
 	}
+
+	body .aboutPageWrapper .row{
+		flex-direction: column;
+	}
+	body .aboutPageWrapper .blurb{
+		margin-bottom: 5%;
+	}
 }
 
 .navBar{
@@ -158,7 +165,7 @@ body{
 	display: none;
 }
 .mainBody{
-	margin-top: 75px;
+	padding-top: 75px;
 }
 
 
@@ -416,4 +423,49 @@ a:hover{
     margin-right: 10px;
     vertical-align: text-top;
 }
+
+.aboutPageWrapper h3{
+	font-size: 3em;
+    font-weight: 500;
+    width: max-content;
+    margin: 4% auto;
+}
+.aboutPageWrapper .row{
+	display: flex;
+    margin: 4% 10%;
+}
+.aboutPageWrapper .blurb{
+    margin: auto 0% auto 0%;
+    width: 100%;
+}
+.aboutPageWrapper .row .blurb:first-child, .aboutPageWrapper .row .photo:first-child{
+	margin-right: 5%;
+}
+.aboutPageWrapper .blurb span{
+	font-size: 1em;
+    color: rgb(97, 97, 97);
+    line-height: 1.8em;
+    display: block;
+}
+.aboutPageWrapper .blurb h2{
+	font-weight: 500;
+	font-size: 1.8em;
+	background-color: rgb(255,150,0);
+    line-height: 119%;
+    display: table;
+    padding: 0.1em 0.3em 0em 0.3em;
+    color: white;
+
+    margin: 0 0 5% 0;
+}
+.aboutPageWrapper .photo{
+	width: 100%;
+}
+.aboutPageWrapper .photo img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
 
