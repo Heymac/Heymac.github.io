@@ -89,6 +89,17 @@ body{
 	body .aboutPageWrapper .blurb{
 		margin-bottom: 5%;
 	}
+
+	body .contactPageWrapper .row{
+		flex-direction: column;
+	}
+	body .contactPageWrapper .contact{
+		width: 90%;
+	}
+	body .contactPageWrapper .blurb{
+		width: 100%;
+		margin: 1em auto 2em auto;
+	}
 }
 
 .navBar{
@@ -168,8 +179,14 @@ body{
 	padding-top: 75px;
 }
 
-
-
+.footer{
+	width: 100%;
+	text-align: center;
+	margin: 3em 0 2.6em 0;
+	font-weight: 400;
+	font-size: 17px;
+	color: rgb(159, 159, 159);
+}
 
 a{
 	text-decoration: none;
@@ -201,12 +218,9 @@ a:hover{
 .homePageWrapper .headshot{
     width: 43%;
     height: 100%;
-    /*background-image: url('../assets/Headshot.jpeg');*/
     background-color: black;
     background-size: 100%;
-}
-.homePageWrapper img{
-	display: none;
+	object-fit: cover;
 }
 .homePageWrapper .intro{
 	width: 57%;
@@ -328,14 +342,11 @@ a:hover{
 
 
 .projectWrapper .mainBody{
-	padding-top: 75px;
-    height: 100vh;
-    box-sizing: border-box;
-    margin-top: 0px;
+	padding-top: 0px;
 }
 .projectWrapper .beautyHeader{
 	width: 100vw;
-	height: 100%;
+	height: 100vh;
 	position: relative;
 	margin-bottom: 7%;
 }
@@ -360,6 +371,8 @@ a:hover{
     top: 0px;
 	object-fit: cover;
     z-index: 0;
+    box-sizing: border-box;
+    padding-top: 75px;
 }
 .projectWrapper mark{
 	background-color: rgb(255,150,0);
@@ -405,7 +418,7 @@ a:hover{
 .projectWrapper .backProjects{
     z-index: 1;
     position: absolute;
-    top: 10%;
+    top: 20%;
     left: 3%;
     font-weight: 500;
 }
@@ -427,8 +440,9 @@ a:hover{
 .aboutPageWrapper h3{
 	font-size: 3em;
     font-weight: 500;
-    width: max-content;
+    width: initial;
     margin: 4% auto;
+    text-align: center;
 }
 .aboutPageWrapper .row{
 	display: flex;
@@ -467,5 +481,62 @@ a:hover{
 	object-fit: cover;
 }
 
+.contactPageWrapper h3{
+	font-size: 3em;
+    font-weight: 500;
+    width: initial;
+    margin: 4% auto;
+    text-align: center;
+}
+.contactPageWrapper .row{
+	display: flex;
+    margin: 4% 10%;
+}
+.contactPageWrapper .contact{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: auto;
+	width: 50%;
+}
+.contactPageWrapper .infoTitle{
+	color: rgb(207, 207, 207);
+}
+.contactPageWrapper .info{
+	font-size: 2em;
+	font-weight: 500;
+	color: black;
+	margin-top: 0.3em;
+}
+.contactPageWrapper .blurb{
+	font-size: 17px;
+	color: rgb(159, 159, 159);
+	width: 65%;
+	margin-top: 1em;
+	margin-bottom: 2em;
+	text-align: center;
+}
+.contactPageWrapper .resume h2{
+	font-weight: 500;
+	font-size: 1.5em;
+	display: flex;
+    align-items: center;
+}
+.contactPageWrapper .resume{
+	margin: 0 auto 0 auto;
+	width: 70%;
+}
+.contactPageWrapper .resume img{
+	width: 100%;
+}
+.contactPageWrapper .resume .downloadButton{
+	float: right;
+	color: orange;
+	font-size: 0.7em;
+	font-weight: 400;
+	cursor: pointer;
+	flex-grow: 2;
+	text-align: right;
+}
 
 
