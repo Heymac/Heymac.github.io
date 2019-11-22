@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Waveform</title>
+	<script type="text/javascript" src="https://unpkg.com/wavesurfer.js"></script>
+
+<script type="text/javascript">
+window.onload = init;
+var elog;
+var canvas;
+var wavesurfer;
+
+function init() {
+
+	elog = document.getElementById("log");
+
+	wavesurfer = WaveSurfer.create({
+		container: '#waveform',
+		waveColor: '#ff6d10',
+		progressColor: 'orange',
+		barWidth: 3,
+		barHeight: 5,
+		height: 300,
+		minPxPerSec: 10,
+		normalize: true
+	});
+	//wavesurfer.load('sample.wav');
+	wavesurfer.on('ready', function () {
+		//wavesurfer.play();
+
+		canvas = document.getElementsByTagName("canvas")[1];
+		canvas.style.pointerEvents = "all";
+	});
+}	
+
+function log(msg) {
+	elog.innerHTML += "<br>"+msg;
+}
+
+function update(filename) {
+	wavesurfer.load(filename);
+}
+
+</script>
+
+<style type="text/css">
+
+body {
+	background-color: #1e2027;
+	color: #eee;
+}
+
+p {
+	max-width: 600px;
+}
+
+#waveform {
+	max-width: 1080px;
+}	
+
+</style>
+
+</head>
+<body>
+
+<label>Filename: </label><input type="text" name="filename" onchange="update(this.value)">
+<div id="waveform"></div>
+<p>Put this html file in the same directory as the music you want to generate waveforms.</p>
+<p>Type a valid audio filename from this same directory into the box and press 'Enter' to generate a waveform. Repeat as needed.</p>
+<p>You can right click to copy or save the image.</p>
+<p id="log"><br>LOG<br></p>
+
+</body>
+</html>
