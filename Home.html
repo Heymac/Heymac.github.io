@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clock</title>
+	<style>
+		body{
+			font-family: 'DM Mono', monospace;
+			display: flex;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			background-color: #000000;
+			position: fixed;
+		}
+		#clock{
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			width: 10%;
+			color: white;
+			justify-content: center;
+			font-size: 2em;
+			padding-left: 3%;
+		}
+		#graphics{
+			width: 90%;
+			padding: 0% 5%;
+			margin: auto 0%;
+		}
+		.time-number{
+			margin: 5%;
+		}
+		.dot-container {
+			margin: 5% 0%;
+			display: flex;
+		}
+		#daysContainer{
+			height: 1.2vh;
+		}
+		#hoursContainer{
+			flex-direction: column;
+			height: 20%;
+		}
+		#minutesContainer{
+			height: 9vh;
+		}
+		#secondsContainer{
+			height: 30vh;
+		}
+
+		.row{
+			display: flex;
+			margin-bottom: 3%;
+		}
+		.row:last-child{
+			margin-bottom: 0;
+		}
+		.column{
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			margin-right: auto;
+		}
+		.column:last-child{
+			margin-right: 0;
+		}
+
+		.bar {
+			background-color: #0e0e0e;
+			margin-right: 0.5em;
+			flex-grow: 1;
+		}
+		.bar:last-child{
+			margin-right: 0;
+		}
+		.square {
+			width: 6%;
+			padding-bottom: 6%;
+			background-color: #0e0e0e;
+			margin-right: auto;
+		}
+		.square:last-child{
+			margin-right: 0;
+		}
+		.book {
+			background-color: #0e0e0e;
+			margin-right: auto;
+			width: 0.5%;
+		}
+		.book:last-child{
+			margin-right: 0;
+		}
+		.dot {
+			width: 0.5em;
+			height: 0.5em;
+			background-color: #0e0e0e;
+			border-radius: 50%;
+			margin-bottom: auto;
+		}
+		.dot:last-child{
+			margin-bottom: 0;
+		}
+		
+		.highlighted { background-color: white; }
+	</style>
+</head>
+<body>
+
+<div id="clock">
+	<span class="time-number"></span>
+	<span class="time-number"></span>
+	<span class="time-number"></span>
+	<span class="time-number"></span>
+</div>
+<div id="graphics">
+	<div id="daysContainer" class="dot-container days"></div>
+	<div id="hoursContainer" class="dot-container hours">
+		<div class="row"></div>
+		<div class="row"></div>
+	</div>
+	<div id="minutesContainer" class="dot-container minutes"></div>
+	<div id="secondsContainer" class="dot-container seconds">
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+		<div class="column"></div>
+	</div>
+</div>
+<script>
+
+	Number.prototype.pad = function(size) {
+		var s = String(this);
+		while (s.length < (size || 2)) {s = "0" + s;}
+		return s;
+	}
+
+	var dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+
+	for (let i = 0; i < 7; i++) {
+		let dot = document.createElement("div");
+		dot.className = "bar";
+		daysContainer.appendChild(dot);
+	}
+	for (let i = 0; i < 24; i++) {
+		let dot = document.createElement("div");
+		dot.className = "square";
+		hoursContainer.appendChild(dot);
+		let rows = document.getElementsByClassName('row')
+		rows[i%(rows.length)].appendChild(dot);
+	}
+	for (let i = 0; i < 60; i++) {
+		let dot = document.createElement("div");
+		dot.className = "book";
+		minutesContainer.appendChild(dot);
+	}
+	for (let i = 0; i < 60; i++) {
+		let dot = document.createElement("div");
+		dot.className = "dot";
+		let columns = document.getElementsByClassName('column')
+		columns[i%(columns.length)].appendChild(dot);
+	}
+
+	function updateDots() {
+		let date = new Date();
+		let digits = document.getElementsByClassName('time-number');
+
+		digits[3].innerHTML = (date.getSeconds()).pad();
+		digits[2].innerHTML = (date.getMinutes()).pad();
+		digits[1].innerHTML = (date.getHours()%12).pad();
+		digits[0].innerHTML = dayNames[date.getDay()];
+
+		document.querySelectorAll("#daysContainer .bar").forEach((dot, index) => {
+			if (index < date.getDay())
+				dot.classList.add("highlighted");
+			else 
+				dot.classList.remove("highlighted");
+		});
+		document.querySelectorAll("#hoursContainer .square").forEach((dot, index) => {
+			if (index < date.getHours())
+				dot.classList.add("highlighted");
+			else 
+				dot.classList.remove("highlighted");
+		});
+		document.querySelectorAll("#minutesContainer .book").forEach((dot, index) => {
+			if (index < date.getMinutes())
+				dot.classList.add("highlighted");
+			else 
+				dot.classList.remove("highlighted");
+		});
+		document.querySelectorAll("#secondsContainer .dot").forEach((dot, index) => {
+			if (index < date.getSeconds())
+				dot.classList.add("highlighted");
+			else 
+				dot.classList.remove("highlighted");
+		});
+
+	}
+	updateDots();
+	setInterval(updateDots, 1000);
+
+	let audioElement = new Audio('https://heymac.github.io/Tock.mp3');
+	audioElement.loop = true;
+	audioElement.volume = 1.0;
+	audioElement.play();
+</script>
+</body>
+</html>
