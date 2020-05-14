@@ -203,13 +203,17 @@
 		});
 
 	}
-	updateDots();
-	setInterval(updateDots, 1000);
-
 	let audioElement = new Audio('https://heymac.github.io/Tock.mp3');
 	audioElement.loop = true;
 	audioElement.volume = 1.0;
-	audioElement.play();
+
+	updateDots();
+	setInterval(function(){
+		updateDots();
+		audioElement.play();
+	}, 1000);
+
+	
 </script>
 </body>
 </html>
