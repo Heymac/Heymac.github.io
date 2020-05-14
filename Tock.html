@@ -177,6 +177,10 @@
 		digits[1].innerHTML = (date.getHours()%12).pad();
 		digits[0].innerHTML = dayNames[date.getDay()];
 
+		if ((date.getSeconds()%2) == 0){
+			audioElement.play();
+		}
+
 		document.querySelectorAll("#daysContainer .bar").forEach((dot, index) => {
 			if (index < date.getDay())
 				dot.classList.add("highlighted");
@@ -204,14 +208,10 @@
 
 	}
 	let audioElement = new Audio('https://heymac.github.io/Tock.mp3');
-	audioElement.loop = true;
 	audioElement.volume = 1.0;
 
 	updateDots();
-	setInterval(function(){
-		audioElement.play();
-		updateDots();
-	}, 1000);
+	setInterval(updateDots, 1000);
 
 	
 </script>
