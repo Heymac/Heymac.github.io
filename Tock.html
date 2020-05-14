@@ -170,12 +170,7 @@
 
 	function updateDots() {
 		let date = new Date();
-		let digits = document.getElementsByClassName('time-number');
-
-		console.log ((date.getSeconds()%2));
-		if ((date.getSeconds()%2) == 0){
-			audioElement.play();
-		}
+		let digits = document.getElementsByClassName('time-number');}
 
 		digits[3].innerHTML = (date.getSeconds()).pad();
 		digits[2].innerHTML = (date.getMinutes()).pad();
@@ -213,6 +208,9 @@
 
 	updateDots();
 	setInterval(updateDots, 1000);
+	setInterval(function(){
+		audioElement.play();
+	}, 2000);
 
 	
 </script>
