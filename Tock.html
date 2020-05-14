@@ -172,6 +172,7 @@
 		let date = new Date();
 		let digits = document.getElementsByClassName('time-number');
 
+		console.log ((date.getSeconds()%2));
 		if ((date.getSeconds()%2) == 0){
 			audioElement.play();
 		}
