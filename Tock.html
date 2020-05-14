@@ -172,14 +172,14 @@
 		let date = new Date();
 		let digits = document.getElementsByClassName('time-number');
 
+		if ((date.getSeconds()%2) == 0){
+			audioElement.play();
+		}
+
 		digits[3].innerHTML = (date.getSeconds()).pad();
 		digits[2].innerHTML = (date.getMinutes()).pad();
 		digits[1].innerHTML = (date.getHours()%12).pad();
 		digits[0].innerHTML = dayNames[date.getDay()];
-
-		if ((date.getSeconds()%2) == 0){
-			audioElement.play();
-		}
 
 		document.querySelectorAll("#daysContainer .bar").forEach((dot, index) => {
 			if (index < date.getDay())
