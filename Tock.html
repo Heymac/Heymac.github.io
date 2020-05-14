@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Tock</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body{
 			font-family: 'DM Mono', monospace;
@@ -66,7 +67,7 @@
 		}
 
 		.bar {
-			background-color: #0e0e0e;
+			background-color: #ffffff0d;
 			margin-right: 0.5em;
 			flex-grow: 1;
 		}
@@ -76,14 +77,14 @@
 		.square {
 			width: 6%;
 			padding-bottom: 6%;
-			background-color: #0e0e0e;
+			background-color: #ffffff0d;
 			margin-right: auto;
 		}
 		.square:last-child{
 			margin-right: 0;
 		}
 		.book {
-			background-color: #0e0e0e;
+			background-color: #ffffff0d;
 			margin-right: auto;
 			width: 0.5%;
 		}
@@ -93,8 +94,7 @@
 		.dot {
 			width: 0.5em;
 			height: 0.5em;
-			background-color: #0e0e0e;
-			border-radius: 50%;
+			background-color: #ffffff0d;
 			margin-bottom: auto;
 		}
 		.dot:last-child{
@@ -201,7 +201,6 @@
 			else 
 				dot.classList.remove("highlighted");
 		});
-
 	}
 	let audioElement = new Audio('https://heymac.github.io/Tock.mp3');
 	audioElement.volume = 1.0;
