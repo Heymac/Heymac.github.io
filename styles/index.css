@@ -71,7 +71,7 @@ body{
 		flex-direction: column;
 	}
 	body .projectWrapper .beautyHeader .header{
-	    font-size: 200%;
+	    /*font-size: 200%;*/
 	}
 	body .projectWrapper .beautyHeader .projDate{
 	    font-size: 100%;
@@ -348,21 +348,37 @@ a:hover{
 	width: 100vw;
 	height: 100vh;
 	position: relative;
-	margin-bottom: 7%;
 }
 .projectWrapper .beautyHeader .header{
     color: white;
-    width: max-content;
+    width: 40%;
     position: absolute;
-    bottom: 10%;
     left: 0px;
-    font-weight: 500;
-    margin: 3vh 0px 0px 3vw;
-    font-size: 3.4em;
     z-index: 1;
+    font-size: 3.4em;
+    height: 100%;
+    padding: 75px 0px 0px 8%;
+    background-color: #346E52d9;
+    box-sizing: border-box;
 }
 .projectWrapper .beautyHeader h1{
+	margin: 40% 0px 0px 0px;
+	width: min-content;
+    font-weight: 600;
+    font-size: 1.25em;
+    line-height: 100%;
+}
+.projectWrapper .beautyHeader h2{
+	margin: 4% 0px 0px 0px;
+    font-weight: 500;
+    font-size: 0.45em;
+}
+.projectWrapper .beautyHeader h3{
 	margin: 0px;
+    font-weight: 400;
+    font-size: 0.35em;
+    position: absolute;
+    bottom: 7%;
 }
 .projectWrapper .beautyHeader .headerImage{
 	width: 100%;
@@ -397,20 +413,28 @@ a:hover{
     font-size: 1.3em;
 }
 .projectWrapper .blurb{
-	padding: 0 20%;
-	margin: 5% 0;
+	padding: 0 16%;
+	margin: 8% 0;
+	display: inline-block;
 }
 .projectWrapper .blurb h2{
+	display: inline-block;
 	font-weight: 500;
-	font-size: 1.5em;
+	font-size: 2.5em;
+	width: 20%;
+	margin: 0%;
 }
 .projectWrapper .blurb span{
-	font-size: 17px;
-    color: rgb(97, 97, 97);
+	display: block;
+	font-size: 1.1em;
+    color: #616161;
+    width: 67%;
+    float: right;
+    line-height: 230%;
 }
 .projectWrapper .photo{
-	padding: 0 10%;
-	margin: 5% 0;
+	/*padding: 0 10%;
+	margin: 5% 0;*/
 }
 .projectWrapper .photo img{
 	width: 100%;
