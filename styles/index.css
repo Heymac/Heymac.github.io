@@ -79,8 +79,20 @@ body{
 	body .projectWrapper .beautyHeader .backProjects{
 		display: none;
 	}
-	body .projectWrapper .photo{
+	body .projectWrapper .photo, body .projectWrapper .doublePhoto, body .projectWrapper .triplePhoto{
 		padding: 0;
+	}
+	body .projectWrapper .doublePhoto, body .projectWrapper .triplePhoto{
+		flex-direction: column;
+	}
+	body .projectWrapper .doublePhoto img, .projectWrapper .triplePhoto img{
+		width: 100%;
+	}
+	body .projectWrapper .objectives{
+		flex-direction: column;
+	}
+	body .projectWrapper .goalContainer .goal:not(:first-child){
+		margin-top: 10%;
 	}
 
 	body .aboutPageWrapper .row{
@@ -412,32 +424,58 @@ a:hover{
     font-weight: 600;
     font-size: 1.3em;
 }
-.projectWrapper .blurb{
+.projectWrapper .heading{
 	padding: 0 16%;
-	margin: 8% 0;
-	display: inline-block;
+	margin: 7% 0;
+	display: flex;
 }
-.projectWrapper .blurb h2{
+.projectWrapper .heading h2{
 	display: inline-block;
 	font-weight: 500;
 	font-size: 2.5em;
 	width: 20%;
-	margin: 0%;
+	margin: 0 13% 0 0;
+}
+.projectWrapper .heading span{
+	display: block;
+	font-size: 1.1em;
+    color: #616161;
+    width: 67%;
+    line-height: 230%;
+}
+.projectWrapper .blurb{
+	padding: 0 16%;
+	margin: 7% 0;
 }
 .projectWrapper .blurb span{
 	display: block;
 	font-size: 1.1em;
     color: #616161;
-    width: 67%;
-    float: right;
     line-height: 230%;
 }
 .projectWrapper .photo{
-	/*padding: 0 10%;
-	margin: 5% 0;*/
+	padding: 0 8%;
+	/*margin: 5% 0;*/
+}
+.projectWrapper .doublePhoto, .projectWrapper .triplePhoto{
+	padding: 0 8%;
+	display: flex;
+	flex-direction: row;
+}
+.projectWrapper .photo img, .projectWrapper .doublePhoto img, .projectWrapper .triplePhoto img{
+	display: block;
+	object-fit: cover;
+	border: 0.5px solid white;
+	box-sizing: border-box;
 }
 .projectWrapper .photo img{
 	width: 100%;
+}
+.projectWrapper .doublePhoto img{
+	width: 50%;
+}
+.projectWrapper .triplePhoto img{
+	width: 33.33%;
 }
 .projectWrapper .backProjects{
     z-index: 1;
@@ -460,6 +498,45 @@ a:hover{
     margin-right: 10px;
     vertical-align: text-top;
 }
+.projectWrapper .objectives{
+	padding: 0 12%;
+	margin: 7% 0;
+	display: flex;
+}
+.projectWrapper .goalContainer{
+	flex: 1 1 0px;
+	padding: 5%;
+	display: grid;
+    justify-content: space-around;
+    align-content: space-between;
+}
+.projectWrapper .goalContainer:first-child{
+	background-color: #346E52;
+	align-content: center;
+}
+.projectWrapper .goalContainer:first-child .goal{
+	color: white;
+}
+.projectWrapper .goal{
+    font-size: 1.1em;
+    color: #616161;
+    line-height: 230%;
+}
+.projectWrapper .goal span:first-child{
+	width: 100%;
+	display: block;
+	text-align: center;
+	font-weight: 800;
+	font-size: 2.5em;
+}
+.projectWrapper .goal span:nth-child(2){
+	display: block;
+	margin-top: 8%;
+}
+.projectWrapper .goalContainer .goal:not(:first-child){
+	margin-top: 15%;
+}
+
 
 .aboutPageWrapper h3{
 	font-size: 3em;
