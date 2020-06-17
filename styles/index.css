@@ -122,7 +122,7 @@ body{
 }
 
 @media only screen and (min-width: 1389px){
-	.projectWrapper .beautyHeader .header{
+	body .projectWrapper .beautyHeader .header{
 		font-size: 4.4em;
 	}
 }
