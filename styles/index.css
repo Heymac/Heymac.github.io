@@ -499,29 +499,40 @@ a:hover{
     vertical-align: text-top;
 }
 .projectWrapper .objectives{
-	padding: 0 12%;
+	padding: 0 11% 0 13%;
 	margin: 7% 0;
 	display: flex;
 }
-.projectWrapper .goalContainer{
+.projectWrapper .mainGoal{
 	flex: 1 1 0px;
-	padding: 5%;
-	display: grid;
     justify-content: space-around;
-    align-content: space-between;
-}
-.projectWrapper .goalContainer:first-child{
 	background-color: #346E52;
-	align-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
 }
-.projectWrapper .goalContainer:first-child .goal{
+.projectWrapper .mainGoal .goal{
+	width: 100%;
 	color: white;
+    padding: 2%;
+}
+.projectWrapper .subGoals{
+	flex: 2 1 0px;
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: flex;
+    padding: 3% 0% 3% 6%;
+    justify-content: space-between;
 }
 .projectWrapper .goal{
     font-size: 1.1em;
     color: #616161;
     line-height: 230%;
-}
+    width: 45%;
+    padding: 5% 0%;
+    box-sizing: border-box;
+}	
 .projectWrapper .goal span:first-child{
 	width: 100%;
 	display: block;
@@ -532,9 +543,6 @@ a:hover{
 .projectWrapper .goal span:nth-child(2){
 	display: block;
 	margin-top: 8%;
-}
-.projectWrapper .goalContainer .goal:not(:first-child){
-	margin-top: 15%;
 }
 
 
