@@ -496,6 +496,24 @@ a:hover{
 .projectWrapper .triplePhoto img{
 	width: 33.33%;
 }
+.projectWrapper .margin{
+	margin: 8% 0%;
+}
+.projectWrapper .mini-margin{
+	margin: 4% 0%;
+}
+.projectWrapper .max-margin{
+	margin: 4% 0%;
+}
+.projectWrapper .padding{
+	padding: 0% 8%;
+}
+.projectWrapper .mini-padding{
+	padding: 0% 4%;
+}
+.projectWrapper .max-padding{
+	padding: 0% 16%;
+}
 .projectWrapper .backProjects{
     z-index: 1;
     position: absolute;
