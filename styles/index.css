@@ -77,8 +77,11 @@ body{
 	body .projectsPageWrapper .row{
 		flex-direction: column;
 	}
+	body .projectWrapper .beautyHeader{
+	    height: 65vh;
+	}
 	body .projectWrapper .beautyHeader .header{
-	    /*font-size: 200%;*/
+	    width: 100%;
 	}
 	body .projectWrapper .beautyHeader .projDate{
 	    font-size: 100%;
@@ -94,6 +97,9 @@ body{
 	}
 	body .projectWrapper .double-photo img, body .projectWrapper .triple-photo img{
 		width: 100%;
+	}
+	body .projectWrapper .heading{
+	    flex-direction: column;
 	}
 	body .projectWrapper .objectives{
 		flex-direction: column;
