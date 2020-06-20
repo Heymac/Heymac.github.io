@@ -86,13 +86,13 @@ body{
 	body .projectWrapper .beautyHeader .backProjects{
 		display: none;
 	}
-	body .projectWrapper .photo, body .projectWrapper .doublePhoto, body .projectWrapper .triplePhoto{
+	body .projectWrapper .photo, body .projectWrapper .double-photo, body .projectWrapper .triple-photo{
 		padding: 0;
 	}
-	body .projectWrapper .doublePhoto, body .projectWrapper .triplePhoto{
+	body .projectWrapper .double-photo, body .projectWrapper .triple-photo{
 		flex-direction: column;
 	}
-	body .projectWrapper .doublePhoto img, body .projectWrapper .triplePhoto img{
+	body .projectWrapper .double-photo img, body .projectWrapper .triple-photo img{
 		width: 100%;
 	}
 	body .projectWrapper .objectives{
@@ -368,7 +368,7 @@ a:hover{
 
 
 .projectWrapper .mainBody{
-	padding-top: 0px;
+	padding-top: 9%;
 	max-width: var(--bodyWidth);
 	margin: 0px auto;
 }
@@ -446,7 +446,8 @@ a:hover{
 	display: flex;
 }
 .projectWrapper .heading:first-child{
-	margin-bottom: -4%;	
+	margin-bottom: -4%;
+	margin-top: 0%;
 }
 .projectWrapper .heading h2{
 	display: inline-block;
@@ -472,16 +473,19 @@ a:hover{
     color: #616161;
     line-height: 230%;
 }
+.projectWrapper a{
+	color: #0F9AFF
+}
 .projectWrapper .photo{
 	/*padding: 0 8%;*/
 	/*margin: 5% 0;*/
 }
-.projectWrapper .doublePhoto, .projectWrapper .triplePhoto{
+.projectWrapper .double-photo, .projectWrapper .triple-photo{
 	/*padding: 0 8%;*/
 	display: flex;
 	flex-direction: row;
 }
-.projectWrapper .photo img, .projectWrapper .doublePhoto img, .projectWrapper .triplePhoto img{
+.projectWrapper .photo img, .projectWrapper .double-photo img, .projectWrapper .triple-photo img{
 	display: block;
 	object-fit: cover;
 	border: 0.5px solid white;
@@ -490,10 +494,10 @@ a:hover{
 .projectWrapper .photo img{
 	width: 100%;
 }
-.projectWrapper .doublePhoto img{
+.projectWrapper .double-photo img{
 	width: 50%;
 }
-.projectWrapper .triplePhoto img{
+.projectWrapper .triple-photo img{
 	width: 33.33%;
 }
 .projectWrapper .margin{
