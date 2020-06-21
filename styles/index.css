@@ -1,5 +1,5 @@
 :root {
-	--bodyWidth: 1368px;
+	--bodyWidth: 				1366px;
 
 	--mainColor: 				#FF9600;
 	--mainColorOpacity: 		#FF9600c4;
@@ -254,6 +254,8 @@ body{
 }
 .mainBody{
 	padding-top: 75px;
+	max-width: var(--bodyWidth);
+	margin: 0px auto;
 }
 
 .footer{
@@ -292,6 +294,7 @@ a:hover{
 	display: flex;
 	height: 100%;
 	position: relative;
+	max-width: initial;
 }
 .homePageWrapper .headshot{
     width: 43%;
@@ -313,6 +316,9 @@ a:hover{
 }
 
 
+.projectsPageWrapper .mainBody{
+	max-width: initial;
+}
 .projectsPageWrapper .gridWrapper{
 	display: grid;
 	grid-gap: 0px;
@@ -396,7 +402,7 @@ a:hover{
 
 .projectWrapper .mainBody{
 	padding-top: 9%;
-	max-width: var(--bodyWidth);
+	/*max-width: var(--bodyWidth);*/
 	margin: 0px auto;
 }
 .projectWrapper .beautyHeader{
@@ -701,7 +707,7 @@ a:hover{
 }
 .contactPageWrapper .resume{
 	margin: 0 auto 0 auto;
-	width: 70%;
+	width: 60%;
 }
 .contactPageWrapper .resume img{
 	width: 100%;
@@ -717,7 +723,7 @@ a:hover{
 }
 .contactPageWrapper .resume div{
 	position: relative;
-	padding-top: 129.3%;
+	padding-top: 129.5%;
 	box-sizing: border-box;
 }
 .contactPageWrapper .resume iframe{
