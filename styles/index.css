@@ -1,13 +1,52 @@
 :root {
 	--bodyWidth: 1368px;
 
-	--sproutColor: #346E52;
-	--sproutColorOpacity: #346E52d9;
+	--mainColor: 				#FF9600;
+	--mainColorOpacity: 		#FF9600c4;
+
+	--sproutColor: 				#346E52;
+	--sproutColorOpacity: 		#346E52d9;
+
+	--palColor: 				#70CFCA;
+	--palColorOpacity: 			#70CFCAd9;
+
+	--petkitgoColor: 			#CCBC84;
+	--petkitgoColorOpacity: 	#CCBC84d9;
+
+	--wasserlichtColor: 		#1E1E1E;
+	--wasserlichtColorOpacity: 	#1E1E1Ed9;
+}
+
+#project1 .header/*, #project1 .projTitles*/{
+	background-color: var(--sproutColorOpacity);
+}
+#project1 .mainGoal{
+	background-color: var(--sproutColor);
+}
+
+#project2 .header/*, #project2 .projTitles*/{
+	background-color: var(--palColorOpacity);
+}
+#project2 .mainGoal{
+	background-color: var(--palColor);
+}
+
+#project3 .header/*, #project3 .projTitles*/{
+	background-color: var(--petkitgoColorOpacity);
+}
+#project3 .mainGoal{
+	background-color: var(--petkitgoColor);
+}
+
+#project4 .header/*, #project4 .projTitles*/{
+	background-color: var(--wasserlichtColorOpacity);
+}
+#project4 .mainGoal{
+	background-color: var(--wasserlichtColor);
 }
 
 body{
 	font-family: 'Heebo', sans-serif;
-	/*background-image: url("../assets/Desktop 3.17.png");*/
 	margin: 0px;
 	height: 100vh;
     width: 100vw;
@@ -21,11 +60,6 @@ body{
 }
 
 @media only screen and (max-width: 1000px){
-	body .homePageWrapper{
-		overflow-x: hidden;
-		overflow-y: scroll; 
-	}
-
 	body .navBar .mainTitle h1 {
 		margin: 0px 0px 0px 0px;
 	}
@@ -56,9 +90,11 @@ body{
 		content: "LinkedIn";
 		color: blue;
 	}
-
 	
-
+	body .homePageWrapper{
+		overflow-x: hidden;
+		overflow-y: scroll; 
+	}
 	body .homePageWrapper .mainBody{
 		flex-direction: column;
 		height: auto;
@@ -71,12 +107,15 @@ body{
 		padding-top: 60px;
 	}
 
+
 	body .projectsPageWrapper .largeProj, body .projectsPageWrapper .mediumProj, body .projectsPageWrapper .smallProj{
 		width: 100%;
 	}
 	body .projectsPageWrapper .row{
 		flex-direction: column;
 	}
+
+
 	body .projectWrapper .beautyHeader{
 	    height: 75vh;
 	}
@@ -111,12 +150,14 @@ body{
 		margin-top: 10%;
 	}
 
+
 	body .aboutPageWrapper .row{
 		flex-direction: column;
 	}
 	body .aboutPageWrapper .blurb{
 		margin-bottom: 5%;
 	}
+
 
 	body .contactPageWrapper .row{
 		flex-direction: column;
@@ -135,6 +176,7 @@ body{
 		font-size: 4.4em;
 	}
 }
+
 
 .navBar{
 	height: 75px;
@@ -179,7 +221,7 @@ body{
     background-size: contain;
 }
 .navBar .currentPage{
-    color: rgb(255,150,0);
+    color: var(--mainColor);
     background-color: white;
 }
 .navBar h1{
@@ -226,11 +268,13 @@ body{
 
 a{
 	text-decoration: none;
-	color: rgb(255,150,0);
+	color: var(--mainColor);
 }
 a:hover{
 	cursor: pointer;
 }
+
+
 .homePageWrapper h3{
 	font-size: 3em;
     font-weight: 500;
@@ -244,13 +288,11 @@ a:hover{
 .homePageWrapper .intro span{
     margin-top: 60px;
 }
-
 .homePageWrapper .mainBody{
 	display: flex;
 	height: 100%;
 	position: relative;
 }
-
 .homePageWrapper .headshot{
     width: 43%;
     height: 100%;
@@ -263,12 +305,13 @@ a:hover{
 	padding: 142px 91px 50px 91px;
 }
 .homePageWrapper .intro a{
-    color: rgb(255,150,0);
+    color: var(--mainColor);
     font-weight: 500;
     font-size: 18px;
     margin: 40px 85px 0px 0px;
     display: inline-block;
 }
+
 
 .projectsPageWrapper .gridWrapper{
 	display: grid;
@@ -277,18 +320,15 @@ a:hover{
     grid-template-columns: auto;
     grid-auto-flow: row;
 }
-
 .projectsPageWrapper .row{
 	display: flex;
 	height: 50vh;
 }
-
 .projectsPageWrapper .largeProj, .projectsPageWrapper .mediumProj, .projectsPageWrapper .smallProj{
 	position: relative;
 	cursor: pointer;
 	height: 100%;
 }
-
 .projectsPageWrapper .largeProj{
 	width: 100%;
 }
@@ -306,37 +346,30 @@ a:hover{
 }
 .projectsPageWrapper .projTitles{
 	z-index: 1;
+    background-color: var(--mainColorOpacity);
+    display: none;
 }
 .projectsPageWrapper .mediumProj:hover .projTitles, .projectsPageWrapper .smallProj:hover .projTitles{
-    background-color: rgba(255, 150, 0, 0.77);
+	display: block;
 }
 .projectsPageWrapper .projImage{
     object-fit: cover;
     z-index: 0;
 }
-
-.projectsPageWrapper .mediumProj .projTitles h1{
-	visibility: visible;
+.projectsPageWrapper .projTitles h1, .projectsPageWrapper .projTitles h2{
 	color: white;
     width: max-content;
 	position: absolute;
+}
+.projectsPageWrapper .mediumProj .projTitles h1{
     bottom: 0px;
     left: 0px;
     font-weight: 500;
-    margin: 0px 0px 2vh 5vw;
     font-size: 2.4em;
-}
-
-.projectsPageWrapper .mediumProj .projTitles h1{
     top: 0px;
     margin: 3vh 0px 0px 3vw;
 }
-
 .projectsPageWrapper .mediumProj .projTitles h2{
-	visibility: visible;
-	color: white;
-    width: max-content;
-    position: absolute;
     bottom: 0px;
     right: 0px;
     margin: 0px 6vw 3vh 0px;
@@ -344,12 +377,7 @@ a:hover{
     font-style: italic;
     font-size: 1.2em;
 }
-
 .projectsPageWrapper .smallProj .projTitles h1{
-	visibility: visible;
-    color: white;
-    width: max-content;
-    position: absolute;
     top: 0px;
     left: 0px;
     font-weight: 500;
@@ -357,23 +385,12 @@ a:hover{
     font-size: 2.4em;
 }
 .projectsPageWrapper .smallProj .projTitles h2{
-	visibility: visible;
-	color: white;
-    width: max-content;
-    position: absolute;
     bottom: 0px;
     right: 0px;
     margin: 0px 6vw 3vh 0px;
     font-weight: 100;
     font-style: italic;
     font-size: 1.2em;
-}
-
-.projectsPageWrapper .mediumProj .projTitles h1, .projectsPageWrapper .mediumProj .projTitles h2, .projectsPageWrapper .smallProj .projTitles h1, .projectsPageWrapper .smallProj .projTitles h2{
-	visibility: hidden;
-}
-.projectsPageWrapper .mediumProj:hover .projTitles h1, .projectsPageWrapper .mediumProj:hover .projTitles h2, .projectsPageWrapper .smallProj:hover .projTitles h1, .projectsPageWrapper .smallProj:hover .projTitles h2{
-	visibility: visible;
 }
 
 
@@ -396,7 +413,7 @@ a:hover{
     font-size: 3.4em;
     height: 100%;
     padding: 75px 2% 0px 8%;
-    background-color: var(--sproutColorOpacity);
+    background-color: var(--mainColorOpacity);
     box-sizing: border-box;
 }
 .projectWrapper .beautyHeader h1{
@@ -429,7 +446,7 @@ a:hover{
     padding-top: 75px;
 }
 .projectWrapper mark{
-	background-color: rgb(255,150,0);
+	background-color: var(--mainColor);
     color: inherit;
     line-height: 93%;
     display: table;
@@ -439,7 +456,7 @@ a:hover{
 .projectWrapper .accent{
 	width: 0.8em;
 	height: 0.15em;
-	background-color: rgb(255,150,0);
+	background-color: var(--mainColor);
 }
 .projectWrapper .projDate{
 	color: rgb(97, 97, 97);
@@ -557,7 +574,7 @@ a:hover{
 .projectWrapper .mainGoal{
 	flex: 1 1 0px;
     justify-content: space-around;
-	background-color: var(--sproutColor);
+	background-color: var(--mainColor);
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -624,7 +641,7 @@ a:hover{
 .aboutPageWrapper .blurb h2{
 	font-weight: 500;
 	font-size: 1.8em;
-	background-color: rgb(255,150,0);
+	background-color: var(--mainColor);;
     line-height: 119%;
     display: table;
     padding: 0.1em 0.3em 0em 0.3em;
@@ -697,6 +714,16 @@ a:hover{
 	cursor: pointer;
 	flex-grow: 2;
 	text-align: right;
+}
+.contactPageWrapper .resume div{
+	position: relative;
+	padding-top: 129.3%;
+	box-sizing: border-box;
+}
+.contactPageWrapper .resume iframe{
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 
