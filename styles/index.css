@@ -621,6 +621,7 @@ a:hover{
 }
 .projectWrapper .nextButton span:first-child{
 	color: var(--lightTextColor);
+	font-weight: 100;
 }
 .projectWrapper .nextButton span:nth-child(2){
 	font-size: 1.2em;
@@ -699,6 +700,7 @@ a:hover{
 	font-weight: 500;
 	color: black;
 	margin-top: 0.3em;
+	text-align: center;
 }
 .contactPageWrapper .blurb{
 	font-size: 17px;
