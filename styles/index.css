@@ -1,6 +1,9 @@
 :root {
 	--bodyWidth: 				1366px;
 
+	--readingTextColor:			#616161;
+	--lightTextColor:			#9f9f9f;
+
 	--mainColor: 				#FF9600;
 	--mainColorOpacity: 		#FF9600c4;
 
@@ -265,7 +268,7 @@ body{
 	margin: 3em 0 2.6em 0;
 	font-weight: 400;
 	font-size: 17px;
-	color: rgb(159, 159, 159);
+	color: var(--lightTextColor);
 }
 
 a{
@@ -284,7 +287,7 @@ a:hover{
 }
 .homePageWrapper span{
     font-size: 17px;
-    color: rgb(97, 97, 97);
+    color: var(--readingTextColor);
     display: block;
 }
 .homePageWrapper .intro span{
@@ -451,28 +454,6 @@ a:hover{
     box-sizing: border-box;
     padding-top: 75px;
 }
-.projectWrapper mark{
-	background-color: var(--mainColor);
-    color: inherit;
-    line-height: 93%;
-    display: table;
-    padding: 0.1em 0.3em 0em 0.3em;
-    margin-bottom: 0.1em;
-}
-.projectWrapper .accent{
-	width: 0.8em;
-	height: 0.15em;
-	background-color: var(--mainColor);
-}
-.projectWrapper .projDate{
-	color: rgb(97, 97, 97);
-    z-index: 1;
-    position: absolute;
-    bottom: 10%;
-    right: 7%;
-    font-weight: 600;
-    font-size: 1.3em;
-}
 .projectWrapper .heading{
 	padding: 0 16%;
 	margin: 9% 0;
@@ -492,7 +473,7 @@ a:hover{
 .projectWrapper .heading span{
 	display: block;
 	font-size: 1.1em;
-    color: #616161;
+    color: var(--readingTextColor);
     width: 67%;
     line-height: 230%;
 }
@@ -503,7 +484,7 @@ a:hover{
 .projectWrapper .blurb span{
 	display: block;
 	font-size: 1.1em;
-    color: #616161;
+    color: var(--readingTextColor);
     line-height: 230%;
 }
 .projectWrapper a{
@@ -552,14 +533,14 @@ a:hover{
 	padding: 0% 16%;
 }
 .projectWrapper .backProjects{
-    z-index: 1;
+    z-index: 2;
     position: absolute;
     top: 20%;
-    left: 3%;
-    font-weight: 500;
+    left: 8%;
+    font-weight: 400;
 }
 .projectWrapper .backProjects a{
-	color: rgb(97, 97, 97);
+	color: #ffffff70;
 }
 .projectWrapper .backProjects::before{
 	height: 20px;
@@ -601,7 +582,7 @@ a:hover{
 }
 .projectWrapper .goal{
     font-size: 1.1em;
-    color: #616161;
+    color: var(--readingTextColor);
     line-height: 230%;
     width: 45%;
     padding: 5% 0%;
@@ -617,6 +598,34 @@ a:hover{
 .projectWrapper .goal span:nth-child(2){
 	display: block;
 	margin-top: 8%;
+}
+.projectWrapper .footerButtons{
+	display: flex;
+	margin-top: -1px;
+	box-shadow: 0px 0px 16px #e8e8e8;
+}
+.projectWrapper .nextButton{
+	width: 50%;
+	text-align: center;
+	border-top: 0.8em solid var(--mainColor);
+	border-bottom: 1px solid #efefef;
+	padding: 1% 0px;
+}
+.projectWrapper .nextButton:hover{
+	background-color: #ececec;
+	cursor: pointer;
+}
+.projectWrapper .nextButton span{
+	display: block;
+	margin: 2.5% auto;
+}
+.projectWrapper .nextButton span:first-child{
+	color: var(--lightTextColor);
+}
+.projectWrapper .nextButton span:nth-child(2){
+	font-size: 1.2em;
+	color: var(--mainColor);
+	font-weight: 500;
 }
 
 
@@ -640,7 +649,7 @@ a:hover{
 }
 .aboutPageWrapper .blurb span{
 	font-size: 1em;
-    color: rgb(97, 97, 97);
+    color: var(--readingTextColor);
     line-height: 1.8em;
     display: block;
 }
@@ -683,7 +692,7 @@ a:hover{
 	width: 50%;
 }
 .contactPageWrapper .infoTitle{
-	color: rgb(207, 207, 207);
+	color: var(--lightTextColor);
 }
 .contactPageWrapper .info{
 	font-size: 2em;
@@ -693,7 +702,7 @@ a:hover{
 }
 .contactPageWrapper .blurb{
 	font-size: 17px;
-	color: rgb(159, 159, 159);
+	color: var(--lightTextColor);
 	width: 65%;
 	margin-top: 1em;
 	margin-bottom: 2em;
