@@ -369,7 +369,7 @@ a:hover{
     background-color: var(--mainColorOpacity);
     display: none;
 }
-.projectsPageWrapper .mediumProj:hover .projTitles, .projectsPageWrapper .smallProj:hover .projTitles{
+.projectsPageWrapper .largeProj:hover .projTitles, .projectsPageWrapper .mediumProj:hover .projTitles, .projectsPageWrapper .smallProj:hover .projTitles{
 	display: block;
 }
 .projectsPageWrapper .projImage{
@@ -381,7 +381,7 @@ a:hover{
     width: max-content;
 	position: absolute;
 }
-.projectsPageWrapper .mediumProj .projTitles h1{
+.projectsPageWrapper .largeProj .projTitles h1, .projectsPageWrapper .mediumProj .projTitles h1, .projectsPageWrapper .smallProj .projTitles h1{
     bottom: 0px;
     left: 0px;
     font-weight: 500;
@@ -389,22 +389,7 @@ a:hover{
     top: 0px;
     margin: 3vh 0px 0px 3vw;
 }
-.projectsPageWrapper .mediumProj .projTitles h2{
-    bottom: 0px;
-    right: 0px;
-    margin: 0px 6vw 3vh 0px;
-    font-weight: 100;
-    font-style: italic;
-    font-size: 1.2em;
-}
-.projectsPageWrapper .smallProj .projTitles h1{
-    top: 0px;
-    left: 0px;
-    font-weight: 500;
-    margin: 3vh 0px 0px 3vw;
-    font-size: 2.4em;
-}
-.projectsPageWrapper .smallProj .projTitles h2{
+.projectsPageWrapper .largeProj .projTitles h2, .projectsPageWrapper .mediumProj .projTitles h2, .projectsPageWrapper .smallProj .projTitles h2{
     bottom: 0px;
     right: 0px;
     margin: 0px 6vw 3vh 0px;
