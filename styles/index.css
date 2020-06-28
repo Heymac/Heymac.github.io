@@ -62,6 +62,17 @@ body{
     overflow: hidden;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+	-ms-overflow-style: none;  /* IE and Edge */
+	scrollbar-width: none;  /* Firefox */
+}
+
 @media only screen and (max-width: 1000px){
 	body .navBar .mainTitle h1 {
 		margin: 0px 0px 0px 0px;
@@ -131,13 +142,13 @@ body{
 	body .projectWrapper .beautyHeader .backProjects{
 		display: none;
 	}
-	body .projectWrapper .photo, body .projectWrapper .double-photo, body .projectWrapper .triple-photo{
+	body .projectWrapper .photo, body .projectWrapper .double-photo, body .projectWrapper .triple-photo, body .projectWrapper .quad-photo{
 		padding: 0;
 	}
-	body .projectWrapper .double-photo, body .projectWrapper .triple-photo{
+	body .projectWrapper .double-photo, body .projectWrapper .triple-photo, body .projectWrapper .quad-photo{
 		flex-direction: column;
 	}
-	body .projectWrapper .double-photo img, body .projectWrapper .triple-photo img{
+	body .projectWrapper .double-photo img, body .projectWrapper .triple-photo img, body .projectWrapper .quad-photo{
 		width: 100%;
 	}
 	body .projectWrapper .heading{
@@ -481,25 +492,33 @@ a:hover{
 	padding: 0 16%;
 	margin: 7% 0;
 }
-.projectWrapper .blurb span{
+.projectWrapper .blurb span, .projectWrapper .round-photo span:nth-child(3){
 	display: block;
 	font-size: 1.1em;
     color: var(--readingTextColor);
     line-height: 230%;
 }
+.projectWrapper .double-blurb{
+	display: flex;
+    margin: 5% 0;
+}
+.projectWrapper .double-blurb .blurb{
+	padding: 0 9%;
+    width: 50%;
+    margin: 0%;
+}
 .projectWrapper a{
 	color: #0F9AFF
 }
 .projectWrapper .photo{
-	/*padding: 0 8%;*/
-	/*margin: 5% 0;*/
+	position: relative;
 }
-.projectWrapper .double-photo, .projectWrapper .triple-photo{
-	/*padding: 0 8%;*/
+.projectWrapper .double-photo, .projectWrapper .triple-photo, .projectWrapper .quad-photo{
+	position: relative;
 	display: flex;
 	flex-direction: row;
 }
-.projectWrapper .photo img, .projectWrapper .double-photo img, .projectWrapper .triple-photo img{
+.projectWrapper .photo img, .projectWrapper .double-photo img, .projectWrapper .triple-photo img, .projectWrapper .quad-photo img{
 	display: block;
 	object-fit: cover;
 	border: 0.5px solid white;
@@ -514,6 +533,34 @@ a:hover{
 .projectWrapper .triple-photo img{
 	width: 33.33%;
 }
+.projectWrapper .quad-photo img{
+	width: 25%;
+}
+
+.projectWrapper .photo span:not(.round-photo span), .projectWrapper .double-photo span:not(.round-photo span), .projectWrapper .triple-photo span:not(.round-photo span), .projectWrapper .quad-photo span:not(.round-photo span){
+	z-index: 1;
+    position: absolute;
+    color: white;
+    display: block;
+    bottom: 1.1em;
+    left: 3%;
+}
+.projectWrapper .quad-photo span:nth-of-type(2){
+	left:28%;
+}
+.projectWrapper .triple-photo span:nth-of-type(2){
+	left:36.33%;
+}
+.projectWrapper .double-photo span:nth-of-type(2), .projectWrapper .quad-photo span:nth-of-type(3){
+	left:53%;
+}
+.projectWrapper .triple-photo span:nth-of-type(3){
+	left:69.33%;
+}
+.projectWrapper .quad-photo span:nth-of-type(4){
+	left:78%;
+}
+
 .projectWrapper .margin{
 	margin: 8% 0%;
 }
@@ -626,6 +673,32 @@ a:hover{
 .projectWrapper .nextButton span:nth-child(2){
 	font-size: 1.2em;
 	color: var(--mainColor);
+	font-weight: 500;
+}
+.projectWrapper .round-cont{
+	display: flex;
+	flex-direction: row;
+}
+.projectWrapper .round-photo{
+	display: flex;
+	flex-direction: column;
+	margin: 0% 3.5%;
+	width: 33.3%;
+}
+.projectWrapper .round-photo img{
+	border-radius: 50%;
+	margin-bottom: 15%;
+}
+.projectWrapper .round-photo span:nth-child(2){
+	font-size: 1.8em;
+	font-weight: 500;
+	margin-bottom: 8%;
+}
+.projectWrapper .center-title{
+	text-align: center;
+	margin-top: 7%;
+	margin-bottom: 3%;
+	font-size: 1.8em;
 	font-weight: 500;
 }
 
