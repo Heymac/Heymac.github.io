@@ -537,7 +537,7 @@ a:hover{
 	width: 25%;
 }
 
-.projectWrapper .photo span:not(.round-photo span), .projectWrapper .double-photo span:not(.round-photo span), .projectWrapper .triple-photo span:not(.round-photo span), .projectWrapper .quad-photo span:not(.round-photo span){
+.projectWrapper .photo span, .projectWrapper .double-photo span, .projectWrapper .triple-photo span, .projectWrapper .quad-photo span{
 	z-index: 1;
     position: absolute;
     color: white;
@@ -694,6 +694,15 @@ a:hover{
 	font-weight: 500;
 	margin-bottom: 8%;
 }
+.projectWrapper .round-photo span{
+	z-index: initial;
+	position: initial;
+	color: initial;
+	display: initial;
+	bottom: initial;
+	left: initial;
+}
+
 .projectWrapper .center-title{
 	text-align: center;
 	margin-top: 7%;
