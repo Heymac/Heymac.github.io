@@ -18,6 +18,9 @@
 
 	--wasserlichtColor: 		#1E1E1E;
 	--wasserlichtColorOpacity: 	#1E1E1Ed9;
+
+	--finishingtouchesColor: 			#3e3e58;
+	--finishingtouchesColorOpacity: 	#3e3e58d9;
 }
 
 #project1 .header/*, #project1 .projTitles*/{
@@ -35,11 +38,18 @@
 }
 
 #project3 .header/*, #project3 .projTitles*/{
+	background-color: var(--finishingtouchesColor);
+}
+#project3 .mainGoal{
+	background-color: var(--finishingtouchesColor);
+}
+
+/*#project3 .header{
 	background-color: var(--petkitgoColorOpacity);
 }
 #project3 .mainGoal{
 	background-color: var(--petkitgoColor);
-}
+}*/
 
 #project4 .header/*, #project4 .projTitles*/{
 	background-color: var(--wasserlichtColorOpacity);
@@ -135,6 +145,9 @@ body {
 	}
 	body .projectWrapper .beautyHeader .header{
 	    width: 100%;
+	    display: flex;
+    	flex-direction: column;
+    	align-items: center;
 	}
 	body .projectWrapper .beautyHeader .projDate{
 	    font-size: 100%;
@@ -444,14 +457,14 @@ a:hover{
     box-sizing: border-box;
 }
 .projectWrapper .beautyHeader h1{
-	margin: 40% 0px 0px 0px;
+	margin: 200px 0px 0px 0px;
 	width: min-content;
     font-weight: 600;
     font-size: 1.25em;
     line-height: 100%;
 }
 .projectWrapper .beautyHeader h2{
-	margin: 4% 0px 0px 0px;
+	margin: 50px 0px 0px 0px;
     font-weight: 500;
     font-size: 0.45em;
 }
