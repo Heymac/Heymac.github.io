@@ -796,7 +796,7 @@ a:hover{
 .aboutPageWrapper .blurb h2{
 	font-weight: 500;
 	font-size: 1.8em;
-	background-color: var(--mainColor);;
+	background-image: var(--mainGradient);
     line-height: 119%;
     display: table;
     padding: 0.1em 0.3em 0em 0.3em;
