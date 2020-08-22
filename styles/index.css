@@ -811,6 +811,7 @@ a:hover{
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	background-image: var(--mainGradient);
 }
 
 .contactPageWrapper h3{
