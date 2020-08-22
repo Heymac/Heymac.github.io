@@ -4,8 +4,8 @@
 	--readingTextColor:			#616161;
 	--lightTextColor:			#9f9f9f;
 
-	--mainColor: 				#FF9600;
-	--mainColorOpacity: 		#FF9600c4;
+	--mainColor: 				#ff8100;
+	--mainColorOpacity: 		#ff8100c4;
 
 	--sproutColor: 				#346E52;
 	--sproutColorOpacity: 		#346E52d9;
@@ -21,6 +21,9 @@
 
 	--finishingtouchesColor: 			#3e3e58;
 	--finishingtouchesColorOpacity: 	#3e3e58d9;
+
+	--soundsystemColor: 				#e03030;
+	--soundsystemColorOpacity: 			#e03030d9;
 }
 
 #project1 .header/*, #project1 .projTitles*/{
@@ -44,6 +47,13 @@
 	background-color: var(--finishingtouchesColor);
 }
 
+#project4 .header/*, #project3 .projTitles*/{
+	background-color: var(--soundsystemColor);
+}
+#project4 .mainGoal{
+	background-color: var(--soundsystemColor);
+}
+
 /*#project3 .header{
 	background-color: var(--petkitgoColorOpacity);
 }
@@ -51,12 +61,12 @@
 	background-color: var(--petkitgoColor);
 }*/
 
-#project4 .header/*, #project4 .projTitles*/{
+/*#project4 .header{
 	background-color: var(--wasserlichtColorOpacity);
 }
 #project4 .mainGoal{
 	background-color: var(--wasserlichtColor);
-}
+}*/
 
 body{
 	font-family: 'Heebo', sans-serif;
@@ -121,7 +131,6 @@ body {
 	}
 	body .homePageWrapper .mainBody{
 		flex-direction: column;
-		height: auto;
 	}
 	body .homePageWrapper .headshot{
 		width: 100%;
@@ -353,15 +362,27 @@ a:hover{
 	object-fit: cover;
 }
 .homePageWrapper .intro{
-	width: 57%;
-	padding: 142px 91px 50px 91px;
+	width: 56%;
+	padding: 13% 22%;
+	color: #ffffff;
+	background-image: linear-gradient(to bottom right, #ff8f1d 10%, #ff3159 80%);
+	height: 100%;
 }
 .homePageWrapper .intro a{
-    color: var(--mainColor);
+    /*color: var(--mainColor);*/
+    color: #ffffff;
     font-weight: 500;
     font-size: 18px;
-    margin: 40px 85px 0px 0px;
+    margin: 53px 67px 0px 0px;
     display: inline-block;
+    padding: 15px 30px;
+    border: 1px solid white;
+}
+.homePageWrapper .intro a:hover{
+	background-color: #ffffff1a
+}
+.homePageWrapper .intro span{
+    color: #ffffffad;
 }
 
 
