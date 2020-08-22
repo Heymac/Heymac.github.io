@@ -4,8 +4,11 @@
 	--readingTextColor:			#616161;
 	--lightTextColor:			#9f9f9f;
 
-	--mainColor: 				#ff8100;
-	--mainColorOpacity: 		#ff8100c4;
+	--mainColor: 				#ff6239;
+	--mainColorOpacity: 		#ff6239c4;
+
+	--mainGradient:				linear-gradient(to bottom right, #ff8f1d 10%, #ff3159 80%);
+	--mainGradientOpacity:		linear-gradient(to bottom right, #ff8f1da6 10%, #ff3159a6 80%);
 
 	--sproutColor: 				#346E52;
 	--sproutColorOpacity: 		#346E52d9;
@@ -365,7 +368,7 @@ a:hover{
 	width: 56%;
 	padding: 13% 22%;
 	color: #ffffff;
-	background-image: linear-gradient(to bottom right, #ff8f1d 10%, #ff3159 80%);
+	background-image: var(--mainGradient);
 	height: 100%;
 }
 .homePageWrapper .intro a{
@@ -422,7 +425,7 @@ a:hover{
 }
 .projectsPageWrapper .projTitles{
 	z-index: 1;
-    background-color: var(--mainColorOpacity);
+    background-image: var(--mainGradientOpacity);
     display: none;
 }
 .projectsPageWrapper .largeProj:hover .projTitles, .projectsPageWrapper .mediumProj:hover .projTitles, .projectsPageWrapper .smallProj:hover .projTitles{
@@ -861,7 +864,7 @@ a:hover{
 }
 .contactPageWrapper .resume .downloadButton{
 	float: right;
-	color: orange;
+	color: var(--mainColor);
 	font-size: 0.7em;
 	font-weight: 400;
 	cursor: pointer;
