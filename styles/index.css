@@ -763,6 +763,9 @@ a:hover{
 }
 
 
+.aboutPageWrapper .mainBody{
+	height: 95vh;
+}
 .aboutPageWrapper h3{
 	font-size: 3em;
     font-weight: 500;
