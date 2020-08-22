@@ -127,7 +127,7 @@ body {
 	
 	body .homePageWrapper{
 		overflow-x: hidden;
-		overflow-y: scroll; 
+		overflow-y: hidden; 
 	}
 	body .homePageWrapper .mainBody{
 		flex-direction: column;
@@ -508,7 +508,7 @@ a:hover{
 }
 .projectWrapper .heading{
 	padding: 0 16%;
-	margin: 9% 0;
+	margin: 9% 0 6% 0;
 	display: flex;
 }
 .projectWrapper .heading:first-child{
@@ -531,7 +531,7 @@ a:hover{
 }
 .projectWrapper .blurb{
 	padding: 0 16%;
-	margin: 7% 0;
+	margin: 6% 0;
 }
 .projectWrapper .blurb span, .projectWrapper .round-photo span:nth-child(3){
 	display: block;
@@ -706,7 +706,7 @@ a:hover{
 	width: 50%;
 	text-align: center;
 	border-top: 0.8em solid var(--mainColor);
-	border-bottom: 1px solid #efefef;
+	border-bottom: 1px solid #e6e6e6;
 	padding: 1% 0px;
 }
 .projectWrapper .nextButton:hover{
