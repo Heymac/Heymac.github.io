@@ -4,11 +4,11 @@
 	--readingTextColor:			#616161;
 	--lightTextColor:			#9f9f9f;
 
-	--mainColor: 				#ff6239;
-	--mainColorOpacity: 		#ff6239c4;
+	--mainColor: 				#139ce4/*#ff6239*/;
+	--mainColorOpacity: 		#139ce4c4/*#ff6239c4*/;
 
-	--mainGradient:				linear-gradient(to bottom right, #ff8f1d 10%, #ff3159 80%);
-	--mainGradientOpacity:		linear-gradient(to bottom right, #ff8f1da6 10%, #ff3159a6 80%);
+	--mainGradient:				linear-gradient(to bottom right, #1d6dff 0%, #00ffad 80%)/*linear-gradient(to bottom right, #ff8f1d 10%, #ff3159 80%)*/;
+	--mainGradientOpacity:		linear-gradient(to bottom right, #1d6dffa6 0%, #00ffada6 80%)/*linear-gradient(to bottom right, #ff8f1da6 10%, #ff3159a6 80%)*/;
 
 	--sproutColor: 				#346E52;
 	--sproutColorOpacity: 		#346E52d9;
@@ -140,6 +140,7 @@ body {
 		height: 240px;
 	}
 	body .homePageWrapper .intro{
+		padding: 13% 22%;
 		padding-top: 60px;
 	}
 
@@ -365,11 +366,21 @@ a:hover{
 	object-fit: cover;
 }
 .homePageWrapper .intro{
-	width: 56%;
-	padding: 13% 22%;
+	/*width: 56%;*/
+	padding: 13% 59% 0% 7%/*13% 22%*/;
 	color: #ffffff;
-	background-image: var(--mainGradient);
+	background-image: var(--mainGradientOpacity);
 	height: 100%;
+}
+.homePageWrapper .intro img{
+	position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+	object-position: center;
 }
 .homePageWrapper .intro a{
     /*color: var(--mainColor);*/
