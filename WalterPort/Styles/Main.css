@@ -1,0 +1,569 @@
+@media screen and (max-width: 1100px){
+	body #nav-bar .hidden{
+		visibility: hidden;
+		height: 0rem;
+	}
+	body #nav-bar ul{
+		overflow: hidden;
+		position: absolute;
+	}
+	body #nav-bar .expanded{
+		/*position: absolute;*/
+		background-color: white;
+		flex-direction: column;
+		top: 0;
+		width: 100%;
+		text-align: center;
+		box-shadow: 0px 0px 0 100rem #0000007a;
+	}
+	body #nav-bar .expanded li{
+		border-bottom: 1px solid var(--border);
+	}
+	body #ham{
+		visibility: visible;
+		z-index: 2;
+		margin-left: 2rem;
+	}
+	body .work-card{
+		flex-direction: column;
+	}
+	body .work-card div{
+		margin: 2rem auto;
+		order: 1;
+		width: auto;
+	}
+	body .work-card > img{
+		width: 100%;
+		height: initial;
+		order: 2;
+	}
+	body .large-title{
+		font-size: 2.25rem;
+	}
+	/*body .medium-title{
+		font-size: 2rem;
+	}
+	body .small-title{
+		font-size: 1.625rem;
+	}*/
+	body .small-body{
+		font-size: 1.125rem;
+		line-height: 2.5rem;
+	}
+	body #intro-title{
+		line-height: 4rem;
+	}
+	body .blog-card, body .portfolio-card{
+		width: calc(50% - 2.25rem);
+	}
+	body #viewer-body-section{
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+@media screen and (max-width: 700px){
+	body .blog-card, body .portfolio-card{
+		width: calc(100% - 2.25rem);
+	}
+	body #blog-container{
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+	body .filter-card{
+		justify-content: center;
+	}
+	body .filter-card li{
+		padding: 0 1rem;
+	}
+	body #post-title-section, body #post-body-section{
+		padding: 3% 12%;
+	}
+}
+
+:root{
+	--foreground:	#FFFFFF;
+	--background:	#FEF9EE;
+
+	--accent-dark:	#C1A954;
+	--accent-mid:	#CFBD7C;
+	--accent-light:	#DFD09F;
+
+	--text-dark:	#000000;
+	--text-mid:		#828282;
+	--text-light:	#AFAFAF;
+	--link:			#43A6DE;
+
+	--border:		#D6D6D6;
+
+	--yellow-shadow:#D8D2C8C4;
+	--grey-shadow:	#00000021;
+
+	--shadow: 0 0.325rem 5rem 0;
+}
+::-moz-selection { /* Code for Firefox */
+  color: red;
+  background: yellow;
+}
+::selection {
+  color: black;
+  background: var(--background);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+
+}
+a{
+	text-decoration: none;
+	color: inherit;
+}
+img{
+	object-fit: cover;
+	display: block;
+}
+button{
+	border: none;
+	outline: none;
+	padding: 0;
+}
+button:hover{	
+	cursor: pointer;
+}
+
+/* -------------- */
+/* Navigation Bar */
+/* -------------- */
+
+#nav-bar{
+	display: flex;
+	flex-direction: row;
+	position: sticky;
+	border-bottom: 1px solid var(--border);
+	align-items: center;
+	background-color: var(--foreground);
+	width: 100%;
+	z-index: 999;
+	top: 0;
+}
+#nav-bar ul{
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+	margin-right: 5rem;
+	transition: height 0.35s;
+}
+#nav-bar ul li{
+	padding: 1.125rem 1rem;
+}
+#nav-bar ul li a{
+	padding: 1rem;
+}
+#nav-bar .active{
+	color: var(--accent-dark);
+}
+#nav-title{
+	margin-left: 1rem;
+	padding: 1.3rem 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+#ham{
+	height: 2rem;
+	width: 2rem;
+	visibility: hidden;
+	margin: 1rem;
+    margin-left: 3rem;
+    background-image: url("../Assets/Menu.svg");
+    background-size: 100%;
+    padding: 1.25rem;
+    background-color: var(--foreground);
+}
+#ham:focus{
+	outline: none;
+    background-color: #e8e8e8;
+}
+
+body .ham-close{
+    background-image: url("../Assets/Close.svg") !important;
+}
+
+/* ------------- */
+/* Common Styles */
+/* ------------- */
+
+.large-title, .medium-title, .small-title{
+	font-family: 'Playfair Display', serif;
+	color: var(--text-dark);
+}
+.large-title{
+	font-size: 3.25rem;
+}
+.medium-title{
+	font-size: 2rem;
+}
+.small-title{
+	font-size: 1.625rem;
+}
+.small-body{
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.125rem;
+	color: var(--text-mid);
+	line-height: 3rem;
+}
+.accent-title{
+	font-family: 'Playfair Display', serif;
+	color: var(--accent-dark);
+	font-size: 1.5rem;
+}
+
+section{
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	flex-direction: column;
+}
+.inset-section{
+	background-color: var(--background);
+	position: relative;
+}
+.inset-section::before{
+	content: "";
+	display: block;
+	width: 100%;
+	height: 2rem;
+	background-image: linear-gradient(#E0E0E06B, #00000000);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.inset-section::after{
+	content: "";
+	display: block;
+	width: 100%;
+	height: 2rem;
+	background-image: linear-gradient(#00000000, #E0E0E06B);
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
+
+.yellow-shadow{
+	box-shadow: var(--shadow) var(--yellow-shadow);
+}
+
+.underline-half-title{
+	border-bottom: 2px solid var(--border);
+	padding-bottom: 1.75rem;
+	margin: 0rem 1.125rem 2rem 0;
+	margin-right: 68%;
+}
+.underline-title{
+	border-bottom: 2px solid var(--border);
+	padding-bottom: 1.5rem;
+}
+
+.box-button{
+	font-family: 'Roboto', sans-serif;
+	background-color: transparent;
+	border: 2px solid var(--accent-light);
+	color: var(--accent-dark);
+	padding: 1.25rem 1.95rem;
+	font-size: 1rem;
+	display: block;
+	width: max-content;
+}
+.box-button object{
+	height: initial;
+	width: initial;
+	padding-left: 2rem;
+	display: inline-block;
+}
+.box-button:hover{
+	background-color: var(--accent-mid);
+	border: 2px solid var(--accent-mid);
+	color: white;
+}
+.box-button:hover object{
+	filter: brightness(2);
+}
+
+.text-button{
+	font-family: 'Roboto', sans-serif;
+	color: var(--accent-mid);
+	font-size: 1.125rem;
+	padding: 0.5rem;
+	margin-left: -0.5rem;
+}
+.text-button:hover{
+	color: var(--accent-dark);
+	background-color: #F3EFE5;
+}
+
+.footer{
+	border-top: 1px solid var(--border);
+	width: 100%;
+	padding: 3.5rem;
+	display: flex;
+	flex-direction: column;
+}
+.footer span{
+	width: max-content;
+	margin: auto;
+	line-height: 2.5rem;
+}
+.footer a{
+	color: var(--link);
+}
+
+/* -------------------------- */
+/* Intro Section of Home.html */
+/* -------------------------- */
+
+#intro{
+	padding: 8% 19%;
+	padding-top: 8%;
+}
+#intro-title{
+	margin-bottom: 3rem;
+	line-height: 6rem;
+}
+#intro-text{
+	line-height: 3rem;
+	font-size: 1.25rem;
+}
+
+/* ------------------------- */
+/* Work Section of Home.html */
+/* ------------------------- */
+
+#work{
+	padding: 5% 10%;
+}
+.work-card{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.work-card img{
+	width: 42%;/*42rem;*/
+	/*height: 30rem;*/
+}
+.work-card div{
+	margin: auto 0% auto 8%;
+    width: 34%;
+}
+.work-card h2{
+	margin-right: 20%;
+	margin-bottom: 3rem;
+}
+
+/* ------------------------- */
+/* Blog Section of Home.html */
+/* ------------------------- */
+
+#blog{
+	padding: 5% 8%;
+}
+
+#blog h2{
+	margin: 0rem 1.125rem 3rem 0rem;
+	margin-right: 68%;
+}
+
+#blog-container, #portfolio-container{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: -1.125rem;
+}
+
+/* ------------------------------- */
+/* Title Section of Portfolio.html */
+/* ------------------------------- */
+
+#portfolio-title-section, #blog-title-section{
+	padding: 2.5% 8%;
+}
+
+/* ------------------------------ */
+/* Work Section of Portfolio.html */
+/* ------------------------------ */
+
+#portfolio-work-section, #blog-body-section{
+	padding: 3% 8%;
+}
+
+/* -------------------------- */
+/* Title Section of Post.html */
+/* -------------------------- */
+
+#post-title-section, #post-body-section{
+	padding: 3% 25%;
+}
+
+#post-title-section div{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+#post-title-section div:first-child{
+	border-bottom: 1px solid var(--border);
+	padding-top: 1.5rem;
+}
+#post-title-section div:first-child h3{
+	align-self: flex-end;
+}
+#post-title-section div:nth-child(2){
+	margin: 1.25rem 0;
+}
+
+/* ------------------------- */
+/* Body Section of Post.html */
+/* ------------------------- */
+
+#post-body-section h3, #post-body-section span{
+	margin: 1.75rem 0;
+}
+#post-body-section img{
+	margin: 3.5rem -10%;
+	width: 120%;
+}
+
+/* --------------------------- */
+/* Body Section of Viewer.html */
+/* --------------------------- */
+
+#viewer-body-section{
+	display: flex;
+	flex-direction: row;
+}
+#viewer-body-section div:first-child{
+	display: flex;
+	flex-direction: row;
+	padding: 0.5rem;
+	height: max-content;
+	flex-basis: 55%;
+	margin: auto;
+}
+#viewer-body-section div:first-child button{
+	width: 4rem;
+	background-color: #FFFFFF00;
+	width: 7.5%;
+
+	background-image: url(../Assets/MoveLeft.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+}
+#viewer-body-section div:first-child button:nth-child(3){
+	background-image: url(../Assets/MoveRight.svg);
+}
+#viewer-body-section div:first-child button:hover{
+	background-color: #FFFFFFA0;
+}
+#viewer-body-section div:first-child img{
+    width: 85%;
+}
+#viewer-body-section div:nth-child(2){
+	display: flex;
+	flex-direction: column;
+	padding: 6% 10%;
+	flex-basis: 45%;
+}
+#viewer-body-section div:nth-child(2) h3{
+	margin-top: 1rem;
+}
+#viewer-body-section div:nth-child(2) span{
+	margin: 2rem 0;
+}
+
+.image-slider{
+	display: flex;
+	position: relative;
+	bottom: 0;
+	overflow-x: scroll;
+}
+.image-slider img{
+	height: 8rem;
+	margin: 1rem 0.5rem;
+}
+
+/* --------- */
+/* Blog Card */
+/* --------- */
+
+.blog-card{
+	margin: 1.125rem;
+	box-shadow: var(--shadow) var(--grey-shadow);
+	width: calc(33.33% - 2.25rem);
+	background-color: var(--foreground);
+}
+.blog-card img{
+	width: 100%;
+}
+.blog-card h3{
+	margin-bottom: 1.75rem;
+}
+.blog-card-content{
+	padding: 3rem;
+}
+.blog-card-content div{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 2rem;
+}
+.blog-card-content a{
+
+}
+.blog-card-content div span{
+	font-family: 'Roboto', sans-serif;
+	margin-left: auto;
+	line-height: initial;
+}
+
+/* ----------- */
+/* Filter Card */
+/* ----------- */
+
+.filter-card{
+	list-style-type: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.filter-card li{
+	padding: 0 0;
+}
+.filter-card .active{
+	border-bottom: 2px solid var(--border);
+}
+
+/* -------------- */
+/* Portfolio Card */
+/* -------------- */
+
+.portfolio-card{
+	margin: 1.125rem;
+	box-shadow: var(--shadow) var(--yellow-shadow);
+	width: calc(33.33% - 2.25rem);
+	overflow: hidden;
+}
+.portfolio-card img{
+	width: 100%;
+	transition: transform 1s;
+}
+.portfolio-card:hover img{
+	transition: transform 1s;
+    transform: scale(1.1);
+}
