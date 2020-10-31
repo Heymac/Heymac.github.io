@@ -130,7 +130,6 @@ button{
 	border: none;
 	outline: none;
 	padding: 0;
-	background-color: #FFFFFF00;
 
 	font-family: 'Roboto', sans-serif;
 	background-color: transparent;
@@ -188,9 +187,9 @@ button:hover{
 	margin: 1rem;
     margin-left: 3rem;
     background-image: url("../Assets/Menu.svg");
+    background-color: var(--foreground);
     background-size: 100%;
     padding: 1.25rem;
-    background-color: var(--foreground);
 }
 #ham:focus{
 	outline: none;
@@ -467,7 +466,7 @@ section{
 	display: flex;
 	flex-direction: row;
 }
-#viewer-body-section div:first-child{
+#viewer-body-section > div:first-child{
 	display: flex;
 	flex-direction: row;
 	padding: 0.5rem;
@@ -475,36 +474,37 @@ section{
 	flex-basis: 55%;
 	margin: auto;
 }
-#viewer-body-section div:first-child button{
+#viewer-body-section > div:first-child button{
 	width: 4rem;
-	background-color: #FFFFFF00;
 	width: 7.5%;
 
+	background-color: #FFFFFF00;
 	background-image: url(../Assets/MoveLeft.svg);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+
     z-index: 2;
 }
-#viewer-body-section div:first-child button:nth-child(3){
+#viewer-body-section > div:first-child button:nth-child(3){
 	background-image: url(../Assets/MoveRight.svg);
 }
-#viewer-body-section div:first-child button:hover{
+#viewer-body-section > div:first-child button:hover{
 	background-color: #FFFFFFA0;
 }
-#viewer-body-section div:first-child img{
+#viewer-body-section > div:first-child img{
     width: 85%;
 }
-#viewer-body-section div:nth-child(2){
+#viewer-body-section > div:nth-child(2){
 	display: flex;
 	flex-direction: column;
 	padding: 6% 10%;
 	flex-basis: 45%;
 }
-#viewer-body-section div:nth-child(2) h3{
+#viewer-body-section > div:nth-child(2) h3{
 	margin-top: 1rem;
 }
-#viewer-body-section div:nth-child(2) span{
+#viewer-body-section > div:nth-child(2) span{
 	margin: 2rem 0;
 }
 
