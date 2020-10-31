@@ -130,6 +130,12 @@ button{
 	border: none;
 	outline: none;
 	padding: 0;
+	background-color: #FFFFFF00;
+
+	font-family: 'Roboto', sans-serif;
+	background-color: transparent;
+	color: var(--text-mid);
+	font-size: 1.125rem;
 }
 button:hover{	
 	cursor: pointer;
@@ -280,18 +286,24 @@ section{
 	display: block;
 	width: max-content;
 }
-.box-button object{
-	height: initial;
-	width: initial;
-	padding-left: 2rem;
+.box-button div{
+	margin-left: 2rem;
 	display: inline-block;
+}
+
+.button-arrow{
+	background-image: url("../Assets/ArrowRight.svg");
+	background-size: contain;
+	background-repeat: no-repeat;
+	height: 0.5rem;
+	width: 3.5rem;
 }
 .box-button:hover{
 	background-color: var(--accent-mid);
 	border: 2px solid var(--accent-mid);
 	color: white;
 }
-.box-button:hover object{
+.box-button:hover .button-arrow{
 	filter: brightness(2);
 }
 
@@ -305,6 +317,16 @@ section{
 .text-button:hover{
 	color: var(--accent-dark);
 	background-color: #F3EFE5;
+}
+.back-next{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+}
+.back-next .box-button:first-child .button-arrow{
+	margin-right: 2rem;
+	margin-left: 0;
+	transform: scaleX(-1);
 }
 
 .footer{
@@ -356,7 +378,7 @@ section{
 	width: 42%;/*42rem;*/
 	/*height: 30rem;*/
 }
-.work-card div{
+.work-card > div{
 	margin: auto 0% auto 8%;
     width: 34%;
 }
@@ -495,6 +517,11 @@ section{
 .image-slider img{
 	height: 8rem;
 	margin: 1rem 0.5rem;
+}
+
+.image-slider .active{
+	padding: 1px;
+	border: 0.25rem solid var(--accent-light);
 }
 
 /* --------- */
