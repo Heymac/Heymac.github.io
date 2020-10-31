@@ -27,7 +27,7 @@
 	body .work-card{
 		flex-direction: column;
 	}
-	body .work-card div{
+	body .work-card > div{
 		margin: 2rem auto;
 		order: 1;
 		width: auto;
@@ -78,6 +78,13 @@
 	}
 	body #post-title-section, body #post-body-section{
 		padding: 3% 12%;
+	}
+	body .box-button{
+		width: auto;
+		text-align: center;
+	}
+	body .button-arrow{
+		display: none !important;
 	}
 }
 
