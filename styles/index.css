@@ -177,6 +177,9 @@ body {
 	body .projectWrapper .double-photo div, body .projectWrapper .triple-photo div, body .projectWrapper .quad-photo div{
 		width: 100%;
 	}
+	body .projectWrapper .double-photo img, body .projectWrapper .triple-photo img, body .projectWrapper .quad-photo img{
+		width: 100%;
+	}
 	body .projectWrapper .heading{
 	    flex-direction: column;
 	}
