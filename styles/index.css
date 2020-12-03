@@ -197,6 +197,7 @@ body {
 	}
 	body .projectWrapper .round-photo{
 		width: 100%;
+		margin-bottom: 10%;
 	}
 
 	body .projectWrapper .quad-photo span:nth-of-type(2){
