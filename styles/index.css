@@ -27,6 +27,9 @@
 
 	--soundsystemColor: 				#e03030;
 	--soundsystemColorOpacity: 			#e03030d9;
+
+	--landscapeColor: 					#55663d;
+	--landscapeColorOpacity: 			#55663dd9;
 }
 
 #project1 .header/*, #project1 .projTitles*/{
@@ -55,6 +58,13 @@
 }
 #project4 .mainGoal{
 	background-color: var(--soundsystemColor);
+}
+
+#project5 .header/*, #project3 .projTitles*/{
+	background-color: var(--landscapeColor);
+}
+#project5 .mainGoal{
+	background-color: var(--landscapeColor);
 }
 
 /*#project3 .header{
