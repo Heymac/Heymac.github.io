@@ -145,7 +145,7 @@
 		const clonedElement = originalElement.cloneNode(true);
 		clonedElement.getElementsByClassName('hour')[0].innerText = i;
 		var circles = clonedElement.getElementsByTagName('circle');
-		if (i > 7 && i < 17) {
+		if (i > 7 && i < 17 && i != 12) {
 			for (var a = 0; a < circles.length; a++) {
 				circles[a].setAttribute('data-hour', 'work');
 				circles[a].setAttribute('stroke', 'white');
