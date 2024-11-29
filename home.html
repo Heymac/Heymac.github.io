@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+	</style>
+	<style>
+		:root {
+		  --grey: #595959;
+		  --white: #ffffff;
+		  --gold: #F9BB36;
+		}
+	body {
+	  background-color: #222222;
+	  margin: 0;
+	}
+	div{
+		display: flex;
+	}
+	.column{
+		display: flex;
+  		flex-direction: column;
+	}
+	#day1{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin:4%;
+	}
+	.button{
+		display: flex;
+	}
+	.hour{
+		font-family: roboto;
+    	color: white;
+    	font-size: 1.5vw;
+    	align-self: center;
+	}
+	</style>
+</head>
+<body>
+	<div id="day1">
+		<div class="column">
+			<div class="hour">0</div>
+			<div class="button" onclick="
+				const circle = this.getElementsByTagName('circle')[0];
+				if (circle.getAttribute('data-toggle')=='off'){
+					circle.setAttribute('fill', 'white');
+					circle.setAttribute('stroke', 'white');
+					circle.setAttribute('data-toggle', 'on');
+				}
+				else{
+					if (circle.getAttribute('data-hour')=='nowork') {
+						circle.setAttribute('fill', 'none');
+						circle.setAttribute('stroke', 'var(--grey)');
+					}
+					else{
+						circle.setAttribute('fill', 'none');
+						circle.setAttribute('stroke', 'white');
+					}
+					circle.setAttribute('data-toggle', 'off');
+					
+				}
+				
+			" oncontextmenu="
+				const circle = this.getElementsByTagName('circle')[0];
+				if (circle.getAttribute('data-toggle')=='off'){
+					circle.setAttribute('fill', 'var(--gold)');
+					circle.setAttribute('stroke', 'var(--gold)');
+					circle.setAttribute('data-toggle', 'over');
+				}
+				else{
+					if (circle.getAttribute('data-hour')=='nowork') {
+						circle.setAttribute('fill', 'none');
+						circle.setAttribute('stroke', 'var(--grey)');
+					}
+					else{
+						circle.setAttribute('fill', 'none');
+						circle.setAttribute('stroke', 'white');
+					}
+					circle.setAttribute('data-toggle', 'off');
+					
+				}
+				return false;
+			">
+				<svg height="4vw" width="4vw">
+				  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="var(--grey)" stroke-width="0.5vw" data-toggle="off" data-hour="nowork"/>
+				</svg>
+			</div>
+			<script type="text/javascript" id="inlineScript">
+			
+			for (let i = 0; i < 3; i++) {
+				const originalElement = document.getElementsByClassName("button")[0];
+				const clonedElement = originalElement.cloneNode(true);
+				document.getElementsByClassName("column")[0].appendChild(clonedElement);
+			}
+
+			var scriptElement = document.getElementById("inlineScript"); 
+			scriptElement.parentNode.removeChild(scriptElement); 
+
+			</script>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	for (let i = 1; i < 24; i++) {
+		const originalElement = document.getElementsByClassName("column")[0];
+		const clonedElement = originalElement.cloneNode(true);
+		clonedElement.getElementsByClassName('hour')[0].innerText = i;
+		var circles = clonedElement.getElementsByTagName('circle');
+		if (i > 7 && i < 17) {
+			for (var a = 0; a < circles.length; a++) {
+				circles[a].setAttribute('data-hour', 'work');
+				circles[a].setAttribute('stroke', 'white');
+			}
+		}
+		document.getElementById("day1").appendChild(clonedElement);
+	}
+	</script>
+</body>
+
+</html>
