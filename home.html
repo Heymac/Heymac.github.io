@@ -215,6 +215,7 @@
 	<div id="text">
 		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
 			const text = this.value;
+			localStorage.setItem('textContent', document.getElementById('timeentry').value);
 			const lines = text.split(/\r?\n/);
 
 			clearBoard();
@@ -277,41 +278,6 @@
 						}
 					}
 				}
-
-				// for (var a = starthour; a <= endhour; a++) {
-				// 	let circles = document.getElementsByClassName('column')[a].getElementsByTagName('circle');
-
-				// 	if ((endmin-startmin) <= 0){
-				// 			for (var b = 0; b < endmin; b+=15) {
-				// 				turnOnCircle(circles[b/15]);
-				// 			}
-				// 		}
-
-
-				// 	if (endhour-a == 0){
-				// 		if ((endmin-startmin) <= 0){
-				// 			for (var b = 0; b < endmin; b+=15) {
-				// 				turnOnCircle(circles[b/15]);
-				// 			}
-				// 		}
-				// 		else{
-				// 			for (var b = startmin; b < endmin; b+=15) {
-				// 				turnOnCircle(circles[b/15]);
-				// 			}
-				// 		}
-				// 	}
-				// 	else if (endhour-a == 1){
-				// 		for (var b = startmin; b <= 45; b+=15) {
-				// 			turnOnCircle(circles[b/15]);
-				// 		}
-				// 	}
-				// 	else if (endhour-a > 1){
-				// 		turnOnCircle(circles[0]);
-				// 		turnOnCircle(circles[1]);
-				// 		turnOnCircle(circles[2]);
-				// 		turnOnCircle(circles[3]);
-				// 	}
-				// }
 			}
 
 			for (var i = 0; i < projectlist.length; i++) {
@@ -325,7 +291,7 @@
 			console.log(projectlist);
 			console.log(projecttime);
 
-		"></textarea>
+		" ></textarea>
 		<div id="projects">
 			<div class="project text">
 				<div>HN235123</div>
@@ -348,7 +314,7 @@
 		}
 		document.getElementById("day1").appendChild(clonedElement);
 	}
-	console.log('elements setup');
+	document.getElementById('timeentry').value = localStorage.getItem('textContent');
 	</script>
 </body>
 
