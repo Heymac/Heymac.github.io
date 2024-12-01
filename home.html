@@ -17,6 +17,21 @@
 	div{
 		display: flex;
 	}
+
+	::-webkit-scrollbar {
+	  width: 1vw;
+	}
+	::-webkit-scrollbar-track {
+	  background: none; 
+	}
+	::-webkit-scrollbar-thumb {
+	  background: var(--grey); 
+	  border-radius: 1vw;
+	}
+	::-webkit-scrollbar-thumb:hover {
+	  background: #555; 
+	}
+
 	.column{
 		display: flex;
   		flex-direction: column;
@@ -52,17 +67,45 @@
 	#total{
 		font-size: 2vw;
 	}
+	#text{
+		margin: 2.5vw;
+		column-gap: 2.5vw;
+	}
 	#timeentry{
 		background-color: rgba(255, 255, 255, 0.03);
-		border: none;
-		margin: 2.5vw;
+    	border: 0.25vw solid #ffffff00;
 		padding: 1vw;
 		resize: none;
 		width: 100%;
+		flex-basis: 50%;
+	}
+	#timeentry:focus {
+		outline: none !important;
+    	border: 0.25vw solid #373737;
+	}
+	#projects{
+		flex-basis: 50%;
+    	gap: 1vw;
+    	flex-wrap: wrap;
+    	align-content: flex-start;
+	}
+	#projects .project:first-child{
+		display: none;
+	}
+	.project{
+		border: solid 0.25vw #373737;
+	}
+	.project div{
+		padding: 0.75vw;
+	}
+	.project div:first-child{
+    	border-right: solid 0.25vw #373737;
 	}
 	</style>
 </head>
 <body><script type="text/javascript">
+		var projectlist = [];
+		var projecttime = [];
 		var over32 = false;
 		function updateBoard() {
 			over32 = false;
@@ -125,6 +168,14 @@
 				turnOffCircle(circle);
 			}
 		}
+		function clearProjects(){
+			projectlist = [];
+			projecttime = [];
+			const originalElement = document.getElementsByClassName('project')[0];
+			const clonedElement = originalElement.cloneNode(true);
+			document.getElementById('projects').innerHTML = '';
+			document.getElementById('projects').appendChild(clonedElement);
+		}
 	</script>
 	<div id="day1">
 		<div class="column">
@@ -163,10 +214,11 @@
 	</div>
 	<div id="text">
 		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
-			const text = document.getElementById('timeentry').value;
+			const text = this.value;
 			const lines = text.split(/\r?\n/);
 
 			clearBoard();
+			clearProjects();
 
 			for (var i = 0; i < lines.length; i++) {
 				let pattern = /\d{1,4}/g; 
@@ -197,6 +249,16 @@
 
 				console.log(starthour+':'+startmin+' , '+endhour+':'+endmin);
 
+				var noteindex = projectlist.indexOf(note.toUpperCase());
+				var projecthours = ((endhour-starthour) + (endmin-startmin)/60);
+				if (noteindex >= 0){
+					projecttime[noteindex] += projecthours;
+				}
+				else{
+					projectlist.push(note.toUpperCase());
+					projecttime.push(projecthours);
+				}
+
 				for (var a = starthour; a <= endhour; a++) {
 					let circles = document.getElementsByClassName('column')[a].getElementsByTagName('circle');
 					if (endhour-a == 0){
@@ -225,7 +287,23 @@
 				}
 			}
 
+			for (var i = 0; i < projectlist.length; i++) {
+				const originalElement = document.getElementsByClassName('project')[0];
+				const clonedElement = originalElement.cloneNode(true);
+				clonedElement.children[0].innerText = projectlist[i];
+				clonedElement.children[1].innerText = projecttime[i].toFixed(2);
+				document.getElementById('projects').appendChild(clonedElement);
+			}
+
+			console.log(projectlist);
+			console.log(projecttime);
+
 		"></textarea>
+		<div id="projects">
+			<div class="project text">
+				<div>HN235123</div>
+				<div>1.25</div>
+		</div>
 	</div>
 
 	<script type="text/javascript">
@@ -243,6 +321,7 @@
 		}
 		document.getElementById("day1").appendChild(clonedElement);
 	}
+	console.log('elements setup');
 	</script>
 </body>
 
