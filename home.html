@@ -42,6 +42,9 @@
     	font-size: 1.5vw;
 
 	}
+	.workcolumn{
+		background-color: #ffffff17;
+	}
 	#income{
 		margin: 0vw 2.5vw;
 		justify-content: space-between;
@@ -49,25 +52,78 @@
 	#total{
 		font-size: 2vw;
 	}
+	#timeentry{
+		background-color: rgba(255, 255, 255, 0.03);
+		border: none;
+		margin: 2.5vw;
+		padding: 1vw;
+		resize: none;
+		width: 100%;
+	}
 	</style>
 </head>
 <body><script type="text/javascript">
-		function update() {
+		var over32 = false;
+		function updateBoard() {
+			over32 = false;
 			circles = document.getElementsByTagName('circle');
-			var hoursworked = 0;
-			var hoursover = 0;
+			var quartersworked = 0;
+			var quartersover = 0;
 			for (var i = 0; i < circles.length; i++) {
 				var datatoggle = circles[i].getAttribute('data-toggle');
 				if (datatoggle!='off'){
 					if (datatoggle=="on"){
-						hoursworked++;
+						quartersworked++;
+						if (quartersworked >= 32){
+							over32 = true;
+						}
 					}
 					else if(datatoggle=="over"){
-						hoursover++;
+						quartersover++;
 					}
 				}
 			}
-			document.getElementById('total').innerText = '$ ' + ((hoursworked*15/4)+(hoursover*23/4));
+			document.getElementById('total').innerText = '$ ' + ((quartersworked*15/4)+(quartersover*23/4));
+		}
+		function clearBoard() {
+			circles = document.getElementsByTagName('circle');
+			for (var i = 0; i < circles.length; i++) {
+				turnOffCircle(circles[i]);
+			}
+			console.log('cleared');
+		}
+		function turnOnCircle(circle, isOvertime){
+			if (isOvertime || over32){
+				circle.setAttribute('fill', 'var(--gold)');
+				circle.setAttribute('stroke', 'var(--gold)');
+				circle.setAttribute('data-toggle', 'over');
+			}
+			else{
+				circle.setAttribute('fill', 'white');
+				circle.setAttribute('stroke', 'white');
+				circle.setAttribute('data-toggle', 'on');
+			}
+			updateBoard();
+		}
+		function turnOffCircle(circle){
+			if (circle.getAttribute('data-hour')=='nowork') {
+				circle.setAttribute('fill', 'none');
+				circle.setAttribute('stroke', 'var(--grey)');
+			}
+			else{
+				circle.setAttribute('fill', 'none');
+				circle.setAttribute('stroke', 'white');
+			}
+			circle.setAttribute('data-toggle', 'off');
+			updateBoard();
+		}
+		function toggleCircle(circle, overide, isOvertime){
+			if (circle.getAttribute('data-toggle')=='off'){
+				turnOnCircle(circle, isOvertime);
+			}
+			else if (overide != false){
+				turnOffCircle(circle);
+			}
 		}
 	</script>
 	<div id="day1">
@@ -75,45 +131,12 @@
 			<div class="hour">0</div>
 			<div class="button" onclick="
 				const circle = this.getElementsByTagName('circle')[0];
-				if (circle.getAttribute('data-toggle')=='off'){
-					circle.setAttribute('fill', 'white');
-					circle.setAttribute('stroke', 'white');
-					circle.setAttribute('data-toggle', 'on');
-				}
-				else{
-					if (circle.getAttribute('data-hour')=='nowork') {
-						circle.setAttribute('fill', 'none');
-						circle.setAttribute('stroke', 'var(--grey)');
-					}
-					else{
-						circle.setAttribute('fill', 'none');
-						circle.setAttribute('stroke', 'white');
-					}
-					circle.setAttribute('data-toggle', 'off');
-					
-				}
-				update();
+				toggleCircle(circle, true, false);
 				
 			" oncontextmenu="
 				const circle = this.getElementsByTagName('circle')[0];
-				if (circle.getAttribute('data-toggle')=='off'){
-					circle.setAttribute('fill', 'var(--gold)');
-					circle.setAttribute('stroke', 'var(--gold)');
-					circle.setAttribute('data-toggle', 'over');
-				}
-				else{
-					if (circle.getAttribute('data-hour')=='nowork') {
-						circle.setAttribute('fill', 'none');
-						circle.setAttribute('stroke', 'var(--grey)');
-					}
-					else{
-						circle.setAttribute('fill', 'none');
-						circle.setAttribute('stroke', 'white');
-					}
-					circle.setAttribute('data-toggle', 'off');
-					
-				}
-				update();
+				toggleCircle(circle, true, true);
+				updateBoard();
 				return false;
 			">
 				<svg height="4vw" width="4vw">
@@ -138,6 +161,72 @@
 		<div class="text">Estimated Income</div>
 		<div class="text" id="total">$0</div>
 	</div>
+	<div id="text">
+		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
+			const text = document.getElementById('timeentry').value;
+			const lines = text.split(/\r?\n/);
+
+			clearBoard();
+
+			for (var i = 0; i < lines.length; i++) {
+				let pattern = /\d{1,4}/g; 
+				let result = lines[i].match(pattern);
+				let starttime = result[0];
+				let endtime = result[1];
+				let note = lines[i].slice(lines[i].search(/ /i)+1);
+				console.log('start: '+starttime+', end: '+endtime+', note:'+note);
+
+				let starthour;
+				let startmin;
+				let endhour;
+				let endmin;
+
+				if (starttime.length <= 2){
+					starthour = parseInt(starttime);
+					startmin = 0;}
+				else{
+					startmin = parseInt(starttime.slice(-2));
+					starthour = parseInt(starttime.slice(0, -2));}
+
+				if (endtime.length <= 2){
+					endhour = parseInt(endtime);
+					endmin = 0;}
+				else{
+					endmin = parseInt(endtime.slice(-2));
+					endhour = parseInt(endtime.slice(0, -2));}
+
+				console.log(starthour+':'+startmin+' , '+endhour+':'+endmin);
+
+				for (var a = starthour; a <= endhour; a++) {
+					let circles = document.getElementsByClassName('column')[a].getElementsByTagName('circle');
+					if (endhour-a == 0){
+						if ((endmin-startmin) <= 0){
+							for (var b = 0; b < endmin; b+=15) {
+								turnOnCircle(circles[b/15]);
+							}
+						}
+						else{
+							for (var b = startmin; b < endmin; b+=15) {
+								turnOnCircle(circles[b/15]);
+							}
+						}
+					}
+					else if (endhour-a == 1){
+						for (var b = startmin; b <= 45; b+=15) {
+							turnOnCircle(circles[b/15]);
+						}
+					}
+					else if (endhour-a > 1){
+						turnOnCircle(circles[0]);
+						turnOnCircle(circles[1]);
+						turnOnCircle(circles[2]);
+						turnOnCircle(circles[3]);
+					}
+				}
+			}
+
+		"></textarea>
+	</div>
 
 	<script type="text/javascript">
 	for (let i = 1; i < 24; i++) {
@@ -146,6 +235,7 @@
 		clonedElement.getElementsByClassName('hour')[0].innerText = i;
 		var circles = clonedElement.getElementsByTagName('circle');
 		if (i > 7 && i < 17 && i != 12) {
+			clonedElement.classList.add("workcolumn");
 			for (var a = 0; a < circles.length; a++) {
 				circles[a].setAttribute('data-hour', 'work');
 				circles[a].setAttribute('stroke', 'white');
