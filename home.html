@@ -67,6 +67,7 @@
 	#total{
 		font-size: 2vw;
 	}
+
 	#text{
 		margin: 2.5vw;
 		column-gap: 2.5vw;
@@ -107,11 +108,13 @@
 		var projectlist = [];
 		var projecttime = [];
 		var over32 = false;
+		var quartersworked = 0;
+		var quartersover = 0;
 		function updateBoard() {
 			over32 = false;
 			circles = document.getElementsByTagName('circle');
-			var quartersworked = 0;
-			var quartersover = 0;
+			quartersworked = 0;
+			quartersover = 0;
 			for (var i = 0; i < circles.length; i++) {
 				var datatoggle = circles[i].getAttribute('data-toggle');
 				if (datatoggle!='off'){
@@ -126,7 +129,7 @@
 					}
 				}
 			}
-			document.getElementById('total').innerText = '$ ' + ((quartersworked*15/4)+(quartersover*23/4));
+			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4));
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
@@ -209,8 +212,13 @@
 		</div>
 	</div>
 	<div id="income">
-		<div class="text">Estimated Income</div>
-		<div class="text" id="total">$0</div>
+		<div class="text">Hours</div>
+		<div class="text" id="total" onmouseover="
+			this.innerHTML='$ '+((quartersworked*15/4)+(quartersover*23/4));
+		"
+		onmouseout="
+			this.innerHTML=((quartersworked/4)+(quartersover/4));
+		">0</div>
 	</div>
 	<div id="text">
 		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
