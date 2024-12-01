@@ -259,32 +259,59 @@
 					projecttime.push(projecthours);
 				}
 
+				let timecounter = projecthours*4;
+				let columns = document.getElementsByClassName('column');
+
 				for (var a = starthour; a <= endhour; a++) {
-					let circles = document.getElementsByClassName('column')[a].getElementsByTagName('circle');
-					if (endhour-a == 0){
-						if ((endmin-startmin) <= 0){
-							for (var b = 0; b < endmin; b+=15) {
-								turnOnCircle(circles[b/15]);
-							}
-						}
-						else{
-							for (var b = startmin; b < endmin; b+=15) {
-								turnOnCircle(circles[b/15]);
-							}
+					let circles = columns[a].getElementsByTagName('circle');
+					if (a == starthour){
+						for (var b = startmin/15;b <= 3 && timecounter>0; b++) {
+							turnOnCircle(circles[b]);
+							timecounter--;
 						}
 					}
-					else if (endhour-a == 1){
-						for (var b = startmin; b <= 45; b+=15) {
-							turnOnCircle(circles[b/15]);
+					else{
+						for (var b = 0;b <= 3 && timecounter>0; b++) {
+							turnOnCircle(circles[b]);
+							timecounter--;
 						}
-					}
-					else if (endhour-a > 1){
-						turnOnCircle(circles[0]);
-						turnOnCircle(circles[1]);
-						turnOnCircle(circles[2]);
-						turnOnCircle(circles[3]);
 					}
 				}
+
+				// for (var a = starthour; a <= endhour; a++) {
+				// 	let circles = document.getElementsByClassName('column')[a].getElementsByTagName('circle');
+
+				// 	if ((endmin-startmin) <= 0){
+				// 			for (var b = 0; b < endmin; b+=15) {
+				// 				turnOnCircle(circles[b/15]);
+				// 			}
+				// 		}
+
+
+				// 	if (endhour-a == 0){
+				// 		if ((endmin-startmin) <= 0){
+				// 			for (var b = 0; b < endmin; b+=15) {
+				// 				turnOnCircle(circles[b/15]);
+				// 			}
+				// 		}
+				// 		else{
+				// 			for (var b = startmin; b < endmin; b+=15) {
+				// 				turnOnCircle(circles[b/15]);
+				// 			}
+				// 		}
+				// 	}
+				// 	else if (endhour-a == 1){
+				// 		for (var b = startmin; b <= 45; b+=15) {
+				// 			turnOnCircle(circles[b/15]);
+				// 		}
+				// 	}
+				// 	else if (endhour-a > 1){
+				// 		turnOnCircle(circles[0]);
+				// 		turnOnCircle(circles[1]);
+				// 		turnOnCircle(circles[2]);
+				// 		turnOnCircle(circles[3]);
+				// 	}
+				// }
 			}
 
 			for (var i = 0; i < projectlist.length; i++) {
