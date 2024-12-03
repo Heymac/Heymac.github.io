@@ -6,7 +6,7 @@
 	</style>
 	<style>
 		:root {
-		  --grey: #595959;
+		  --grey: #5959597a;
 		  --white: #ffffff;
 		  --gold: #F9BB36;
 		}
@@ -62,10 +62,22 @@
 		background-color: #ffffff17;
 	}
 	#income{
-		justify-content: space-between;
+
+	}
+	#income div{
+		display: initial;
+		flex: 1 1 0px;
 	}
 	#total{
+		text-align: right;
+	}
+	#clock{
 		font-size: 2vw;
+		color: var(--gold);
+		text-align: center;
+	}
+	#day{
+		text-align: left;
 	}
 
 	#text{
@@ -104,7 +116,8 @@
 	}
 	</style>
 </head>
-<body><script type="text/javascript">
+<body>
+	<script type="text/javascript">
 		var projectlist = [];
 		var projecttime = [];
 		var over32 = false;
@@ -129,7 +142,7 @@
 					}
 				}
 			}
-			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4));
+			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
@@ -179,6 +192,22 @@
 			document.getElementById('projects').innerHTML = '';
 			document.getElementById('projects').appendChild(clonedElement);
 		}
+		const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+		const now = new Date();
+		function updateClock() {
+			const day = now.getDay();
+			const hours = now.getHours();
+			const minutes = now.getMinutes();
+			const seconds = now.getSeconds();
+
+			function padZero(number) {
+				return number < 10 ? '0' + number : number;
+			}
+			const formattedTime = `${padZero(hours)}:${padZero(minutes)}`;
+
+			document.getElementById('clock').textContent = formattedTime;
+			document.getElementById('day').textContent = weekday[day].toUpperCase();
+		}
 	</script>
 	<div id="day1">
 		<div class="column">
@@ -212,13 +241,14 @@
 		</div>
 	</div>
 	<div id="income">
-		<div class="text">Hours</div>
+		<div class="text" id="day">MONDAY</div>
+		<div class="text" id="clock">12:10</div>
 		<div class="text" id="total" onmouseover="
 			this.innerHTML='$ '+((quartersworked*15/4)+(quartersover*23/4));
 		"
 		onmouseout="
-			this.innerHTML=((quartersworked/4)+(quartersover/4));
-		">0</div>
+			this.innerHTML=((quartersworked/4)+(quartersover/4) + ' hrs');
+		">0 hrs</div>
 	</div>
 	<div id="text">
 		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
@@ -322,6 +352,9 @@
 		}
 		document.getElementById("day1").appendChild(clonedElement);
 	}
+	updateClock();
+	setInterval(updateClock, 1000);
+
 	document.getElementById('timeentry').value = localStorage.getItem('textContent');
 	</script>
 </body>
