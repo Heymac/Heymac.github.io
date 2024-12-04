@@ -114,158 +114,42 @@
 	.project div:first-child{
     	border-right: solid 0.25vw #373737;
 	}
+	#weekletters{
+		gap: 2.2vw;
+		margin: 1vw 1.1vw 1vw 0.9vw;
+	}
 	</style>
 </head>
 <body>
 	<script type="text/javascript">
 		var projectlist = [];
 		var projecttime = [];
-		var over32 = false;
 		var quartersworked = 0;
 		var quartersover = 0;
+		var dayofweek = 0;
+
 		function updateBoard() {
-			over32 = false;
-			circles = document.getElementsByTagName('circle');
-			quartersworked = 0;
-			quartersover = 0;
-			for (var i = 0; i < circles.length; i++) {
-				var datatoggle = circles[i].getAttribute('data-toggle');
-				if (datatoggle!='off'){
-					if (datatoggle=="on"){
-						quartersworked++;
-						if (quartersworked >= 32){
-							over32 = true;
-						}
-					}
-					else if(datatoggle=="over"){
-						quartersover++;
-					}
-				}
-			}
-			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
-		}
-		function clearBoard() {
-			circles = document.getElementsByTagName('circle');
-			for (var i = 0; i < circles.length; i++) {
-				turnOffCircle(circles[i]);
-			}
-			console.log('cleared');
-		}
-		function turnOnCircle(circle, isOvertime){
-			if (isOvertime || over32){
-				circle.setAttribute('fill', 'var(--gold)');
-				circle.setAttribute('stroke', 'var(--gold)');
-				circle.setAttribute('data-toggle', 'over');
-			}
-			else{
-				circle.setAttribute('fill', 'white');
-				circle.setAttribute('stroke', 'white');
-				circle.setAttribute('data-toggle', 'on');
-			}
-			updateBoard();
-		}
-		function turnOffCircle(circle){
-			if (circle.getAttribute('data-hour')=='nowork') {
-				circle.setAttribute('fill', 'none');
-				circle.setAttribute('stroke', 'var(--grey)');
-			}
-			else{
-				circle.setAttribute('fill', 'none');
-				circle.setAttribute('stroke', 'white');
-			}
-			circle.setAttribute('data-toggle', 'off');
-			updateBoard();
-		}
-		function toggleCircle(circle, overide, isOvertime){
-			if (circle.getAttribute('data-toggle')=='off'){
-				turnOnCircle(circle, isOvertime);
-			}
-			else if (overide != false){
-				turnOffCircle(circle);
-			}
-		}
-		function clearProjects(){
-			projectlist = [];
-			projecttime = [];
-			const originalElement = document.getElementsByClassName('project')[0];
-			const clonedElement = originalElement.cloneNode(true);
-			document.getElementById('projects').innerHTML = '';
-			document.getElementById('projects').appendChild(clonedElement);
-		}
-		const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-		const now = new Date();
-		function updateClock() {
-			const day = now.getDay();
-			const hours = now.getHours();
-			const minutes = now.getMinutes();
-			const seconds = now.getSeconds();
-
-			function padZero(number) {
-				return number < 10 ? '0' + number : number;
-			}
-			const formattedTime = `${padZero(hours)}:${padZero(minutes)}`;
-
-			document.getElementById('clock').textContent = formattedTime;
-			document.getElementById('day').textContent = weekday[day].toUpperCase();
-		}
-	</script>
-	<div id="day1">
-		<div class="column">
-			<div class="hour">0</div>
-			<div class="button" onclick="
-				const circle = this.getElementsByTagName('circle')[0];
-				toggleCircle(circle, true, false);
-				
-			" oncontextmenu="
-				const circle = this.getElementsByTagName('circle')[0];
-				toggleCircle(circle, true, true);
-				updateBoard();
-				return false;
-			">
-				<svg height="4vw" width="4vw">
-				  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="var(--grey)" stroke-width="0.5vw" data-toggle="off" data-hour="nowork"/>
-				</svg>
-			</div>
-			<script type="text/javascript" id="inlineScript">
-			
-			for (let i = 0; i < 3; i++) {
-				const originalElement = document.getElementsByClassName("button")[0];
-				const clonedElement = originalElement.cloneNode(true);
-				document.getElementsByClassName("column")[0].appendChild(clonedElement);
-			}
-
-			var scriptElement = document.getElementById("inlineScript"); 
-			scriptElement.parentNode.removeChild(scriptElement); 
-
-			</script>
-		</div>
-	</div>
-	<div id="income">
-		<div class="text" id="day">MONDAY</div>
-		<div class="text" id="clock">12:10</div>
-		<div class="text" id="total" onmouseover="
-			this.innerHTML='$ '+((quartersworked*15/4)+(quartersover*23/4));
-		"
-		onmouseout="
-			this.innerHTML=((quartersworked/4)+(quartersover/4) + ' hrs');
-		">0 hrs</div>
-	</div>
-	<div id="text">
-		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
-			const text = this.value;
-			localStorage.setItem('textContent', document.getElementById('timeentry').value);
+			let text = document.getElementById('timeentry').value;
+			localStorage.setItem('textContent'+dayofweek, text);
 			const lines = text.split(/\r?\n/);
 
 			clearBoard();
 			clearProjects();
 
+			let over32 = 0;
+			quartersworked = 0;
+			quartersover = 0;
+
 			for (var i = 0; i < lines.length; i++) {
 				let pattern = /\d{1,4}/g; 
 				let result = lines[i].match(pattern);
+				if (result == null || result[0] == undefined || result[1] == undefined){
+					break;
+				}
 				let starttime = result[0];
 				let endtime = result[1];
 				let note = lines[i].slice(lines[i].search(/ /i)+1);
-				console.log('start: '+starttime+', end: '+endtime+', note:'+note);
+				//console.log('start: '+starttime+', end: '+endtime+', note:'+note);
 
 				let starthour;
 				let startmin;
@@ -286,7 +170,7 @@
 					endmin = parseInt(endtime.slice(-2));
 					endhour = parseInt(endtime.slice(0, -2));}
 
-				console.log(starthour+':'+startmin+' , '+endhour+':'+endmin);
+				//console.log(starthour+':'+startmin+' , '+endhour+':'+endmin);
 
 				var noteindex = projectlist.indexOf(note.toUpperCase());
 				var projecthours = ((endhour-starthour) + (endmin-startmin)/60);
@@ -299,35 +183,242 @@
 				}
 
 				let timecounter = projecthours*4;
-				let columns = document.getElementsByClassName('column');
+				let columns = document.getElementById('day1').getElementsByClassName('column');
 
 				for (var a = starthour; a <= endhour; a++) {
 					let circles = columns[a].getElementsByTagName('circle');
 					if (a == starthour){
 						for (var b = startmin/15;b <= 3 && timecounter>0; b++) {
-							turnOnCircle(circles[b]);
+							over32++;
+							if (over32 > 32){
+								turnOnCircle(circles[b], true);
+								quartersover++;
+							}
+							else{
+								turnOnCircle(circles[b], false);
+								quartersworked++;
+							}
 							timecounter--;
 						}
 					}
 					else{
 						for (var b = 0;b <= 3 && timecounter>0; b++) {
-							turnOnCircle(circles[b]);
+							over32++;
+							if (over32 > 32){
+								turnOnCircle(circles[b], true);
+								quartersover++;
+							}
+							else{
+								turnOnCircle(circles[b], false);
+								quartersworked++;
+							}
 							timecounter--;
 						}
 					}
 				}
 			}
 
+
+			let originalElement = document.getElementsByClassName('project')[0];
+
 			for (var i = 0; i < projectlist.length; i++) {
-				const originalElement = document.getElementsByClassName('project')[0];
 				const clonedElement = originalElement.cloneNode(true);
 				clonedElement.children[0].innerText = projectlist[i];
 				clonedElement.children[1].innerText = projecttime[i].toFixed(2);
 				document.getElementById('projects').appendChild(clonedElement);
 			}
+			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
+		}
+		function clearBoard() {
+			circles = document.getElementsByTagName('circle');
+			for (var i = 0; i < circles.length; i++) {
+				turnOffCircle(circles[i]);
+			}
+		}
+		function turnOnCircle(circle, isOvertime){
+			if (isOvertime){
+				circle.setAttribute('fill', 'var(--gold)');
+				circle.setAttribute('stroke', 'var(--gold)');
+				circle.setAttribute('data-toggle', 'over');
+			}
+			else{
+				circle.setAttribute('fill', 'white');
+				circle.setAttribute('stroke', 'white');
+				circle.setAttribute('data-toggle', 'on');
+			}
+		}
+		function turnOffCircle(circle){
+			if (circle.getAttribute('data-hour')=='nowork') {
+				circle.setAttribute('fill', 'none');
+				circle.setAttribute('stroke', 'var(--grey)');
+			}
+			else{
+				circle.setAttribute('fill', 'none');
+				circle.setAttribute('stroke', 'white');
+			}
+			circle.setAttribute('data-toggle', 'off');
+		}
+		function toggleCircle(circle, overide, isOvertime){
+			if (circle.getAttribute('data-toggle')=='off'){
+				turnOnCircle(circle, isOvertime);
+			}
+			else if (overide != false){
+				turnOffCircle(circle);
+			}
+		}
+		function clearProjects(){
+			projectlist = [];
+			projecttime = [];
+			let originalElement = document.getElementsByClassName('project')[0];
+			const clonedElement = originalElement.cloneNode(true);
+			document.getElementById('projects').innerHTML = '';
+			document.getElementById('projects').appendChild(clonedElement);
+		}
+		const weekdays = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+		const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+		function updateClock() {
+			const now = new Date();
+			const month = now.getMonth();
+			const weekday = now.getDay();
+			const day = now.getDate();
+			const hours = now.getHours();
+			const minutes = now.getMinutes();
+			const seconds = now.getSeconds();
 
-			console.log(projectlist);
-			console.log(projecttime);
+			function padZero(number) {
+				return number < 10 ? '0' + number : number;
+			}
+			const formattedTime = `${padZero(hours)}:${padZero(minutes)}`;
+
+			document.getElementById('clock').textContent = formattedTime;
+			document.getElementById('day').textContent = (weekdays[weekday]+"  "+months[month]+"  "+day).toUpperCase();
+		}
+		function changeDay(day){
+			dayofweek = day;
+			console.log(day);
+			document.getElementById('timeentry').value = localStorage.getItem('textContent'+dayofweek);
+			updateBoard();
+			var daycircles = document.getElementById("week1").getElementsByTagName("circle");
+			for (var i = 0; i < daycircles.length; i++) {
+				if (daycircles[i].parentNode.parentNode.getAttribute("data-day") == day){
+					turnOnCircle(daycircles[i]);
+				}
+				else{
+					turnOffCircle(daycircles[i]);
+				}
+
+			}
+		}
+	</script>
+	<div id="day1">
+		<div class="column">
+			<div class="hour">0</div>
+			<div class="button">
+				<svg height="4vw" width="4vw">
+				  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="var(--grey)" stroke-width="0.5vw" data-toggle="off" data-hour="nowork"/>
+				</svg>
+			</div>
+			<script type="text/javascript" id="inlineScript">{
+				let originalElement = document.getElementsByClassName("button")[0];
+				
+				for (let i = 0; i < 3; i++) {
+					const originalElement = document.getElementsByClassName("button")[0];
+					const clonedElement = originalElement.cloneNode(true);
+					document.getElementsByClassName("column")[0].appendChild(clonedElement);
+				}
+
+				var scriptElement = document.getElementById("inlineScript"); 
+				scriptElement.parentNode.removeChild(scriptElement); 
+
+			}</script>
+		</div>
+	</div>
+	<div id="income">
+		<div class="text" id="day">MONDAY</div>
+		<div class="text" id="clock">12:10</div>
+		<div class="text" id="total" onmouseover="
+			this.innerHTML='$ '+((quartersworked*15/4)+(quartersover*23/4));
+		"
+		onmouseout="
+			this.innerHTML=((quartersworked/4)+(quartersover/4) + ' hrs');
+		">0 hrs</div>
+	</div>
+	<div id="text">
+		<div id="weeks">
+			<div class="column" id="weekletters">
+				<div class="hour">M</div>
+				<div class="hour">T</div>
+				<div class="hour">W</div>
+				<div class="hour">T</div>
+				<div class="hour">F</div>
+				<div class="hour">S</div>
+				<div class="hour">S</div>
+			</div>
+			<div class="column" id="week1">
+				<div class="button" onclick="
+					const circle = this.getElementsByTagName('circle')[0];
+					toggleCircle(circle, true, false);
+					changeDay(this.getAttribute('data-day'));
+					
+				" data-day="1">
+					<svg height="4vw" width="4vw">
+					  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="white" stroke-width="0.5vw" data-toggle="off" data-hour="work"/>
+					</svg>
+				</div>
+				<script type="text/javascript" id="inlineScript">{
+				
+					let originalElement = document.getElementById("week1").getElementsByClassName("button")[0];
+					for (let i = 0; i < 6; i++) {
+						const clonedElement = originalElement.cloneNode(true);
+						clonedElement.setAttribute('data-day', ((i+2)%7)/*+"w1"*/);
+
+						if (i > 3) {
+							let circle = clonedElement.getElementsByTagName('circle')[0];
+							circle.setAttribute('data-hour', 'nowork');
+							circle.setAttribute('stroke', 'var(--grey)');
+						}
+						document.getElementById("week1").appendChild(clonedElement);
+					}
+
+					var scriptElement = document.getElementById("inlineScript"); 
+					scriptElement.parentNode.removeChild(scriptElement); 
+
+				}</script>
+			</div>
+			<!--<div class="column" id="week2">
+				<div class="button" onclick="
+					const circle = this.getElementsByTagName('circle')[0];
+					toggleCircle(circle, true, false);
+					
+				" data-day="1w2">
+					<svg height="4vw" width="4vw">
+					  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="white" stroke-width="0.5vw" data-toggle="off" data-hour="work"/>
+					</svg>
+				</div>
+				<script type="text/javascript" id="inlineScript">{
+				
+					let originalElement = document.getElementById("week2").getElementsByClassName("button")[0];
+					for (let i = 0; i < 6; i++) {
+						const clonedElement = originalElement.cloneNode(true);
+						clonedElement.setAttribute('data-day', ((i+2)%7)+"w2");
+
+						if (i < 4) {
+							let circle = clonedElement.getElementsByTagName('circle')[0];
+							circle.setAttribute('data-hour', 'work');
+							circle.setAttribute('stroke', 'white');
+						}
+						document.getElementById("week2").appendChild(clonedElement);
+					}
+
+					var scriptElement = document.getElementById("inlineScript"); 
+					scriptElement.parentNode.removeChild(scriptElement); 
+
+				}</script>
+			</div>-->
+		</div>
+		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
+
+			updateBoard(this.value);
 
 		" ></textarea>
 		<div id="projects">
@@ -338,24 +429,35 @@
 	</div>
 
 	<script type="text/javascript">
-	for (let i = 1; i < 24; i++) {
-		const originalElement = document.getElementsByClassName("column")[0];
-		const clonedElement = originalElement.cloneNode(true);
-		clonedElement.getElementsByClassName('hour')[0].innerText = i;
-		var circles = clonedElement.getElementsByTagName('circle');
-		if (i > 7 && i < 17 && i != 12) {
-			clonedElement.classList.add("workcolumn");
-			for (var a = 0; a < circles.length; a++) {
-				circles[a].setAttribute('data-hour', 'work');
-				circles[a].setAttribute('stroke', 'white');
-			}
-		}
-		document.getElementById("day1").appendChild(clonedElement);
-	}
-	updateClock();
-	setInterval(updateClock, 1000);
+		let originalElement = document.getElementsByClassName("column")[0];
 
-	document.getElementById('timeentry').value = localStorage.getItem('textContent');
+		for (let i = 1; i < 24; i++) {
+			const clonedElement = originalElement.cloneNode(true);
+			clonedElement.getElementsByClassName('hour')[0].innerText = i;
+			var circles = clonedElement.getElementsByTagName('circle');
+			if (i > 7 && i < 17 && i != 12) {
+				clonedElement.classList.add("workcolumn");
+				for (var a = 0; a < circles.length; a++) {
+					circles[a].setAttribute('data-hour', 'work');
+					circles[a].setAttribute('stroke', 'white');
+				}
+			}
+			document.getElementById("day1").appendChild(clonedElement);
+		}
+		updateClock();
+		setInterval(updateClock, 1000);
+
+		let now = new Date();
+		let day = now.getDay();
+		/*let cutofffriday = new Date("2024-11-29T00:00:00")
+		if ((now.getTime()-cutofffriday.getTime()%(604800000*2)) < 604800000){
+			day = day+"w1";
+		}
+		else{
+			day = day+"w2";
+		}*/
+
+		changeDay(day);
 	</script>
 </body>
 
