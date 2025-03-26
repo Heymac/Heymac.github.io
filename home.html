@@ -240,9 +240,21 @@
 				document.getElementById('projects').appendChild(clonedElement);
 			}
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
-			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4));
-			document.getElementById('normalbar').style.width = (Math.trunc(tempmonthincome/120)*100)+"%";
-			document.getElementById('overbar').style.width = (tempmonthincome%120)+"%";
+			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4))/120;
+
+			let firstbar = 0;
+			let secondbar = 0;
+
+			if (tempmonthincome <= 1 ){
+				firstbar = tempmonthincome;
+				secondbar = 0;
+			}
+			else if (tempmonthincome > 1){
+				firstbar = 1;
+				secondbar = tempmonthincome%1;
+			}
+			document.getElementById('normalbar').style.width = firstbar+"%";
+			document.getElementById('overbar').style.width = secondbar+"%";
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
