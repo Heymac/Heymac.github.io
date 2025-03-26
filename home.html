@@ -68,6 +68,18 @@
 		display: initial;
 		flex: 1 1 0px;
 	}
+	#monthlyincome{
+		display: block;
+	}
+	#monthlyincome:first-child{
+		background-color: var(--white);
+	}
+	.bar{
+		height: 1.25vh;
+    		background-color: var(--gold);
+    		display: block;
+    		width: 0%;
+	}
 	#total{
 		text-align: right;
 	}
@@ -85,7 +97,7 @@
 	}
 	#timeentry{
 		background-color: rgba(255, 255, 255, 0.03);
-    	border: 0.25vw solid #ffffff00;
+    		border: 0.25vw solid #ffffff00;
 		padding: 1vw;
 		resize: none;
 		width: 100%;
@@ -228,6 +240,9 @@
 				document.getElementById('projects').appendChild(clonedElement);
 			}
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
+			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4))*0.1;
+			document.getElementById('normalbar').style.width = Math.trunc(tempmonthincome/1)+"%";
+			document.getElementById('overbar').style.width = (tempmonthincome%4)+"%";
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
@@ -342,6 +357,10 @@
 		onmouseout="
 			this.innerHTML=((quartersworked/4)+(quartersover/4) + ' hrs');
 		">0 hrs</div>
+	</div>
+	<div id="monthlyincome">
+		<div class="bar" id="normalbar"></div>
+		<div class="bar" id="overbar"></div>
 	</div>
 	<div id="text">
 		<div id="weeks">
