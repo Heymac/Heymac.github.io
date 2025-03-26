@@ -253,8 +253,8 @@
 				firstbar = 1;
 				secondbar = tempmonthincome%1;
 			}
-			document.getElementById('normalbar').style.width = firstbar+"%";
-			document.getElementById('overbar').style.width = secondbar+"%";
+			document.getElementById('normalbar').style.width = (firstbar*100)+"%";
+			document.getElementById('overbar').style.width = (secondbar*100)+"%";
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
