@@ -71,7 +71,7 @@
 	#monthlyincome{
 		display: block;
 	}
-	#monthlyincome:first-child{
+	.bar:first-child{
 		background-color: var(--white);
 	}
 	.bar{
@@ -240,7 +240,7 @@
 				document.getElementById('projects').appendChild(clonedElement);
 			}
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
-			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4))*0.1;
+			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4));
 			document.getElementById('normalbar').style.width = Math.trunc(tempmonthincome/1)+"%";
 			document.getElementById('overbar').style.width = (tempmonthincome%1)+"%";
 		}
