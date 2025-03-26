@@ -241,8 +241,8 @@
 			}
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
 			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4));
-			document.getElementById('normalbar').style.width = Math.trunc(tempmonthincome/1)+"%";
-			document.getElementById('overbar').style.width = (tempmonthincome%1)+"%";
+			document.getElementById('normalbar').style.width = (Math.trunc(tempmonthincome/100)*100)+"%";
+			document.getElementById('overbar').style.width = (tempmonthincome%100)+"%";
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
