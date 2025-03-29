@@ -80,6 +80,21 @@
     		background-color: var(--gold);
     		display: block;
     		width: 0%;
+		margin-bottom: 0.5vh;
+	}
+	.dividers{
+		height: 2vh;
+		position: relative;
+		margin-top: -2.5vh;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		margin-bottom: 0.5vh;
+	}
+	.divider{
+		height: 100%;
+		width: 2px;
+		background-color: #222222;
 	}
 	#total{
 		text-align: right;
@@ -373,7 +388,25 @@
 	</div>
 	<div id="monthlyincome">
 		<div class="bar" id="normalbar"></div>
+		<div class="dividers">
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+		</div>
 		<div class="bar" id="overbar"></div>
+		<div class="dividers">
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+			<div class="divider"></div>
+		</div>
 	</div>
 	<div id="text">
 		<div id="weeks">
