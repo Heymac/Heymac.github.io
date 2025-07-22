@@ -64,8 +64,12 @@
 			<input id="mcresult" type="text" disabled>
 			<p>%</p>
 		</div>
+        
+        <input type="file" id="img" name="img" accept="image/*" onchange="recognizeText(this)">
+        
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
 
-		<script>
+		<script>            
         	var pan = document.getElementById("pan");
         	var wet = document.getElementById("wetpan");
         	var dry = document.getElementById("drypan");
@@ -79,8 +83,17 @@
             	mc.value = result.toFixed(2);
             }
             function clearvalue(field){
-            	console.log(this);
             	field.value = "";
+            }
+            function recognizeText(field){
+            	let file = field.files[0];
+                let filepath = URL.createObjectURL(file);
+            	(async () => {
+                    const worker = await Tesseract.createWorker('eng');
+                    const ret = await worker.recognize(filepath);
+                    console.log(ret.data.text);
+                    await worker.terminate();
+              	})();
             }
             
             updateMoisture();
