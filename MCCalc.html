@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+    				display: flex;
+    				flex-direction: column;
+			}
+			.numberinput{
+				display: flex;
+			}
+			.numberinput p:first-child{
+				
+			}
+			p{
+				    font-family: sans-serif;
+    				margin: auto 2em;
+                    min-width: 1em;
+    				height: fit-content;
+			}
+			input{
+				margin: 1em 0em 1em auto;
+				border: 3px solid white;
+				background-color: #ffffff00;
+				padding: 0.5em;
+				font-size: 1em;
+				text-align: center;
+			}
+            input:disabled{
+            	color: white;
+            }
+            
+            @media only screen and (max-width: 600px) {
+				.numberinput {flex-direction: column;}
+                input {margin: 1em 2em 1em 2em;}
+			}
+		</style>
+	</head>
+	<body>
+    		<div class="numberinput">
+			<p>Pan Weight</p>
+			<input id="pan" type="text" oninput="updateMoisture()" onclick="clearvalue(this)" value="120.00">
+			<p>g</p>
+		</div>
+		<div class="numberinput">
+			<p>Wet Soil + Pan Weight</p>
+			<input id="wetpan" type="text" oninput="updateMoisture()" onclick="clearvalue(this)" value="220.00">
+			<p>g</p>
+		</div>
+		<div class="numberinput">
+			<p>Dry Soil + Pan Weight</p>
+			<input id="drypan" type="text" oninput="updateMoisture()" onclick="clearvalue(this)" value="210.00">
+			<p>g</p>
+		</div>
+			<div class="numberinput">
+			<p>Moisture Content</p>
+			<input id="mcresult" type="text" disabled>
+			<p>%</p>
+		</div>
+
+		<script>
+        	var pan = document.getElementById("pan");
+        	var wet = document.getElementById("wetpan");
+        	var dry = document.getElementById("drypan");
+        	var mc = document.getElementById("mcresult");
+            
+			function updateMoisture(){
+            	let panweight = Number(pan.value);
+            	let wetweight = Number(wetpan.value);
+            	let dryweight = Number(drypan.value);
+                let result = 100*((wetweight-dryweight)/(dryweight-panweight));
+            	mc.value = result.toFixed(2);
+            }
+            function clearvalue(field){
+            	console.log(this);
+            	field.value = "";
+            }
+            
+            updateMoisture();
+		</script>
+	</body>
+</html>
