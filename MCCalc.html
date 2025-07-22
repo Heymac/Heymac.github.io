@@ -88,8 +88,9 @@
             function recognizeText(field){
             	let file = field.files[0];
                 let filepath = URL.createObjectURL(file);
+
             	(async () => {
-                    const worker = await Tesseract.createWorker('eng');
+                    const worker = await Tesseract.createWorker('eng', 0);
                     const ret = await worker.recognize(filepath);
                     console.log(ret.data.text);
                     await worker.terminate();
