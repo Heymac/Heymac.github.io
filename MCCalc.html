@@ -29,6 +29,9 @@
 				font-size: 1em;
 				text-align: center;
 			}
+            input{
+            	color: white;
+            }
             input:disabled{
             	color: white;
             }
@@ -42,17 +45,17 @@
 	<body>
     		<div class="numberinput">
 			<p>Pan Weight</p>
-			<input id="pan" type="text" oninput="updateMoisture()" onclick="clearvalue(this)" value="120.00">
+			<input id="pan" type="text" inputmode="numeric" oninput="updateMoisture()" onclick="clearvalue(this)" value="120.00">
 			<p>g</p>
 		</div>
 		<div class="numberinput">
 			<p>Wet Soil + Pan Weight</p>
-			<input id="wetpan" type="text" oninput="updateMoisture()" onclick="clearvalue(this)" value="220.00">
+			<input id="wetpan" type="text" inputmode="numeric" oninput="updateMoisture()" onclick="clearvalue(this)" value="220.00">
 			<p>g</p>
 		</div>
 		<div class="numberinput">
 			<p>Dry Soil + Pan Weight</p>
-			<input id="drypan" type="text" oninput="updateMoisture()" onclick="clearvalue(this)" value="210.00">
+			<input id="drypan" type="text" inputmode="numeric" oninput="updateMoisture()" onclick="clearvalue(this)" value="210.00">
 			<p>g</p>
 		</div>
 			<div class="numberinput">
