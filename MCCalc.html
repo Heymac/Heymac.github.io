@@ -65,7 +65,7 @@
 			<p>%</p>
 		</div>
         
-        <input type="file" id="img" name="img" accept="image/*" onchange="recognizeText(this)">
+        <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
         
         <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
 
@@ -88,9 +88,8 @@
             function recognizeText(field){
             	let file = field.files[0];
                 let filepath = URL.createObjectURL(file);
-
             	(async () => {
-                    const worker = await Tesseract.createWorker('eng', 0);
+                    const worker = await Tesseract.createWorker('eng');
                     const ret = await worker.recognize(filepath);
                     console.log(ret.data.text);
                     await worker.terminate();
