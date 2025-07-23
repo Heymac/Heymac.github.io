@@ -41,6 +41,9 @@
                 input {margin: 1em 2em 1em 2em;}
                 .numberinput {margin: 1em 0em}
 			}
+            #OCRtext{
+            	white-space: pre-wrap;
+            }
 		</style>
 	</head>
 	<body>
@@ -67,6 +70,8 @@
         
         <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
         
+        <p id="OCRtext">OCR Result</p>
+        
         <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
 
 		<script>            
@@ -88,9 +93,13 @@
             function recognizeText(field){
             	let file = field.files[0];
                 let filepath = URL.createObjectURL(file);
+                let ocrtext = document.getElementById("OCRtext");
             	(async () => {
-                    const worker = await Tesseract.createWorker('eng');
+                    const worker = await Tesseract.createWorker('eng', 0);
                     const ret = await worker.recognize(filepath);
+                    
+                    ocrtext.innerHTML = ret.data.text;
+                    
                     console.log(ret.data.text);
                     await worker.terminate();
               	})();
