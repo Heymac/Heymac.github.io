@@ -22,7 +22,7 @@
     				height: fit-content;
 			}
 			input{
-				margin: 1em 0em 1em auto;
+				margin: 1em 2em 1em auto;
 				border: 3px solid white;
 				background-color: #ffffff00;
 				padding: 0.5em;
@@ -43,7 +43,7 @@
             @media only screen and (max-width: 600px) {
 				.numberinput {flex-direction: column;}
                 input {margin: 1em 2em 1em 2em;}
-                .numberinput {margin: 1em 0em}
+                .numberinput {margin: 1em 0em 0em 0em}
 			}
             #OCRtext{
             	display: none;
@@ -55,22 +55,18 @@
     		<div class="numberinput">
 			<p>Pan Weight</p>
 			<input id="pan" type="text" inputmode="numeric" oninput="updateMoisture()" onclick="clearvalue(this)" value="120.00">
-			<p>g</p>
 		</div>
 		<div class="numberinput">
 			<p>Wet Soil + Pan Weight</p>
 			<input id="wetpan" type="text" inputmode="numeric" oninput="updateMoisture()" onclick="clearvalue(this)" value="220.00">
-			<p>g</p>
 		</div>
 		<div class="numberinput">
 			<p>Dry Soil + Pan Weight</p>
 			<input id="drypan" type="text" inputmode="numeric" oninput="updateMoisture()" onclick="clearvalue(this)" value="210.00">
-			<p>g</p>
 		</div>
 			<div class="numberinput">
 			<p>Moisture Content</p>
 			<input id="mcresult" type="text" disabled>
-			<p>%</p>
 		</div>
         
         <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
