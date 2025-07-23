@@ -36,12 +36,17 @@
             	color: white;
             }
             
+            #img{
+            	display: none;
+            }
+            
             @media only screen and (max-width: 600px) {
 				.numberinput {flex-direction: column;}
                 input {margin: 1em 2em 1em 2em;}
                 .numberinput {margin: 1em 0em}
 			}
             #OCRtext{
+            	display: none;
             	white-space: pre-wrap;
             }
 		</style>
@@ -95,7 +100,11 @@
                 let filepath = URL.createObjectURL(file);
                 let ocrtext = document.getElementById("OCRtext");
             	(async () => {
-                    const worker = await Tesseract.createWorker('eng', 0);
+                    const worker = await Tesseract.createWorker('eng', 1);
+                    await worker.setParameters({
+                      tessedit_char_whitelist: '0123456789.',
+                      preserve_interword_spaces: '0',
+                    });
                     const ret = await worker.recognize(filepath);
                     
                     ocrtext.innerHTML = ret.data.text;
