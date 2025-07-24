@@ -54,7 +54,7 @@
 	<body>
     		<div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer1)" onclick="" value="X">
+                	<input class="cylID" type="text" oninput="startTest(this, 0)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -65,7 +65,7 @@
             </div>
             <div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer2)" onclick="" value="X">
+                	<input class="cylID" type="text" oninput="startTest(this, 1)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -76,7 +76,7 @@
             </div>
             <div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer3)" onclick="" value="X">
+                	<input class="cylID" type="text" oninput="startTest(this, 2)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -87,7 +87,7 @@
             </div>
             <div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer4)" onclick="" value="X">
+                	<input class="cylID" type="text" oninput="startTest(this, 3)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -98,7 +98,7 @@
             </div>
             <div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer5)" onclick="" value="X">
+                	<input class="cylID" type="text" oninput="startTest(this, 4)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -109,7 +109,7 @@
             </div>
             <div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer6)" onclick="" value="X">
+                	<input class="cylID" type="text" oninput="startTest(this, 5)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -120,30 +120,34 @@
             </div>
         
 		<script>
-        	var timer1;
-        	var timer2;
-        	var timer3;
-        	var timer4;
-        	var timer5;
-        	var timer6;
+        	let timer1;
+        	let timer2;
+        	let timer3;
+        	let timer4;
+        	let timer5;
+        	let timer6;
+            let allTimers = [timer1, timer2, timer3, timer4, timer5, timer6];
             
-        	function startTest(field, intTimer){
-            	var input = field;
-            	var parentEntry = field.parentElement.parentElement;
-                var countdown = parentEntry.getElementsByClassName("countdown")[0].getElementsByTagName("h1")[0];
-                var timer = parentEntry.getElementsByClassName("timer")[0].getElementsByTagName("h2")[0];
+            console.log(timer1);
+            
+        	function startTest(field, timerIndex){
+            	let input = field;
+            	let parentEntry = field.parentElement.parentElement;
+                let countdown = parentEntry.getElementsByClassName("countdown")[0].getElementsByTagName("h1")[0];
+                let timer = parentEntry.getElementsByClassName("timer")[0].getElementsByTagName("h2")[0];
                 
                 const readingTimes = [120, 300, 900, 1800, 3600, 15000, 86400];
                 
-                var timeSinceBegin = 0;
+                let timeSinceBegin = 0;
+            
+        		clearInterval(allTimers[timerIndex]);
+                allTimers[timerIndex] = setInterval(updateTimers, 5000);
                 updateTimers();
-        		window.clearInterval(intTimer);
-                timer1 = setInterval(updateTimers, 5000);
                 
                 function updateTimers(){
                     //console.log(timeSinceBegin);
                     
-                    var nextReading = 120;
+                    let nextReading = 120;
                     for (const index in readingTimes) {
                         let diff = readingTimes[index]-timeSinceBegin;
                         
