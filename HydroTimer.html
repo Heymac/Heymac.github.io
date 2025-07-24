@@ -54,7 +54,62 @@
 	<body>
     		<div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this, timer1)" onclick="" value="A">
+                	<input class="cylID" type="text" oninput="startTest(this, timer1)" onclick="" value="X">
+                </div>
+            	<div class="countdown">
+                	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
+                </div>
+            	<div class="timer">
+                	<h2>00:00:00</h2>
+                </div>
+            </div>
+            <div class="entry">
+            	<div class="name">
+                	<input class="cylID" type="text" oninput="startTest(this, timer2)" onclick="" value="X">
+                </div>
+            	<div class="countdown">
+                	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
+                </div>
+            	<div class="timer">
+                	<h2>00:00:00</h2>
+                </div>
+            </div>
+            <div class="entry">
+            	<div class="name">
+                	<input class="cylID" type="text" oninput="startTest(this, timer3)" onclick="" value="X">
+                </div>
+            	<div class="countdown">
+                	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
+                </div>
+            	<div class="timer">
+                	<h2>00:00:00</h2>
+                </div>
+            </div>
+            <div class="entry">
+            	<div class="name">
+                	<input class="cylID" type="text" oninput="startTest(this, timer4)" onclick="" value="X">
+                </div>
+            	<div class="countdown">
+                	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
+                </div>
+            	<div class="timer">
+                	<h2>00:00:00</h2>
+                </div>
+            </div>
+            <div class="entry">
+            	<div class="name">
+                	<input class="cylID" type="text" oninput="startTest(this, timer5)" onclick="" value="X">
+                </div>
+            	<div class="countdown">
+                	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
+                </div>
+            	<div class="timer">
+                	<h2>00:00:00</h2>
+                </div>
+            </div>
+            <div class="entry">
+            	<div class="name">
+                	<input class="cylID" type="text" oninput="startTest(this, timer6)" onclick="" value="X">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -67,6 +122,10 @@
 		<script>
         	var timer1;
         	var timer2;
+        	var timer3;
+        	var timer4;
+        	var timer5;
+        	var timer6;
             
         	function startTest(field, intTimer){
             	var input = field;
@@ -78,7 +137,7 @@
                 
                 var timeSinceBegin = 0;
                 updateTimers();
-        		window.clearInterval(interTimer);
+        		window.clearInterval(intTimer);
                 timer1 = setInterval(updateTimers, 5000);
                 
                 function updateTimers(){
