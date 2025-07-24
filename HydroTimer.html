@@ -54,7 +54,7 @@
 	<body>
     		<div class="entry">
             	<div class="name">
-                	<input class="cylID" type="text" oninput="startTest(this)" onclick="" value="A">
+                	<input class="cylID" type="text" oninput="startTest(this, timer1)" onclick="" value="A">
                 </div>
             	<div class="countdown">
                 	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
@@ -66,8 +66,9 @@
         
 		<script>
         	var timer1;
+        	var timer2;
             
-        	function startTest(field){
+        	function startTest(field, intTimer){
             	var input = field;
             	var parentEntry = field.parentElement.parentElement;
                 var countdown = parentEntry.getElementsByClassName("countdown")[0].getElementsByTagName("h1")[0];
@@ -77,7 +78,7 @@
                 
                 var timeSinceBegin = 0;
                 updateTimers();
-        		window.clearInterval(timer1);
+        		window.clearInterval(interTimer);
                 timer1 = setInterval(updateTimers, 5000);
                 
                 function updateTimers(){
@@ -94,17 +95,17 @@
                             if (diff >> 0 && diff <= 30){
                             	//30 before
                                 console.log("30 BEFORE");
-                                parentEntry.style.backgroundColor = "yellow";
+                                parentEntry.style.backgroundColor = "#807100";
                             }
                             else if (diff == 0){
                                 //reading now
                                 console.log("NOW");
-                                parentEntry.style.backgroundColor = "green";
+                                parentEntry.style.backgroundColor = "#008000";
                             }
                             else if (diff << 0 && diff <= -30){
                                 //30 after
                                 console.log("30 AFTER");
-                                parentEntry.style.backgroundColor = "green";
+                                parentEntry.style.backgroundColor = "#008000";
                             }
                             else{
                                 console.log("NOTHING");
