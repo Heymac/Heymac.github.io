@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+		<style>
+			body {
+    				display: flex;
+    				flex-direction: column;
+                    background-color: #121212;
+                    color: white;
+                    margin: 0;
+			}
+            p, h1, h2{
+                    font-size: 1em;
+                    font-family: sans-serif;
+                    margin: auto;
+            }
+            input{
+            	color: white;
+            }
+            @media only screen and (max-width: 600px) {
+            	
+			}
+            .entry{
+            	display: flex;
+                flex-direction: row;
+                height: 10vh;
+            }
+            .name, .countdown, .timer{
+            	display: flex;
+                border: 1px solid white;
+            }
+            .name{
+            	width: 20%;
+                flex-grow: 1;
+            }
+            .countdown{
+            	width: 60%;
+                flex-grow: 3;
+            }
+            .timer{
+            	width: 20%;
+                flex-grow: 1;
+            }
+            
+            .cylID{
+            	width: 100%;
+                text-align: center;
+                font-size: 2em;
+            }
+		</style>
+	</head>
+	<body>
+    		<div class="entry">
+            	<div class="name">
+                	<input class="cylID" type="text" oninput="startTest(this)" onclick="" value="A">
+                </div>
+            	<div class="countdown">
+                	<p>Next Reading in: </p> <h1>0</h1><p>s</p>
+                </div>
+            	<div class="timer">
+                	<h2>00:00:00</h2>
+                </div>
+            </div>
+        
+		<script>
+        	var timer1;
+            
+        	function startTest(field){
+            	var input = field;
+            	var parentEntry = field.parentElement.parentElement;
+                var countdown = parentEntry.getElementsByClassName("countdown")[0].getElementsByTagName("h1")[0];
+                var timer = parentEntry.getElementsByClassName("timer")[0].getElementsByTagName("h2")[0];
+                
+                const readingTimes = [120, 300, 900, 1800, 3600, 15000, 86400];
+                
+                var timeSinceBegin = 0;
+                updateTimers();
+        		window.clearInterval(timer1);
+                timer1 = setInterval(updateTimers, 5000);
+                
+                function updateTimers(){
+                    //console.log(timeSinceBegin);
+                    
+                    var nextReading = 120;
+                    for (const index in readingTimes) {
+                        let diff = readingTimes[index]-timeSinceBegin;
+                        
+                        if (diff >= -30){
+                        	//nextReading = readingTimes[index];
+                            countdown.innerHTML = diff;
+                            
+                            if (diff >> 0 && diff <= 30){
+                            	//30 before
+                                console.log("30 BEFORE");
+                                parentEntry.style.backgroundColor = "yellow";
+                            }
+                            else if (diff == 0){
+                                //reading now
+                                console.log("NOW");
+                                parentEntry.style.backgroundColor = "green";
+                            }
+                            else if (diff << 0 && diff <= -30){
+                                //30 after
+                                console.log("30 AFTER");
+                                parentEntry.style.backgroundColor = "green";
+                            }
+                            else{
+                                console.log("NOTHING");
+                            	parentEntry.style.backgroundColor = "initial";
+                            }
+                            break
+                        }
+                    }
+                    timer.innerHTML = formatSecondsToHHMMSS(timeSinceBegin);
+                    timeSinceBegin+=5;
+                }
+            }
+            function formatSecondsToHHMMSS(totalSeconds) {
+              const hours = Math.floor(totalSeconds / 3600);
+              const minutes = Math.floor((totalSeconds % 3600) / 60);
+              const seconds = totalSeconds % 60;
+
+              // Pad single-digit numbers with a leading zero
+              const formattedHours = String(hours).padStart(2, '0');
+              const formattedMinutes = String(minutes).padStart(2, '0');
+              const formattedSeconds = String(seconds).padStart(2, '0');
+
+              return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+            }
+		</script>
+	</body>
+</html>
