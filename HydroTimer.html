@@ -151,7 +151,7 @@
                         	//nextReading = readingTimes[index];
                             countdown.innerHTML = diff;
                             
-                            if (diff >> 0 && diff <= 30){
+                            if (diff > 0 && diff <= 30){
                             	//30 before
                                 console.log("30 BEFORE");
                                 parentEntry.style.backgroundColor = "#807100";
@@ -161,7 +161,7 @@
                                 console.log("NOW");
                                 parentEntry.style.backgroundColor = "#008000";
                             }
-                            else if (diff << 0 && diff <= -30){
+                            else if (diff < 0 && diff >= -30){
                                 //30 after
                                 console.log("30 AFTER");
                                 parentEntry.style.backgroundColor = "#008000";
