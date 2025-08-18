@@ -68,6 +68,41 @@
 		display: initial;
 		flex: 1 1 0px;
 	}
+	#paycheck{
+		/*padding: 0px 1vh;*/
+	}
+	.portion{
+		width: 25%;
+		/*margin-left: -1vh;*/
+		flex-grow: 1;
+		/*margin-right: -1vh;*/
+		min-width: 5%;
+		flex-direction: column;
+	}
+	.paybar{
+		height: 2vh;
+		width: 100%;
+		background-color: white;
+		border: 4px solid #222222;
+		border-radius: 2vh 0 0 2vh;
+	}
+	#benefits .paybar{
+		background-color: #C359D3;
+	}
+	#tax .paybar{
+		background-color: #3D84E2;
+	}
+	#retirement .paybar{
+		background-color: #38B287;
+	}
+	#takehome .paybar{
+		z-index: 0;
+		border-radius: 2vh;
+		background-color: #207350;
+	}
+	.portion .text{
+		margin: 0 auto;
+	}
 	#monthlyincome{
 		display: block;
 	}
@@ -157,13 +192,30 @@
 		var quartersover = 0;
 		var dayofweek = 0;
 
-		function updateBoard() {
-			let text = document.getElementById('timeentry').value;
-			localStorage.setItem('textContent'+dayofweek, text);
-			const lines = text.split(/\r?\n/);
+		function updateBoard(day) {
+
+			if (day != undefined){
+				//CHANGING DAY OR SAME DAY
+				dayofweek = day;
+				document.getElementById('timeentry').value = localStorage.getItem('textContent'+dayofweek);
+			}
+			//ELSE SAVE AND REFRESH
+			localStorage.setItem('textContent'+dayofweek, document.getElementById('timeentry').value);
 
 			clearBoard();
 			clearProjects();
+
+			let daycircles = document.querySelectorAll("#week1 > div > svg > circle, #week2 > div > svg > circle");
+			for (var i = 0; i < daycircles.length; i++) {
+				if (daycircles[i].parentNode.parentNode.getAttribute("data-day") == dayofweek){
+					turnOnCircle(daycircles[i]);
+				}
+				else{
+					turnOffCircle(daycircles[i]);
+				}
+			}
+
+			const lines = document.getElementById('timeentry').value.split(/\r?\n/);
 
 			let over32 = 0;
 			quartersworked = 0;
@@ -247,6 +299,32 @@
 				}
 			}
 
+			localStorage.setItem('quarters'+dayofweek, (quartersworked+quartersover));
+
+			let biweekquartersw1 = 0;
+			let biweekquartersw2 = 0;
+			for (var i = 0; i < 7; i++) {
+				biweekquartersw1 += Number(localStorage.getItem('quarters'+i));
+			}
+			for (var i = 7; i < 14; i++) {
+				biweekquartersw2 += Number(localStorage.getItem('quarters'+i));
+			}
+			
+			let pay = calculatePay(biweekquartersw1, biweekquartersw2);
+
+			let benefits = document.getElementById("benefits");
+			benefits.style.width = pay.benefits+"%";
+			benefits.getElementsByClassName("text")[0].innerHTML = pay.benefits;
+			let tax = document.getElementById("tax");
+			tax.style.width = pay.tax+"%";
+			tax.getElementsByClassName("text")[0].innerHTML = pay.tax;
+			let retirement = document.getElementById("retirement");
+			retirement.style.width = pay.retirement+"%";
+			retirement.getElementsByClassName("text")[0].innerHTML = pay.retirement;
+			let takehome = document.getElementById("takehome");
+			takehome.style.width = pay.takehome+"%";
+			takehome.getElementsByClassName("text")[0].innerHTML = pay.takehome;
+
 
 			let originalElement = document.getElementsByClassName('project')[0];
 
@@ -272,6 +350,7 @@
 			}
 			document.getElementById('normalbar').style.width = (firstbar*100)+"%";
 			document.getElementById('overbar').style.width = (secondbar*100)+"%";
+
 		}
 		function clearBoard() {
 			circles = document.getElementsByTagName('circle');
@@ -337,21 +416,51 @@
 			document.getElementById('clock').textContent = formattedTime;
 			document.getElementById('day').textContent = (weekdays[weekday]+"  "+months[month]+"  "+day).toUpperCase();
 		}
-		function changeDay(day){
-			dayofweek = day;
-			console.log(day);
-			document.getElementById('timeentry').value = localStorage.getItem('textContent'+dayofweek);
-			updateBoard();
-			var daycircles = document.getElementById("week1").getElementsByTagName("circle");
-			for (var i = 0; i < daycircles.length; i++) {
-				if (daycircles[i].parentNode.parentNode.getAttribute("data-day") == day){
-					turnOnCircle(daycircles[i]);
-				}
-				else{
-					turnOffCircle(daycircles[i]);
-				}
+		function getPayWeekDay(){
+		    const specificDate = new Date("2025-08-11T00:00:01-04:00");
+		    const currentDate = new Date();
 
-			}
+		    const specificDateMillis = specificDate.getTime();
+		    const currentMillis = currentDate.getTime();
+
+		    const differenceMillis = currentMillis - specificDateMillis;
+
+		    const millisecondsInDay = 1000 * 60 * 60 * 24;
+		    const daysSinceDate = differenceMillis / millisecondsInDay;
+
+		    return Math.floor(daysSinceDate%14);
+		}
+		function calculatePay(w1, w2){
+			let regulartime = 0;
+			let overtime = 0;
+			regulartime += Math.min(Math.max(w1, 0), 160);
+			regulartime += Math.min(Math.max(w2, 0), 160);
+			overtime += Math.max(0, w1-160);
+			overtime += Math.max(0, w2-160);
+
+			console.log(regulartime/4, overtime/4);
+
+			let grosspay = ((regulartime/4)*24)+((overtime/4)*32)+6.51;
+			let benefits = 66.19;
+			let benefitsdeduct = Math.round(benefits);
+
+			let taxablegross = grosspay-benefits;
+
+			let statetax = (taxablegross-461.54)*0.0519;
+			let medicaretax = taxablegross*0.0145;
+			let socialtax = taxablegross*0.062;
+			let federaltax = //(taxablegross <= 2441) ? ((45.90)+(0.12*(taxablegross-1036))) : ((214.50)+(0.22*(taxablegross-2441)));
+			(Math.min(Math.max(taxablegross-577, 0), 1036)*0.1)+(Math.min(Math.max(taxablegross-1036, 0), 2441)*0.12)+(Math.min(Math.max(taxablegross-2441, 0), 4552)*0.22);
+
+			let taxdeduct = Math.max(0, Math.round(statetax+medicaretax+socialtax+federaltax));
+
+			let retirementdeduct = Math.round(grosspay*0.09);
+
+			let otherincome = Math.round(23.50);
+
+			let pay = Math.round(grosspay+otherincome-benefitsdeduct-taxdeduct-retirementdeduct);
+
+			return {benefits : benefitsdeduct, tax : taxdeduct, retirement : retirementdeduct, takehome : pay};
 		}
 	</script>
 	<div id="day1">
@@ -375,6 +484,24 @@
 				scriptElement.parentNode.removeChild(scriptElement); 
 
 			}</script>
+		</div>
+	</div>
+	<div id="paycheck">
+		<div class="portion" id="benefits">
+			<div class="paybar"></div>
+			<div class="text">66</div>
+		</div>
+		<div class="portion" id="tax">
+			<div class="paybar"></div>
+			<div class="text">66</div>
+		</div>
+		<div class="portion" id="retirement">
+			<div class="paybar"></div>
+			<div class="text">66</div>
+		</div>
+		<div class="portion" id="takehome">
+			<div class="paybar"></div>
+			<div class="text">66</div>
 		</div>
 	</div>
 	<div id="income">
@@ -414,9 +541,10 @@
 				<div class="button" onclick="
 					const circle = this.getElementsByTagName('circle')[0];
 					toggleCircle(circle, true, false);
-					changeDay(this.getAttribute('data-day'));
+					updateBoard(this.getAttribute('data-day'));
+					//changeDay(this.getAttribute('data-day'));
 					
-				" data-day="1">
+				" data-day="0">
 					<svg height="4vw" width="4vw">
 					  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="white" stroke-width="0.5vw" data-toggle="off" data-hour="work"/>
 					</svg>
@@ -426,7 +554,7 @@
 					let originalElement = document.getElementById("week1").getElementsByClassName("button")[0];
 					for (let i = 0; i < 6; i++) {
 						const clonedElement = originalElement.cloneNode(true);
-						clonedElement.setAttribute('data-day', ((i+2)%7)/*+"w1"*/);
+						clonedElement.setAttribute('data-day', (i+1));
 
 						if (i > 3) {
 							let circle = clonedElement.getElementsByTagName('circle')[0];
@@ -441,12 +569,14 @@
 
 				}</script>
 			</div>
-			<!--<div class="column" id="week2">
+			<div class="column" id="week2">
 				<div class="button" onclick="
 					const circle = this.getElementsByTagName('circle')[0];
 					toggleCircle(circle, true, false);
+					updateBoard(this.getAttribute('data-day'));
+					//changeDay(this.getAttribute('data-day'));
 					
-				" data-day="1w2">
+				" data-day="7">
 					<svg height="4vw" width="4vw">
 					  <circle r="1.35vw" cx="2vw" cy="2vw" fill="none" stroke="white" stroke-width="0.5vw" data-toggle="off" data-hour="work"/>
 					</svg>
@@ -454,14 +584,14 @@
 				<script type="text/javascript" id="inlineScript">{
 				
 					let originalElement = document.getElementById("week2").getElementsByClassName("button")[0];
-					for (let i = 0; i < 6; i++) {
+					for (let i = 7; i < 13; i++) {
 						const clonedElement = originalElement.cloneNode(true);
-						clonedElement.setAttribute('data-day', ((i+2)%7)+"w2");
+						clonedElement.setAttribute('data-day', (i+1));
 
-						if (i < 4) {
+						if (i > 3) {
 							let circle = clonedElement.getElementsByTagName('circle')[0];
-							circle.setAttribute('data-hour', 'work');
-							circle.setAttribute('stroke', 'white');
+							circle.setAttribute('data-hour', 'nowork');
+							circle.setAttribute('stroke', 'var(--grey)');
 						}
 						document.getElementById("week2").appendChild(clonedElement);
 					}
@@ -470,11 +600,11 @@
 					scriptElement.parentNode.removeChild(scriptElement); 
 
 				}</script>
-			</div>-->
+			</div>
 		</div>
 		<textarea name="paragraph_text" cols="10" rows="10" class="text" id="timeentry" onblur="
 
-			updateBoard(this.value);
+			updateBoard();
 
 		" ></textarea>
 		<div id="projects">
@@ -503,17 +633,7 @@
 		updateClock();
 		setInterval(updateClock, 1000);
 
-		let now = new Date();
-		let day = now.getDay();
-		/*let cutofffriday = new Date("2024-11-29T00:00:00")
-		if ((now.getTime()-cutofffriday.getTime()%(604800000*2)) < 604800000){
-			day = day+"w1";
-		}
-		else{
-			day = day+"w2";
-		}*/
-
-		changeDay(day);
+		updateBoard(getPayWeekDay());
 	</script>
 </body>
 
