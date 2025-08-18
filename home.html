@@ -442,7 +442,7 @@
 
 			let grosspay = ((regulartime/4)*24)+((overtime/4)*32)+6.51;
 			let benefits = 66.19;
-			let benefitsdeduct = Math.round(benefits);
+			let benefitsdeduct = Math.round(Math.min(Math.max(grosspay, 0), 66.19));
 
 			let taxablegross = grosspay-benefits;
 
@@ -507,12 +507,7 @@
 	<div id="income">
 		<div class="text" id="day">MONDAY</div>
 		<div class="text" id="clock">12:10</div>
-		<div class="text" id="total" onmouseover="
-			this.innerHTML='$ '+((quartersworked*15/4)+(quartersover*23/4));
-		"
-		onmouseout="
-			this.innerHTML=((quartersworked/4)+(quartersover/4) + ' hrs');
-		">0 hrs</div>
+		<div class="text" id="total">0 hrs</div>
 	</div>
 	<div id="monthlyincome">
 		<div class="bar" id="normalbar"></div>
