@@ -446,7 +446,7 @@
 
 			let taxablegross = grosspay-benefits;
 
-			let statetax = (taxablegross-461.54)*0.0519;
+			let statetax = Math.min(Math.max(((taxablegross-461.54)), 0), 461.54)*0.0519;
 			let medicaretax = taxablegross*0.0145;
 			let socialtax = taxablegross*0.062;
 			let federaltax = //(taxablegross <= 2441) ? ((45.90)+(0.12*(taxablegross-1036))) : ((214.50)+(0.22*(taxablegross-2441)));
