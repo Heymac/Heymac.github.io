@@ -458,7 +458,7 @@
 
 			let otherincome = Math.round(23.50);
 
-			let pay = Math.round(grosspay+otherincome-benefitsdeduct-taxdeduct-retirementdeduct);
+			let pay = Math.max(0, Math.round(grosspay+otherincome-benefitsdeduct-taxdeduct-retirementdeduct));
 
 			return {benefits : benefitsdeduct, tax : taxdeduct, retirement : retirementdeduct, takehome : pay};
 		}
