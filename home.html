@@ -583,7 +583,7 @@
 						const clonedElement = originalElement.cloneNode(true);
 						clonedElement.setAttribute('data-day', (i+1));
 
-						if (i > 3) {
+						if (i > 10) {
 							let circle = clonedElement.getElementsByTagName('circle')[0];
 							circle.setAttribute('data-hour', 'nowork');
 							circle.setAttribute('stroke', 'var(--grey)');
