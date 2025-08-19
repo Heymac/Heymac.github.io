@@ -125,6 +125,13 @@
 	#overpay.underonly{
 		display: none;
 	}
+
+	#underpay.overonly{
+		display: none;
+	}
+	#overpay.overonly{
+		flex-grow: 0;
+	}
 	/*.bar:first-child{
 		background-color: #207350;
 		margin-bottom: 0.5vh
@@ -361,20 +368,45 @@
 			}
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
 
-
-			let t1 = calculatePay(128+quartersworked, 160).takehome;
+			let t1;
 			//let t2 = calculatePay(128, 160).takehome;
-			let t3 = calculatePay(160+quartersover, 160).takehome;
+			let t3;
 			//let t4 = calculatePay(160, 160).takehome;
+			let dayunderpay;
+			let dayoverpay;
+			let dayunderdivider;
 
-			let dayunderpay = t1-t2;
-			let dayoverpay = t3-t4;
-			let dayunderdivider = t4-t2;
+			if (dayofweek == 5 || dayofweek == 6 || dayofweek == 12 || dayofweek == 13){
+				t3 = calculatePay(160+(quartersworked+quartersover), 160).takehome;
+				dayunderpay = 0;
+				dayoverpay = t3-t4;
+				dayunderdivider = 1;
+			}
+			else{
+				t1 = calculatePay(128+quartersworked, 160).takehome;
+				t3 = calculatePay(160+quartersover, 160).takehome;
+				dayunderpay = t1-t2;
+				dayoverpay = t3-t4;
+				dayunderdivider = t4-t2;
+			}
 
 			let underpay = document.getElementById("underpay");
 			let overpay = document.getElementById("overpay");
 
-			if (dayoverpay > 0){
+			if (dayunderpay == 0 && dayoverpay > 0){
+				underpay.classList.remove("underonly");
+				overpay.classList.remove("underonly");
+				underpay.classList.add("overonly");
+				overpay.classList.add("overonly");
+
+				underpay.style.width = 0+"%";
+				underpay.getElementsByClassName("text")[0].innerHTML = 0;
+				overpay.style.width = dayoverpay+"%";
+				overpay.getElementsByClassName("text")[0].innerHTML = dayoverpay;
+			}
+			else if (dayoverpay > 0){
+				underpay.classList.remove("overonly");
+				overpay.classList.remove("overonly");
 				underpay.classList.remove("underonly");
 				overpay.classList.remove("underonly");
 
@@ -384,6 +416,8 @@
 				overpay.getElementsByClassName("text")[0].innerHTML = dayoverpay;
 			}
 			else{
+				underpay.classList.remove("overonly");
+				overpay.classList.remove("overonly");
 				underpay.classList.add("underonly");
 				overpay.classList.add("underonly");
 
