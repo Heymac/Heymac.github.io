@@ -9,6 +9,10 @@
 		  --grey: #5959597a;
 		  --white: #ffffff;
 		  --gold: #F9BB36;
+		  --green: #207350;
+		  --purple: #C359D3;
+		  --blue: #3D84E2;
+		  --lightgreen: #38B287;
 		}
 	body {
 		background-color: #222222;
@@ -59,7 +63,7 @@
     	font-size: 1.5vw;
 	}
 	.workcolumn{
-		background-color: #ffffff17;
+		/*background-color: #ffffff17;*/
 	}
 	#income{
 
@@ -68,7 +72,7 @@
 		display: initial;
 		flex: 1 1 0px;
 	}
-	#paycheck{
+	#paycheck, #dailyincome{
 		padding: 0 0.8vw 0 0;
 	}
 	.portion{
@@ -76,7 +80,7 @@
 		/*margin-left: -1vh;*/
 		flex-grow: 1;
 		/*margin-right: -1vh;*/
-		min-width: 5%;
+		min-width: 1vw;
 		flex-direction: column;
 		transition: width 1s ease-out;
 	}
@@ -89,26 +93,39 @@
 		padding: 0.4vw;
 	}
 	#benefits .paybar{
-		background-color: #C359D3;
+		background-color: var(--purple);
 	}
 	#tax .paybar{
-		background-color: #3D84E2;
+		background-color: var(--blue);
 	}
 	#retirement .paybar{
-		background-color: #38B287;
+		background-color: var(--lightgreen);
 	}
 	#takehome .paybar{
 		z-index: 0;
 		border-radius: 2vw;
-		background-color: #207350;
+		background-color: var(--green);
 	}
 	.portion .text{
-		margin: 1vh auto 0 auto;
+		margin: 1vw auto 0 auto;
+		padding-left: 0.8vw;
 	}
-	#monthlyincome{
-		display: block;
+	#underpay .paybar{
+		background-color: var(--green);
 	}
-	.bar:first-child{
+	#overpay .paybar{
+		background-color: var(--gold);
+	}
+	#underpay.underonly .paybar, #overpay .paybar{
+		border-radius: 2vw;
+	}
+	#underpay.underonly{
+		flex-grow: 0;
+	}
+	#overpay.underonly{
+		display: none;
+	}
+	/*.bar:first-child{
 		background-color: #207350;
 		margin-bottom: 0.5vh
 	}
@@ -134,7 +151,7 @@
 		height: 100%;
 		width: 4px;
 		background-color: #222222;
-	}
+	}*/
 	#total{
 		text-align: right;
 	}
@@ -152,12 +169,13 @@
 	}
 	#timeentry{
 		background-color: rgba(255, 255, 255, 0.03);
-    		border: 0.25vw solid #ffffff00;
-		padding: 1vw;
+    	border: 0.25vw solid #ffffff00;
+		padding: 1.5vw;
 		resize: none;
 		width: 100%;
 		flex-basis: 50%;
 		line-height: 1.5em;
+		border-radius: 1vw;
 	}
 	#timeentry:focus {
 		outline: none !important;
@@ -174,6 +192,7 @@
 	}
 	.project{
 		border: solid 0.25vw #373737;
+		border-radius: 1vw;
 	}
 	.project div{
 		padding: 0.75vw;
@@ -194,6 +213,9 @@
 		var quartersworked = 0;
 		var quartersover = 0;
 		var dayofweek = 0;
+
+		const t2 = calculatePay(128, 160).takehome;
+		const t4 = calculatePay(160, 160).takehome;
 
 		function updateBoard(day) {
 
@@ -338,21 +360,38 @@
 				document.getElementById('projects').appendChild(clonedElement);
 			}
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
-			let tempmonthincome = ((quartersworked*15/4)+(quartersover*23/4))/120;
 
-			let firstbar = 0;
-			let secondbar = 0;
 
-			if (tempmonthincome <= 1 ){
-				firstbar = tempmonthincome;
-				secondbar = 0;
+			let t1 = calculatePay(128+quartersworked, 160).takehome;
+			//let t2 = calculatePay(128, 160).takehome;
+			let t3 = calculatePay(160+quartersover, 160).takehome;
+			//let t4 = calculatePay(160, 160).takehome;
+
+			let dayunderpay = t1-t2;
+			let dayoverpay = t3-t4;
+			let dayunderdivider = t4-t2;
+
+			let underpay = document.getElementById("underpay");
+			let overpay = document.getElementById("overpay");
+
+			if (dayoverpay > 0){
+				underpay.classList.remove("underonly");
+				overpay.classList.remove("underonly");
+
+				underpay.style.width = (dayunderpay)+"%";
+				underpay.getElementsByClassName("text")[0].innerHTML = dayunderpay;
+				overpay.style.width = dayoverpay+"%";
+				overpay.getElementsByClassName("text")[0].innerHTML = dayoverpay;
 			}
-			else if (tempmonthincome > 1){
-				firstbar = 1;
-				secondbar = tempmonthincome%1;
+			else{
+				underpay.classList.add("underonly");
+				overpay.classList.add("underonly");
+
+				underpay.style.width = (100*dayunderpay/dayunderdivider)+"%";
+				underpay.getElementsByClassName("text")[0].innerHTML = dayunderpay;
+				overpay.style.width = 0+"%";
+				overpay.getElementsByClassName("text")[0].innerHTML = 0;
 			}
-			document.getElementById('normalbar').style.width = (firstbar*100)+"%";
-			document.getElementById('overbar').style.width = (secondbar*100)+"%";
 
 		}
 		function clearBoard() {
@@ -441,8 +480,6 @@
 			overtime += Math.max(0, w1-160);
 			overtime += Math.max(0, w2-160);
 
-			console.log(regulartime/4, overtime/4);
-
 			let grosspay = ((regulartime/4)*24)+((overtime/4)*32)+6.51;
 			let benefits = 66.19;
 			let benefitsdeduct = Math.round(Math.min(Math.max(grosspay, 0), 66.19));
@@ -512,7 +549,16 @@
 		<div class="text" id="clock">12:10</div>
 		<div class="text" id="total">0 hrs</div>
 	</div>
-	<div id="monthlyincome">
+	<div id="dailyincome">
+		<div class="portion underonly" id="underpay">
+			<div class="paybar"></div>
+			<div class="text">120</div>
+		</div>
+		<div class="portion underonly" id="overpay">
+			<div class="paybar"></div>
+			<div class="text">50</div>
+		</div>
+		<!--
 		<div class="bar" id="normalbar"></div>
 		<div class="dividers">
 			<div class="divider"></div>
@@ -522,7 +568,7 @@
 		<div class="dividers">
 			<div class="divider"></div>
 			<div class="divider"></div>
-		</div>
+		</div>-->
 	</div>
 	<div id="text">
 		<div id="weeks">
