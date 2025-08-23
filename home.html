@@ -380,7 +380,7 @@
 				t3 = calculatePay(160+(quartersworked+quartersover), 160).takehome;
 				dayunderpay = 0;
 				dayoverpay = t3-t4;
-				dayunderdivider = 1;
+				dayunderdivider = t4-t2;
 			}
 			else{
 				t1 = calculatePay(128+quartersworked, 160).takehome;
@@ -716,4 +716,5 @@
 </body>
 
 </html>
+
 
