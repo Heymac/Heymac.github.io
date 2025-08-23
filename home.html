@@ -401,7 +401,7 @@
 
 				underpay.style.width = 0+"%";
 				underpay.getElementsByClassName("text")[0].innerHTML = 0;
-				overpay.style.width = dayoverpay+"%";
+				overpay.style.width = (100*dayoverpay/dayunderdivider)+"%";
 				overpay.getElementsByClassName("text")[0].innerHTML = dayoverpay;
 			}
 			else if (dayoverpay > 0){
@@ -716,3 +716,4 @@
 </body>
 
 </html>
+
