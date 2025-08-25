@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+		<style>
+			body {
+    				display: flex;
+    				flex-direction: column;
+                    background-color: #121212;
+                    color: white;
+			}
+			.numberinput{
+				display: flex;
+			}
+			.numberinput p:first-child{
+				
+			}
+			p{
+				    font-family: sans-serif;
+    				margin: auto 2em;
+                    min-width: 1em;
+    				height: fit-content;
+			}
+			input{
+				margin: 1em 2em 1em auto;
+				border: 3px solid white;
+				background-color: #ffffff00;
+				padding: 0.5em;
+				font-size: 1em;
+				text-align: center;
+			}
+            input{
+            	color: white;
+            }
+            input:disabled{
+            	color: white;
+            }
+            
+            #img{
+            	display: none;
+            }
+            
+            @media only screen and (max-width: 600px) {
+				.numberinput {flex-direction: column;}
+                input {margin: 1em 2em 1em 2em;}
+                .numberinput {margin: 1em 0em 0em 0em}
+			}
+            #OCRtext{
+            	display: none;
+            	white-space: pre-wrap;
+            }
+		</style>
+	</head>
+	<body>
+    		<div class="numberinput">
+			<p>Cylinder Weight (g)</p>
+			<input id="cyl" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="270.00">
+		</div>
+		<div class="numberinput">
+			<p>Wet Soil + Cylinder Weight (g)</p>
+			<input id="wetcyl" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="2950.00">
+		</div>
+		<div class="numberinput">
+			<p>Current Moisture (%)</p>
+			<input id="currmc" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="18">
+		</div>
+		<div class="numberinput">
+			<p>Target Moisture (%)</p>
+			<input id="targmc" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="21.0">
+		</div>
+		<div class="numberinput">
+			<p>Add Water / Dry Soil</p>
+			<input id="result" type="text" disabled>
+		</div>
+        
+        <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
+        
+        <p id="OCRtext">OCR Result</p>
+        
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+
+	<script>            
+		var cyl = document.getElementById("cyl");
+        	var wetcyl = document.getElementById("wetcyl");
+        	var currmc = document.getElementById("currmc");
+        	var targmc = document.getElementById("targmc");
+        	var waterresult = document.getElementById("result");
+            
+	function updateMoisture(){
+            	let cylweight = Number(cyl.value);
+            	let wetcylweight = Number(wetcyl.value);
+            	let currmcpercent = Number(currmc.value);
+                let targmcpercent = Number(targmc.value);
+		let result = Number(waterresult.value);
+
+		let drymaterial = ((wetcylweight-cylweight)/(1+(currmcpercent/100)));
+		let mcdifference = targmcpercent-currmcpercent;
+
+		if (mcdifference >= 0){
+			result = ((mcdifference/100)*drymaterial).toFixed(2)+" mL";
+		}
+		else{
+			result = (((Math.abs(mcdifference)/currmcpercent)*drymaterial)+((Math.abs(mcdifference)/100)*drymaterial)).toFixed(2)+" g";
+		}
+
+            	waterresult.value = result;
+            }
+            function clearvalue(field){
+            	field.value = "";
+            }
+            function recognizeText(field){
+            	let file = field.files[0];
+                let filepath = URL.createObjectURL(file);
+                let ocrtext = document.getElementById("OCRtext");
+            	(async () => {
+                    const worker = await Tesseract.createWorker('eng', 1);
+                    await worker.setParameters({
+                      tessedit_char_whitelist: '0123456789.',
+                      preserve_interword_spaces: '0',
+                    });
+                    const ret = await worker.recognize(filepath);
+                    
+                    ocrtext.innerHTML = ret.data.text;
+                    
+                    console.log(ret.data.text);
+                    await worker.terminate();
+              	})();
+            }
+            
+            updateMoisture();
+		</script>
+	</body>
+</html>
