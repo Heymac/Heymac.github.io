@@ -514,23 +514,23 @@
 			overtime += Math.max(0, w1-160);
 			overtime += Math.max(0, w2-160);
 
-			let grosspay = ((regulartime/4)*25.5)+((overtime/4)*38.25)+6.51;
+			let grosspay = ((regulartime/4)*25.5)+((overtime/4)*38.75)+6.51;
 			let benefits = 66.19;
 			let benefitsdeduct = Math.round(Math.min(Math.max(grosspay, 0), 66.19));
 
 			let taxablegross = grosspay-benefits;
 
-			let statetax = Math.min(Math.max(((taxablegross-461.54)), 0), 461.54)*0.0519;
+			let statetax = Math.max(((taxablegross-461.54)), 0)*0.0519;
 			let medicaretax = taxablegross*0.0145;
 			let socialtax = taxablegross*0.062;
 			let federaltax = //(taxablegross <= 2441) ? ((45.90)+(0.12*(taxablegross-1036))) : ((214.50)+(0.22*(taxablegross-2441)));
-			(Math.min(Math.max(taxablegross-577, 0), 1036)*0.1)+(Math.min(Math.max(taxablegross-1036, 0), 2441)*0.12)+(Math.min(Math.max(taxablegross-2441, 0), 4552)*0.22);
+			(Math.min(Math.max(taxablegross-577, 0), 459)*0.1)+(Math.min(Math.max(taxablegross-1036, 0), 1405)*0.12)+(Math.min(Math.max(taxablegross-2441, 0), 2111)*0.22);
 
 			let taxdeduct = Math.max(0, Math.round(statetax+medicaretax+socialtax+federaltax));
 
 			let retirementdeduct = Math.round(grosspay*0.09);
 
-			let otherincome = Math.round(23.50);
+			let otherincome = Math.round(23.18);
 
 			let pay = Math.max(0, Math.round(grosspay+otherincome-benefitsdeduct-taxdeduct-retirementdeduct));
 
@@ -716,6 +716,7 @@
 </body>
 
 </html>
+
 
 
 
