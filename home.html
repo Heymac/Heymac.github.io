@@ -221,8 +221,8 @@
 		var quartersover = 0;
 		var dayofweek = 0;
 
-		const t2 = calculatePay(128, 160).takehome;
-		const t4 = calculatePay(160, 160).takehome;
+		const t2 = calculatePay(128, 160, 0).takehome;
+		const t4 = calculatePay(160, 160, 0).takehome;
 
 		function updateBoard(day) {
 
@@ -252,6 +252,7 @@
 			let over32 = 0;
 			quartersworked = 0;
 			quartersover = 0;
+			quarterspremium = 0;
 
 			for (var i = 0; i < lines.length; i++) {
 				let pattern = /\d{1,4}/g; 
@@ -268,6 +269,7 @@
 				let startmin;
 				let endhour;
 				let endmin;
+				let ispremium = false;
 
 				if (starttime.length <= 2){
 					starthour = parseInt(starttime);
@@ -282,6 +284,9 @@
 				else{
 					endmin = parseInt(endtime.slice(-2));
 					endhour = parseInt(endtime.slice(0, -2));}
+				if (note.includes(" PP ")){
+					ispremium = true;
+				}
 
 				//console.log(starthour+':'+startmin+' , '+endhour+':'+endmin);
 
@@ -311,6 +316,9 @@
 								turnOnCircle(circles[b], false);
 								quartersworked++;
 							}
+							if (ispremium){
+								quarterspremium++;
+							}
 							timecounter--;
 						}
 					}
@@ -324,6 +332,9 @@
 							else{
 								turnOnCircle(circles[b], false);
 								quartersworked++;
+							}
+							if (ispremium){
+								quarterspremium++;
 							}
 							timecounter--;
 						}
@@ -342,7 +353,7 @@
 				biweekquartersw2 += Number(localStorage.getItem('quarters'+i));
 			}
 			
-			let pay = calculatePay(biweekquartersw1, biweekquartersw2);
+			let pay = calculatePay(biweekquartersw1, biweekquartersw2, quarterspremium);
 
 			let benefits = document.getElementById("benefits");
 			benefits.style.width = pay.benefits+"%";
@@ -369,22 +380,22 @@
 			document.getElementById('total').innerText = ((quartersworked/4)+(quartersover/4)) + ' hrs';
 
 			let t1;
-			//let t2 = calculatePay(128, 160).takehome;
+			//let t2 = calculatePay(128, 160, 0).takehome;
 			let t3;
-			//let t4 = calculatePay(160, 160).takehome;
+			//let t4 = calculatePay(160, 160, 0).takehome;
 			let dayunderpay;
 			let dayoverpay;
 			let dayunderdivider;
 
 			if (dayofweek == 5 || dayofweek == 6 || dayofweek == 12 || dayofweek == 13){
-				t3 = calculatePay(160+(quartersworked+quartersover), 160).takehome;
+				t3 = calculatePay(160+(quartersworked+quartersover), 160, quarterspremium).takehome;
 				dayunderpay = 0;
 				dayoverpay = t3-t4;
 				dayunderdivider = t4-t2;
 			}
 			else{
-				t1 = calculatePay(128+quartersworked, 160).takehome;
-				t3 = calculatePay(160+quartersover, 160).takehome;
+				t1 = calculatePay(128+quartersworked, 160, 0).takehome;
+				t3 = calculatePay(160+quartersover, 160, quarterspremium).takehome;
 				dayunderpay = t1-t2;
 				dayoverpay = t3-t4;
 				dayunderdivider = t4-t2;
@@ -506,15 +517,16 @@
 
 		    return Math.floor(daysSinceDate%14);
 		}
-		function calculatePay(w1, w2){
+		function calculatePay(w1, w2, prem){
 			let regulartime = 0;
 			let overtime = 0;
+			let rate = 25.5;
 			regulartime += Math.min(Math.max(w1, 0), 160);
 			regulartime += Math.min(Math.max(w2, 0), 160);
 			overtime += Math.max(0, w1-160);
 			overtime += Math.max(0, w2-160);
 
-			let grosspay = ((regulartime/4)*25.5)+((overtime/4)*38.75)+6.51;
+			let grosspay = ((regulartime/4)*rate)+((overtime/4)*(rate*1.5))+6.51+((prem/4)*(rate*0.25));
 			let benefits = 66.19;
 			let benefitsdeduct = Math.round(Math.min(Math.max(grosspay, 0), 66.19));
 
