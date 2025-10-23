@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+		<style>
+			body {
+    				display: flex;
+    				flex-direction: column;
+                    background-color: #121212;
+                    color: white;
+			}
+			.numberinput{
+				display: flex;
+			}
+			.numberinput p:first-child{
+				
+			}
+			p{
+				    font-family: sans-serif;
+    				margin: auto 2em;
+                    min-width: 1em;
+    				height: fit-content;
+			}
+			input{
+				margin: 1em 2em 1em auto;
+				border: 3px solid white;
+				background-color: #ffffff00;
+				padding: 0.5em;
+				font-size: 1em;
+				text-align: center;
+			}
+            input{
+            	color: white;
+            }
+            input:disabled{
+            	color: white;
+            }
+            
+            #img{
+            	display: none;
+            }
+            
+            @media only screen and (max-width: 600px) {
+				.numberinput {flex-direction: column;}
+                input {margin: 1em 2em 1em 2em;}
+                .numberinput {margin: 1em 0em 0em 0em}
+			}
+            #OCRtext{
+            	display: none;
+            	white-space: pre-wrap;
+            }
+		</style>
+	</head>
+	<body>
+    		<div class="numberinput">
+			<p>Wet Soil + Mold Weight</p>
+			<input id="wetmold" type="text" inputmode="decimal" oninput="updateDensity()" onclick="clearvalue(this)" value="23.5000">
+		</div>
+		<div class="numberinput">
+			<p>Mold Weight (Spacer Optional)</p>
+			<input id="mold" type="text" inputmode="decimal" oninput="updateDensity()" onclick="clearvalue(this)" value="15.2500">
+		</div>
+		<div class="numberinput">
+			<p>Mold Volume</p>
+			<input id="moldvol" type="text" inputmode="decimal" oninput="updateDensity()" onclick="clearvalue(this)" value="0.07500">
+		</div>
+		<div class="numberinput">
+			<p>Moisture Content</p>
+			<input id="mc" type="text" inputmode="decimal" oninput="updateDensity()" onclick="clearvalue(this)" value="10.0">
+		</div>
+		<div class="numberinput">
+			<p>Max Density</p>
+			<input id="denmax" type="text" inputmode="decimal" oninput="updateDensity()" onclick="clearvalue(this)" value="100">
+		</div>
+			<div class="numberinput">
+			<p>Calculated Density</p>
+			<input id="denresult" type="text" disabled>
+		</div>
+        
+        <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
+        
+        <p id="OCRtext">OCR Result</p>
+        
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+
+		<script>            
+        	var wetmold = document.getElementById("wetmold");
+        	var mold = document.getElementById("mold");
+        	var moldvol = document.getElementById("moldvol");
+        	var mc = document.getElementById("mc");
+		var denmax = document.getElementById("denmax");
+        	var denresult = document.getElementById("denresult");
+            
+	    function updateDensity(){
+            	let moldweight = Number(mold.value);
+            	let soilmold = Number(wetmold.value);
+            	let moldvolume = Number(moldvol.value);
+            	let moisture = Number(mc.value);
+            	let densitymax = Number(denmax.value);
+
+                let result = ((soilmold-moldweight)/moldvolume)/(1+(moisture/100));
+		let denpercent = (100*(result/densitymax));
+            	denresult.value = result.toFixed(2)+"  -  "+denpercent.toFixed(1)+"%";
+            }
+            function clearvalue(field){
+            	field.value = "";
+            }
+            function recognizeText(field){
+            	let file = field.files[0];
+                let filepath = URL.createObjectURL(file);
+                let ocrtext = document.getElementById("OCRtext");
+            	(async () => {
+                    const worker = await Tesseract.createWorker('eng', 1);
+                    await worker.setParameters({
+                      tessedit_char_whitelist: '0123456789.',
+                      preserve_interword_spaces: '0',
+                    });
+                    const ret = await worker.recognize(filepath);
+                    
+                    ocrtext.innerHTML = ret.data.text;
+                    
+                    console.log(ret.data.text);
+                    await worker.terminate();
+              	})();
+            }
+            
+            updateDensity();
+		</script>
+	</body>
+</html>
