@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+		<style>
+			body {
+    				display: flex;
+    				flex-direction: column;
+                    background-color: #121212;
+                    color: white;
+			}
+			.numberinput{
+				display: flex;
+			}
+			.numberinput p:first-child{
+				
+			}
+			p{
+				    font-family: sans-serif;
+    				margin: auto 2em;
+                    min-width: 1em;
+    				height: fit-content;
+			}
+			input{
+				margin: 1em 2em 1em auto;
+				border: 3px solid white;
+				background-color: #ffffff00;
+				padding: 0.5em;
+				font-size: 1em;
+				text-align: center;
+			}
+            input{
+            	color: white;
+            }
+            input:disabled{
+            	color: white;
+            }
+            
+            #img{
+            	display: none;
+            }
+            
+            @media only screen and (max-width: 600px) {
+				.numberinput {flex-direction: column;}
+                input {margin: 1em 2em 1em 2em;}
+                .numberinput {margin: 1em 0em 0em 0em}
+			}
+            #OCRtext{
+            	display: none;
+            	white-space: pre-wrap;
+            }
+		</style>
+	</head>
+	<body>
+    		<div class="numberinput">
+			<p>Mold + Soil</p>
+			<input id="moldsoil" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="1600.0">
+		</div>
+		<div class="numberinput">
+			<p>Mold Weight</p>
+			<input id="mold" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="430.0">
+		</div>
+		<div class="numberinput">
+			<p>Target Moisture</p>
+			<input id="moisture" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="15.0">
+		</div>
+		<div class="numberinput">
+			<p>Top Point</p>
+			<input id="point1" type="text" disabled>
+		</div>
+		<div class="numberinput">
+			<p>Middle Point</p>
+			<input id="point2" type="text" disabled>
+		</div>
+		<div class="numberinput">
+			<p>6% Point</p>
+			<input id="point3" type="text" disabled>
+		</div>
+		<div class="numberinput">
+			<p>3% Point</p>
+			<input id="point4" type="text" disabled>
+		</div>
+		<div class="numberinput">
+			<p>1.5% Point</p>
+			<input id="point5" type="text" disabled>
+		</div>
+		<div class="numberinput">
+			<p>0% Point</p>
+			<input id="point6" type="text" disabled>
+		</div>
+		<div class="numberinput">
+			<p>6ths</p>
+			<input id="sixths" type="text" disabled>
+		</div>
+        
+        <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
+        
+        <p id="OCRtext">OCR Result</p>
+        
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+
+		<script>            
+        	var moldwet = document.getElementById("moldsoil");
+        	var mold = document.getElementById("mold");
+        	var mc = document.getElementById("moisture");
+        	var point1 = document.getElementById("point1");
+        	var point2 = document.getElementById("point2");
+        	var point3 = document.getElementById("point3");
+        	var point4 = document.getElementById("point4");
+        	var point5 = document.getElementById("point5");
+        	var point6 = document.getElementById("point6");
+        	var sixths = document.getElementById("sixths");
+            
+			function updateMoisture(){
+            	let moldweight = Number(mold.value);
+            	let moldwetweight = Number(moldwet.value);
+            	let moisture = Number(mc.value);
+                let result1 = moldwetweight;
+		let result2 = ((moldwetweight-moldweight)*( 1+((((moisture-6)/2)+6).toFixed(1)/100) )/(1+(moisture/100)))+moldweight;
+		let result3 = ((moldwetweight-moldweight)*1.06/(1+(moisture/100)))+moldweight;
+		let result4 = ((moldwetweight-moldweight)*1.03/(1+(moisture/100)))+moldweight;
+		let result5 = ((moldwetweight-moldweight)*1.015/(1+(moisture/100)))+moldweight;
+		let result6 = ((moldwetweight-moldweight)/(1+(moisture/100)))+moldweight;
+		let result7 = (moldwetweight-moldweight)/6;
+            	point1.value = result1.toFixed(1);
+            	point2.value = result2.toFixed(1) + " - " + (((moisture-6)/2)+6).toFixed(1);
+            	point3.value = result3.toFixed(1);
+            	point4.value = result4.toFixed(1);
+            	point5.value = result5.toFixed(1);
+            	point6.value = result6.toFixed(1);
+            	sixths.value = result7.toFixed(1);
+            }
+            function clearvalue(field){
+            	field.value = "";
+            }
+            function recognizeText(field){
+            	let file = field.files[0];
+                let filepath = URL.createObjectURL(file);
+                let ocrtext = document.getElementById("OCRtext");
+            	(async () => {
+                    const worker = await Tesseract.createWorker('eng', 1);
+                    await worker.setParameters({
+                      tessedit_char_whitelist: '0123456789.',
+                      preserve_interword_spaces: '0',
+                    });
+                    const ret = await worker.recognize(filepath);
+                    
+                    ocrtext.innerHTML = ret.data.text;
+                    
+                    console.log(ret.data.text);
+                    await worker.terminate();
+              	})();
+            }
+            
+            updateMoisture();
+		</script>
+	</body>
+</html>
