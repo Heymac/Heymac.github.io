@@ -16,17 +16,20 @@
 				
 			}
 			p{
-				    font-family: sans-serif;
+				    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+					font-size: 1.2em;
     				margin: auto 2em;
                     min-width: 1em;
     				height: fit-content;
 			}
 			input{
-				margin: 1em 2em 1em auto;
-				border: 3px solid white;
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+				font-size: 1.2em;
+				margin: 1em 2em 0.5em auto;
+				border: 3px solid #ffffff30;
+				border-radius: 0.75rem;
 				background-color: #ffffff00;
 				padding: 0.5em;
-				font-size: 1em;
 				text-align: center;
 			}
             input{
@@ -42,8 +45,8 @@
             
             @media only screen and (max-width: 600px) {
 				.numberinput {flex-direction: column;}
-                input {margin: 1em 2em 1em 2em;}
-                .numberinput {margin: 1em 0em 0em 0em}
+                input {1em 2em 0.5em 2em}
+                .numberinput {margin: 0.75em 0em 0em 0em}
 			}
             #OCRtext{
             	display: none;
