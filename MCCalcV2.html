@@ -75,10 +75,10 @@
 		</style>
 	</head>
 	<body>
-    		<div class="numberinput">
+    	<div class="numberinput">
 			<p>Pan Weight</p>
 			<div class="inputwrapper">
-				<input id="pan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(pan)" onclick="clearvalue(this)" value="120.00" data-realvalue="120.00" data-unit="g">
+				<input id="pan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="120.00" data-realvalue="120.00" data-unit="g">
 				<select class="units" onchange="updateUnits(pan, this.value)">
 					<option value="g">G</option>
 					<option value="lb">LB</option>
@@ -88,7 +88,7 @@
 		<div class="numberinput">
 			<p>Wet Soil + Pan Weight</p>
 			<div class="inputwrapper">
-				<input id="wetpan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(wetpan)" onclick="clearvalue(this)" value="220.00" data-realvalue="220.00" data-unit="g">
+				<input id="wetpan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="220.00" data-realvalue="220.00" data-unit="g">
 				<select class="units" onchange="updateUnits(wetpan, this.value)">
 					<option value="g">G</option>
 					<option value="lb">LB</option>
@@ -98,18 +98,17 @@
 		<div class="numberinput">
 			<p>Dry Soil + Pan Weight</p>
 			<div class="inputwrapper">
-				<input id="drypan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(drypan)" onclick="clearvalue(this)" value="210.00" data-realvalue="210.00" data-unit="g">
+				<input id="drypan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="210.00" data-realvalue="210.00" data-unit="g">
 				<select class="units" onchange="updateUnits(drypan, this.value)">
 					<option value="g">G</option>
 					<option value="lb">LB</option>
 				</select>
 			</div>
 		</div>
-			<div class="numberinput">
-				<p>Moisture Content</p>
-				<div class="inputwrapper">
-					<input id="mcresult" type="text" disabled>
-				</div>
+		<div class="numberinput">
+			<p>Moisture Content</p>
+			<div class="inputwrapper">
+				<input id="mcresult" type="text" disabled>
 			</div>
 		</div>
         
