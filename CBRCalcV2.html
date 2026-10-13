@@ -189,12 +189,12 @@
            	let densitymax = Number(denmax.dataset.realvalue);
 
            	if(spacer.classList.contains('buttonactive')){
-	    		moldweight+=8;
+	    		moldweight+=18.88435;
 	    	}
 
             let result = ((soilmold-moldweight)/moldvolume)/(1+(moisture/100));
 			let denpercent = (100*(result/densitymax));
-           	denresult.value = result.toFixed(2)+"  -  "+denpercent.toFixed(1)+"%";
+           	denresult.value = /*result.toFixed(2)+"  -  "+*/denpercent.toFixed(1)/*+"%"*/;
         }
         function updateUnits(id, unit){
 			let weight = Number(id.value);
