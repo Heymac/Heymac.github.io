@@ -153,7 +153,7 @@
             let wetcylweight = Number(wetcyl.dataset.realvalue);
             let currmcpercent = Number(currmc.dataset.realvalue);
             let targmcpercent = Number(targmc.dataset.realvalue);
-			let result = Number(waterresult.dataset.realvalue);
+			let result = Number(waterresult.value);
 
 			let drymaterial = ((wetcylweight-cylweight)/(1+(currmcpercent/100)));
 			let mcdifference = targmcpercent-currmcpercent;
