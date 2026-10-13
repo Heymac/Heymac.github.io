@@ -4,78 +4,73 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 		<style>
 			body {
-    				display: flex;
-    				flex-direction: column;
-                    background-color: #121212;
-                    color: white;
-			}
-			.numberinput{
-				display: flex;
-				margin: 0em 2em;
-			}
-			.numberinput p:first-child{
-				
+    			display: flex;
+    			flex-direction: column;
+                background-color: #121212;
+                color: white;
 			}
 			p{
-				    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-					font-size: 1em;
-    				margin: auto 0em;
-                    min-width: 1em;
-    				height: fit-content;
+				font-size: 1rem;
+    			margin: auto 0rem;
+                min-width: 1rem;
+    			height: fit-content;
 			}
 			input{
-				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-				font-size: 1em;
-				margin: 1em 2em 0.5em auto;
-				border: 0.25em solid #ffffff30;
+				font-size: 1rem;
+				border: 0.25rem solid #ffffff30;
 				border-radius: 0.75rem;
 				background-color: #ffffff00;
-				padding: 0.75em;
+				padding: 0.75rem;
 				text-align: center;
-			}
-            input{
+				flex-grow:1;
             	color: white;
-            }
+			}
+			p, input, .units{
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			}
             input:disabled{
             	color: white;
             }
-		.unitsappended{
-			border-top-right-radius: 0px;
-    			border-bottom-right-radius: 0px;
-			flex-grow:1;
-		}
-            
-		.units{
-			font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    			font-size: 1em;
-    			margin: 1em 0em 0.5em auto;
-    			border: 0.25em solid #ffffff30;
+			.numberinput{
+				display: flex;
+				margin: 0rem 2rem;
+			}
+			.inputwrapper{
+				display:flex;
+				margin: 1rem 2rem 0.5rem auto;
+				width: 18rem;
+			}
+			.unitsappended{
+				border-top-right-radius: 0rem;
+	    		border-bottom-right-radius: 0rem;
+				flex-grow:1;
+			}
+			.units{
+    			font-size: 1.3rem;
+    			border: 0.25rem solid #ffffff30;
     			border-radius: 0.75rem;
     			background-color: #121212;
-    			padding: 0.75em;
+    			padding: 0.6rem;
     			text-align: center;
     			color: rgb(11 163 120);
-    			border-left: 0px;
-    			border-top-left-radius: 0px;
-    			border-bottom-left-radius: 0px;
+    			border-left: 0rem;
+    			border-top-left-radius: 0rem;
+    			border-bottom-left-radius: 0rem;
     			font-weight: bold;
-		}
-		.inputwrapper{
-			display:flex;
-		}
-
-            #img{
-            	display: none;
-            }
-            
+			}
+			
             @media only screen and (max-width: 600px) {
 				.numberinput {flex-direction: column;}
-                input {margin: 1em 0em 0.5em 0em;}
-                .numberinput {margin-top: 0.75em;}
+                .inputwrapper {margin: 1rem 0rem 0.5rem 0rem;width:auto;}
+                .numberinput {margin-top: 0.75rem;}
 			}
+
             #OCRtext{
             	display: none;
             	white-space: pre-wrap;
+            }
+            #img{
+            	display: none;
             }
 		</style>
 	</head>
@@ -83,7 +78,7 @@
     		<div class="numberinput">
 			<p>Pan Weight</p>
 			<div class="inputwrapper">
-				<input id="pan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="120.00">
+				<input id="pan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(pan)" onclick="clearvalue(this)" value="120.00" data-realvalue="120.00" data-unit="g">
 				<select class="units" onchange="updateUnits(pan, this.value)">
 					<option value="g">G</option>
 					<option value="lb">LB</option>
@@ -93,7 +88,7 @@
 		<div class="numberinput">
 			<p>Wet Soil + Pan Weight</p>
 			<div class="inputwrapper">
-				<input id="wetpan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="220.00">
+				<input id="wetpan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(wetpan)" onclick="clearvalue(this)" value="220.00" data-realvalue="220.00" data-unit="g">
 				<select class="units" onchange="updateUnits(wetpan, this.value)">
 					<option value="g">G</option>
 					<option value="lb">LB</option>
@@ -103,7 +98,7 @@
 		<div class="numberinput">
 			<p>Dry Soil + Pan Weight</p>
 			<div class="inputwrapper">
-				<input id="drypan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture()" onclick="clearvalue(this)" value="210.00">
+				<input id="drypan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(drypan)" onclick="clearvalue(this)" value="210.00" data-realvalue="210.00" data-unit="g">
 				<select class="units" onchange="updateUnits(drypan, this.value)">
 					<option value="g">G</option>
 					<option value="lb">LB</option>
@@ -111,66 +106,76 @@
 			</div>
 		</div>
 			<div class="numberinput">
-			<p>Moisture Content</p>
-			<input id="mcresult" type="text" disabled>
+				<p>Moisture Content</p>
+				<div class="inputwrapper">
+					<input id="mcresult" type="text" disabled>
+				</div>
+			</div>
 		</div>
         
-        <input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
-        
+        <!--<input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
         <p id="OCRtext">OCR Result</p>
-        
-        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>-->
 
 		<script>            
-        	var pan = document.getElementById("pan");
-        	var wetpan = document.getElementById("wetpan");
-        	var drypan = document.getElementById("drypan");
-        	var mc = document.getElementById("mcresult");
+        var pan = document.getElementById("pan");
+        var wetpan = document.getElementById("wetpan");
+        var drypan = document.getElementById("drypan");
+        var mc = document.getElementById("mcresult");
 
-
+        var panunit = pan.getElementsByClassName("units")[0];
+        var wetpanunit = pan.getElementsByClassName("units")[0];
+        var drypanunit = pan.getElementsByClassName("units")[0];
             
-	    function updateMoisture(){
-            	let panweight = Number(pan.value);
-            	let wetweight = Number(wetpan.value);
-            	let dryweight = Number(drypan.value);
-                let result = 100*((wetweight-dryweight)/(dryweight-panweight));
-            	mc.value = result.toFixed(1)+" %";
-            }
+	    function updateMoisture(id){
+	    	if (id.dataset.unit == 'lb'){
+	    		id.dataset.realvalue = Number(id.value)*453.592;
+	    	}
+	    	else{
+	    		id.dataset.realvalue = id.value;
+	    	}
+            let panweight = Number(pan.dataset.realvalue);
+            let wetweight = Number(wetpan.dataset.realvalue);
+            let dryweight = Number(drypan.dataset.realvalue);
+
+            let result = 100*((wetweight-dryweight)/(dryweight-panweight));
+            mc.value = result.toFixed(1)+" %";
+        }
 	    function updateUnits(id, unit){
-		let weight = Number(id.value);
-		if (unit == 'lb'){
-			let result = id.value/453.6;
-			id.value = result.toFixed(5);
-		}
-		else if (unit == 'g'){
-			let result = id.value*453.6;
-			id.value = result.toFixed(2);
-		}
-		updateMoisture();
+			let weight = Number(id.value);
+			if (unit == 'lb'){
+				let result = weight/453.592;
+				id.value = result.toFixed(5);
+				id.dataset.unit = "lb";
+			}
+			else if (unit == 'g'){
+				let result = weight*453.592;
+				id.value = result.toFixed(2);
+				id.dataset.realvalue = result;
+				id.dataset.unit = "g";
+			}
+			updateMoisture(id);
 	    }
-            function clearvalue(field){
-            	field.value = "";
-            }
-            function recognizeText(field){
-            	let file = field.files[0];
-                let filepath = URL.createObjectURL(file);
-                let ocrtext = document.getElementById("OCRtext");
-            	(async () => {
-                    const worker = await Tesseract.createWorker('eng', 1);
-                    await worker.setParameters({
-                      tessedit_char_whitelist: '0123456789.',
-                      preserve_interword_spaces: '0',
-                    });
-                    const ret = await worker.recognize(filepath);
-                    
-                    ocrtext.innerHTML = ret.data.text;
-                    
-                    console.log(ret.data.text);
-                    await worker.terminate();
-              	})();
-            }
-            
-            updateMoisture();
+        function clearvalue(field){
+           	field.value = "";
+        }
+        /*function recognizeText(field){
+           	let file = field.files[0];
+            let filepath = URL.createObjectURL(file);
+            let ocrtext = document.getElementById("OCRtext");
+           	(async () => {
+                const worker = await Tesseract.createWorker('eng', 1);
+                await worker.setParameters({
+                	tessedit_char_whitelist: '0123456789.',
+                	preserve_interword_spaces: '0',
+            	});
+            	const ret = await worker.recognize(filepath);
+				ocrtext.innerHTML = ret.data.text;
+            	console.log(ret.data.text);
+            	await worker.terminate();
+        	})();
+        }*/
+        updateMoisture(pan);
 		</script>
 	</body>
 </html>
