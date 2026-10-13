@@ -57,6 +57,12 @@
     			border-top-left-radius: 0rem;
     			border-bottom-left-radius: 0rem;
     			font-weight: bold;
+    			min-width: 4.5rem;
+			}
+			.units:disabled{
+				appearance: none;
+				opacity: 1;
+            	color:white;
 			}
 			
             @media only screen and (max-width: 600px) {
@@ -80,8 +86,8 @@
 			<div class="inputwrapper">
 				<input id="pan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="120.00" data-realvalue="120.00" data-unit="g">
 				<select class="units" onchange="updateUnits(pan, this.value)">
-					<option value="g">G</option>
-					<option value="lb">LB</option>
+					<option value="g">g</option>
+					<option value="lb">lb</option>
 				</select>
 			</div>
 		</div>
@@ -90,8 +96,8 @@
 			<div class="inputwrapper">
 				<input id="wetpan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="220.00" data-realvalue="220.00" data-unit="g">
 				<select class="units" onchange="updateUnits(wetpan, this.value)">
-					<option value="g">G</option>
-					<option value="lb">LB</option>
+					<option value="g">g</option>
+					<option value="lb">lb</option>
 				</select>
 			</div>
 		</div>
@@ -100,15 +106,18 @@
 			<div class="inputwrapper">
 				<input id="drypan" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="210.00" data-realvalue="210.00" data-unit="g">
 				<select class="units" onchange="updateUnits(drypan, this.value)">
-					<option value="g">G</option>
-					<option value="lb">LB</option>
+					<option value="g">g</option>
+					<option value="lb">lb</option>
 				</select>
 			</div>
 		</div>
 		<div class="numberinput">
 			<p>Moisture Content</p>
 			<div class="inputwrapper">
-				<input id="mcresult" type="text" disabled>
+				<input id="mcresult" type="text" class="unitsappended" disabled>
+				<select class="units" disabled>
+					<option value="percent">%</option>
+				</select>
 			</div>
 		</div>
         
@@ -121,10 +130,6 @@
         var wetpan = document.getElementById("wetpan");
         var drypan = document.getElementById("drypan");
         var mc = document.getElementById("mcresult");
-
-        var panunit = pan.getElementsByClassName("units")[0];
-        var wetpanunit = pan.getElementsByClassName("units")[0];
-        var drypanunit = pan.getElementsByClassName("units")[0];
             
 	    function updateMoisture(id){
 	    	if (id.dataset.unit == 'lb'){
@@ -138,7 +143,7 @@
             let dryweight = Number(drypan.dataset.realvalue);
 
             let result = 100*((wetweight-dryweight)/(dryweight-panweight));
-            mc.value = result.toFixed(1)+" %";
+            mc.value = result.toFixed(1);
         }
 	    function updateUnits(id, unit){
 			let weight = Number(id.value);

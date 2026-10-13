@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+		<style>
+			body {
+    			display: flex;
+    			flex-direction: column;
+                background-color: #121212;
+                color: white;
+			}
+			p{
+				font-size: 1rem;
+    			margin: auto 0rem;
+                min-width: 1rem;
+    			height: fit-content;
+			}
+			input{
+				font-size: 1rem;
+				border: 0.25rem solid #ffffff30;
+				border-radius: 0.75rem;
+				background-color: #ffffff00;
+				padding: 0.75rem;
+				text-align: center;
+				flex-grow:1;
+            	color: white;
+			}
+			p, input, .units{
+				font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+			}
+            input:disabled{
+            	color: white;
+            }
+			.numberinput{
+				display: flex;
+				margin: 0rem 2rem;
+			}
+			.inputwrapper{
+				display:flex;
+				margin: 1rem 2rem 0.5rem auto;
+				width: 18rem;
+			}
+			.unitsappended{
+				border-top-right-radius: 0rem;
+	    		border-bottom-right-radius: 0rem;
+				flex-grow:1;
+			}
+			.units{
+    			font-size: 1.3rem;
+    			border: 0.25rem solid #ffffff30;
+    			border-radius: 0.75rem;
+    			background-color: #121212;
+    			padding: 0.6rem;
+    			text-align: center;
+    			color: rgb(11 163 120);
+    			border-left: 0rem;
+    			border-top-left-radius: 0rem;
+    			border-bottom-left-radius: 0rem;
+    			font-weight: bold;
+    			min-width: 4.5rem;
+			}
+			.units:disabled{
+				appearance: none;
+				opacity: 1;
+            	color:white;
+			}
+			
+            @media only screen and (max-width: 600px) {
+				.numberinput {flex-direction: column;}
+                .inputwrapper {margin: 1rem 0rem 0.5rem 0rem;width:auto;}
+                .numberinput {margin-top: 0.75rem;}
+			}
+
+            #OCRtext{
+            	display: none;
+            	white-space: pre-wrap;
+            }
+            #img{
+            	display: none;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="numberinput">
+			<p>Cylinder Weight</p>
+			<div class="inputwrapper">
+				<input id="cyl" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="270.00" data-realvalue="270.00" data-unit="g">
+				<select class="units" onchange="updateUnits(cyl, this.value)">
+					<option value="g">g</option>
+					<option value="lb">lb</option>
+				</select>
+			</div>
+		</div>
+		<div class="numberinput">
+			<p>Wet Soil + Cylinder Weight</p>
+			<div class="inputwrapper">
+				<input id="wetcyl" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="2950.00" data-realvalue="2950.00" data-unit="g">
+				<select class="units" onchange="updateUnits(wetcyl, this.value)">
+					<option value="g">g</option>
+					<option value="lb">lb</option>
+				</select>
+			</div>
+		</div>
+		<div class="numberinput">
+			<p>Current Moisture</p>
+			<div class="inputwrapper">
+				<input id="currmc" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="18.0" data-realvalue="18.0" data-unit="percent">
+				<select class="units" onchange="updateUnits(currmc, this.value)" disabled>
+					<option value="percent">%</option>
+				</select>
+			</div>
+		</div>
+		<div class="numberinput">
+			<p>Target Moisture</p>
+			<div class="inputwrapper">
+				<input id="targmc" class="unitsappended" type="text" inputmode="decimal" oninput="updateMoisture(this)" onclick="clearvalue(this)" value="21.0" data-realvalue="21.0" data-unit="percent">
+				<select class="units" onchange="updateUnits(targmc, this.value)" disabled>
+					<option value="percent">%</option>
+				</select>
+			</div>
+		</div>
+		<div class="numberinput">
+			<p>Add Water / Dry Soil</p>
+			<div class="inputwrapper">
+				<input id="result" class="unitsappended" type="text" disabled>
+				<select class="units" disabled>
+					<option value="ml">mL</option>
+					<option value="g">g</option>
+				</select>
+			</div>
+		</div>
+
+		<!--<input type="file" id="img" name="img" accept="image/*" capture="user" onchange="recognizeText(this)">
+        <p id="OCRtext">OCR Result</p>
+        <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>-->
+
+		<script>
+		var cyl = document.getElementById("cyl");
+        var wetcyl = document.getElementById("wetcyl");
+        var currmc = document.getElementById("currmc");
+        var targmc = document.getElementById("targmc");
+        var waterresult = document.getElementById("result");
+            
+		function updateMoisture(id){
+			if (id.dataset.unit == 'lb'){
+	    		id.dataset.realvalue = Number(id.value)*453.592;
+	    	}
+	    	else{
+	    		id.dataset.realvalue = id.value;
+	    	}
+
+            let cylweight = Number(cyl.dataset.realvalue);
+            let wetcylweight = Number(wetcyl.dataset.realvalue);
+            let currmcpercent = Number(currmc.dataset.realvalue);
+            let targmcpercent = Number(targmc.dataset.realvalue);
+			let result = Number(waterresult.dataset.realvalue);
+
+			let drymaterial = ((wetcylweight-cylweight)/(1+(currmcpercent/100)));
+			let mcdifference = targmcpercent-currmcpercent;
+
+			if (mcdifference >= 0){
+				result = ((mcdifference/100)*drymaterial).toFixed(2);
+				waterresult.parentElement.getElementsByClassName("units")[0].selectedIndex = 0;
+			}
+			else{
+				result = "DRY - "+(((Math.abs(mcdifference)/currmcpercent)*drymaterial)+((Math.abs(mcdifference)/100)*drymaterial)).toFixed(2);
+				waterresult.parentElement.getElementsByClassName("units")[0].selectedIndex = 1;
+			}
+
+            waterresult.value = result;
+        }
+        function updateUnits(id, unit){
+			let weight = Number(id.value);
+			if (unit == 'lb'){
+				let result = weight/453.592;
+				id.value = result.toFixed(5);
+				id.dataset.unit = "lb";
+			}
+			else if (unit == 'g'){
+				let result = weight*453.592;
+				id.value = result.toFixed(2);
+				id.dataset.realvalue = result;
+				id.dataset.unit = "g";
+			}
+			updateMoisture(id);
+	    }
+        function clearvalue(field){
+           	field.value = "";
+        }
+        /*function recognizeText(field){
+           	let file = field.files[0];
+            let filepath = URL.createObjectURL(file);
+            let ocrtext = document.getElementById("OCRtext");
+           	(async () => {
+                const worker = await Tesseract.createWorker('eng', 1);
+                await worker.setParameters({
+                	tessedit_char_whitelist: '0123456789.',
+                	preserve_interword_spaces: '0',
+            	});
+            	const ret = await worker.recognize(filepath);
+				ocrtext.innerHTML = ret.data.text;
+            	console.log(ret.data.text);
+            	await worker.terminate();
+        	})();
+        }*/
+        updateMoisture(cyl);
+		</script>
+	</body>
+</html>
