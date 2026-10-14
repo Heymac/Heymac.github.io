@@ -334,7 +334,7 @@
 
 			document.getElementById('clock').textContent = formattedTime;
 		}
-        if (JSON.parse(.getItem('initialData')) == null){
+        if (JSON.parse(localStorage.getItem('initialData')) == null){
             localStorage.setItem('initialData', '[]');
         }
         var initialData = JSON.parse(localStorage.getItem('initialData'));/*[
@@ -591,11 +591,11 @@
                 const newCode = document.getElementById('edit-code-input').value.trim();
                 if (newName) {
                     initialData[editingPlantIndex].name = newName;
-                    .setItem('initialData', JSON.stringify(initialData));
+                    localStorage.setItem('initialData', JSON.stringify(initialData));
                 }
                 if (newCode) {
                     initialData[editingPlantIndex].code = newCode;
-                    .setItem('initialData', JSON.stringify(initialData));
+                    localStorage.setItem('initialData', JSON.stringify(initialData));
                 }
             }
             document.getElementById('edit-modal').classList.add('hidden');
@@ -619,7 +619,7 @@
         function confirmDeleteRow() {
             if (deletingPlantIndex !== null) {
                 initialData.splice(deletingPlantIndex, 1);
-                .setItem('initialData', JSON.stringify(initialData));
+                localStorage.setItem('initialData', JSON.stringify(initialData));
             }
             document.getElementById('delete-modal').classList.add('hidden');
             deletingPlantIndex = null;
@@ -638,7 +638,7 @@
                 sub: '',
                 active: false
             });
-            .setItem('initialData', JSON.stringify(initialData));
+            localStorage.setItem('initialData', JSON.stringify(initialData));
             renderDashboard();
         }
 
@@ -714,7 +714,7 @@
             }
             document.getElementById('block-modal').classList.add('hidden');
             editingBlockCoords = null;
-            .setItem('initialData', JSON.stringify(initialData));
+            localStorage.setItem('initialData', JSON.stringify(initialData));
             renderDashboard();
         }
 
@@ -722,7 +722,7 @@
             if (editingBlockCoords !== null) {
                 const { plantIndex, colKey, itemIndex } = editingBlockCoords;
                 initialData[plantIndex].columns[colKey].splice(itemIndex, 1);
-                .setItem('initialData', JSON.stringify(initialData));
+                localStorage.setItem('initialData', JSON.stringify(initialData));
             }
             document.getElementById('block-modal').classList.add('hidden');
             editingBlockCoords = null;
@@ -744,7 +744,7 @@
                 code: randomCode,
                 columns: newColumns
             });
-            .setItem('initialData', JSON.stringify(initialData));
+            localStorage.setItem('initialData', JSON.stringify(initialData));
             renderDashboard();
         }
 
