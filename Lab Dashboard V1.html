@@ -402,7 +402,7 @@
 
             const headerRow = document.createElement('div');
             headerRow.className = "dashboard-row border-b border-bordercol font-semibold text-zinc-400 bg-[#111]";
-            
+
             let headerHtml = `<div id="clock" class="dashboard-cell px-4 py-3.5 border-r border-bordercol whitespace-nowrap">00:00</div>`;
 
             colKeys.forEach(key => {
@@ -416,6 +416,8 @@
             headerHtml += `<div class="dashboard-cell px-2 py-3.5 text-center"></div>`;
             headerRow.innerHTML = headerHtml;
             container.appendChild(headerRow);
+
+			updateClock();
 
             initialData.forEach((plant, plantIndex) => {
                 const rowDiv = document.createElement('div');
@@ -737,7 +739,6 @@
             renderDashboard();
         };
 
-        updateClock();
 		setInterval(updateClock, 1000);
 		setInterval(renderDashboard, 60000);
     </script>
